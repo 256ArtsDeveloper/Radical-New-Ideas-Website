@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radical New Ideas</title>
+<meta name="description" content="Visual essays on how everyday things could work better.">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --hair: #e1e0d9; --ring: rgba(11,11,11,.10); --track: #efeee9; --wait: #b4b2a9;
+  --ride: #2a78d6; --food: #eb6834; --play: #1baf7a; --rest: #eda100;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --hair: #2c2c2a; --ring: rgba(255,255,255,.10); --track: #222220; --wait: #57564f;
+    --ride: #3987e5; --food: #d95926; --play: #199e70; --rest: #c98500;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --hair: #2c2c2a; --ring: rgba(255,255,255,.10); --track: #222220; --wait: #57564f;
+  --ride: #3987e5; --food: #d95926; --play: #199e70; --rest: #c98500;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+.nav { position: sticky; top: 0; z-index: 10; height: 48px; display: flex; align-items: center; padding: 0 max(16px, env(safe-area-inset-left)); background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: saturate(1.8) blur(20px); backdrop-filter: saturate(1.8) blur(20px); border-bottom: 1px solid var(--ring); font-size: 14px; font-weight: 650; letter-spacing: -.01em; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+.intro { padding: clamp(72px, 12vw, 140px) 0 clamp(44px, 7vw, 80px); }
+.intro h1 { font-size: clamp(48px, 9vw, 104px); font-weight: 700; letter-spacing: -.035em; line-height: 1; }
+.intro p { margin-top: 20px; font-size: clamp(20px, 2.4vw, 26px); color: var(--ink2); max-width: 30ch; line-height: 1.35; }
+
+.list-h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid var(--hair); margin-bottom: 28px; }
+.list-h h2 { font-size: 15px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.list-h span { font-size: 14px; color: var(--muted); }
+
+.articles { display: grid; gap: 24px; padding-bottom: 120px; }
+.article { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: clamp(24px, 4vw, 56px); padding: clamp(20px, 3vw, 32px); border-radius: 28px; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 10px 40px rgba(0,0,0,.05); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+.article:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0,0,0,.09); }
+.article:focus-visible { outline: 3px solid var(--ride); outline-offset: 4px; }
+.art { aspect-ratio: 16 / 10; border-radius: 18px; background: var(--track); display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 12% 8%; overflow: hidden; }
+.bar { position: relative; flex: 1; min-height: 14px; border-radius: 6px; background: color-mix(in srgb, var(--bg) 60%, var(--track)); overflow: hidden; }
+.bar i { position: absolute; top: 0; bottom: 0; border-radius: 3px; transition: background-color .6s ease; transition-delay: calc(var(--d) * 40ms); }
+.bar .w { background: var(--wait); }
+.bar .r { background: var(--ride); }
+.bar .f { background: var(--food); }
+.article:hover .bar .w.p, .article:focus-visible .bar .w.p { background: var(--play); }
+.article:hover .bar .w.s, .article:focus-visible .bar .w.s { background: var(--rest); }
+.meta { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--ride); }
+.article h3 { margin-top: 12px; font-size: clamp(30px, 4.4vw, 52px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+.article p { margin-top: 14px; font-size: clamp(17px, 1.7vw, 20px); color: var(--ink2); line-height: 1.45; max-width: 36ch; }
+.foot { margin-top: 22px; display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--muted); }
+.foot .go { margin-left: auto; color: var(--ride); font-weight: 650; }
+@media (max-width: 760px) {
+  .article { grid-template-columns: 1fr; }
+  .art { order: -1; }
+}
+
+footer { border-top: 1px solid var(--hair); padding: 28px 16px 48px; text-align: center; font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="nav"><a href="./">Radical New Ideas</a></header>
+
+<main class="wrap">
+  <section class="intro">
+    <h1>Radical New Ideas</h1>
+    <p>Visual essays on how everyday things could work better.</p>
+  </section>
+
+  <div class="list-h"><h2>Articles</h2><span id="count"></span></div>
+
+  <div class="articles" id="articles">
+    <a class="article" href="articles/theme-park-design-is-outdated/">
+      <div>
+        <span class="meta">Theme parks · November 2026</span>
+        <h3>Theme Park Design Is Outdated</h3>
+        <p>We've spent seventy years perfecting the line. With reservations, nobody needs to stand in one, and the business model doesn't even need to change.</p>
+        <div class="foot"><span>7 min scroll</span><span class="go">Read →</span></div>
+      </div>
+      <div class="art" aria-hidden="true" data-art="daybars"></div>
+    </a>
+  </div>
+</main>
+
+<footer>Radical New Ideas</footer>
+
+<script>
+// Card art for the theme park article: a few "day bars" whose waiting blocks turn into play and rest on hover.
+document.querySelectorAll('[data-art="daybars"]').forEach(art => {
+  const starts = [0, 60, 120, 240, 300, 360, 450, 510], pct = m => m / 7.2;
+  let html = '';
+  for (let row = 0; row < 4; row++) {
+    let segs = '';
+    starts.forEach((s, k) => {
+      const a = s + ((row * 13 + k * 7) % 24) - 12, kind = (k + row) % 3 === 0 ? 's' : 'p';
+      segs += `<i class="w ${kind}" style="--d:${k + row};left:${pct(a)}%;width:calc(${pct(45)}% - 2px)"></i>`;
+      segs += `<i class="r" style="left:calc(${pct(a + 45)}% + 1px);width:max(2px,calc(${pct(5)}% - 1px))"></i>`;
+    });
+    segs += `<i class="f" style="left:${pct(185 + row * 6)}%;width:${pct(50)}%"></i>`;
+    html += `<div class="bar">${segs}</div>`;
+  }
+  art.innerHTML = html;
+});
+const n = document.querySelectorAll('#articles .article').length;
+document.getElementById('count').textContent = `${n} ${n === 1 ? 'essay' : 'essays'}`;
+</script>
+</body>
+</html>
