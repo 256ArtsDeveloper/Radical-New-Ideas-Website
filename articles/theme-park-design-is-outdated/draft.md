@@ -106,20 +106,33 @@ A queue doesn't make a ride hold more people. It only decides who rides, based o
 
 A schedule can make the same decision. The ride stays just as full, and nobody has to stand anywhere.
 
-### Beat 9 — Same money, same rides, no lines
-**Visual:** a toggle between `Today` and `Proposed`, with two ticket cards. Scrolling flips the toggle; tapping works too.
+### Beat 9 — The receipt doesn't change
+**Visual:** two park receipts side by side, labeled `Today` and `Proposed`. Their line items and totals match exactly.
 
-| | Today | Proposed |
-|---|---|---|
-| **$100 ticket** | 8 rides · ~6 h in line | 8 reserved rides · **0 h in line** |
-| **$150 ticket** | 12 rides · ~3 h in line | 12 reserved rides · **0 h in line** |
+| Today | Proposed |
+|---|---|
+| Park ticket · $100 | Park ticket (includes 8 ride reservations) · $100 |
+| Fast pass × 4 · $80 | Extra ride reservation × 4 · $80 |
+| **Total · $180** | **Total · $180** |
+| Rides · 12 | Rides · 12 |
+| Time in line · **~6 h** | Time in line · **0 h** |
 
-**On scroll:** the gray "hours in line" bars on each card shrink to nothing.
+**On scroll:** the receipts print line by line, in sync. The totals match, and then match again. The last line differs: today's `~6 h` is struck through and stamped `0 h`.
 
 **Copy**
-Here's the proposal. Every ticket comes with reservations, and guests who want more rides buy more reservations.
+Here's the proposal, and the business model doesn't change at all.
 
-The park makes the same money. Every guest rides just as many times. The only change is that nobody waits, including the guests who didn't pay extra.
+Today a park sells you a $100 ticket, then four $20 fast passes during the day. The fast passes squeeze in four extra rides, but you still stand in line for the other eight.
+
+Instead, sell the same $100 ticket with reservations included, and the same four $20 add-ons as extra ride reservations. You can still buy them on impulse from your phone, mid-afternoon.
+
+The price is the same. The upsell is the same. The revenue and the number of rides are the same. The six hours in line are gone.
+
+### Beat 9b — Everyone wins, not just the buyers
+**Visual:** the same receipts, now for a guest who buys no add-ons: `$100 · 8 rides`. Today's version shows `~6 h` in line; the proposed version shows `0 h`.
+
+**Copy**
+And the guest who never buys an add-on? Today they get the worst day in the park. Under this model they get the same eight rides, and they don't wait for any of them.
 
 ### Beat 10 — How it works
 **Visual:** a phone mockup that steps through four screens as you scroll:
@@ -292,7 +305,7 @@ But the ratio is the lesson: a few headline experiences, and plenty to do everyw
 
 ### Card 5 — "Line-skipping is too profitable to give up."
 **Front:** Paid skips earn hundreds of millions of dollars a year.
-**Back:** Keep the revenue: sell extra rides instead of an escape from the line. The money stays the same, and the day gets better for everyone.
+**Back:** Then keep it. Sell the same $20 add-on, but as an extra ride instead of an escape from the line. Same price, same impulse purchase, same revenue, and a better day for everyone.
 
 ---
 

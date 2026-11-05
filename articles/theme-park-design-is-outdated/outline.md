@@ -47,12 +47,12 @@ The example uses round numbers for illustration.
 
 | | Spend | Rides | Time in line |
 |---|---|---|---|
-| **Today:** ticket only | $100 | 8 | ~6 h |
-| **Today:** ticket + $50 line-skip pass | $150 | 12 | ~3 h |
-| **Proposed:** ticket includes 8 reservations | $100 | 8 | **0** |
-| **Proposed:** ticket + $50 for 4 more reservations | $150 | 12 | **0** |
+| **Today:** $100 ticket | $100 | 8 | ~6 h |
+| **Today:** $100 ticket + 4 × $20 fast passes | $180 | 12 (8 standby + 4 skips) | ~6 h |
+| **Proposed:** $100 ticket with 8 reservations included | $100 | 8 | **0** |
+| **Proposed:** $100 ticket + 4 × $20 extra reservations | $180 | 12 | **0** |
 
-- Revenue stays the same and every guest rides the same number of times. The change is that waiting disappears for everyone, not just for guests who pay.
+- **The business model doesn't change.** It's the same ticket price, the same $20 add-on, and the same impulse purchase during the day, now sold as an extra ride instead of a line-skip. Revenue and ride counts stay the same. The only thing that disappears is the line, for everyone, including guests who buy nothing extra.
 - **The example is capacity-neutral.** Guests take the same number of rides as today, so the park needs no new ride capacity. Say this outright, because it's what stops the idea from sounding like a fantasy.
 - How it works: you list the rides you want, a scheduler assigns return times, and it reschedules automatically when a ride breaks down or you're running late. Keep a short buffer queue at each ride so it loads full. Keep pre-shows too, wherever they make the ride better.
 
@@ -114,7 +114,7 @@ Frame this section as an opportunity, not a defense. Once guests aren't stuck in
 4. **Indoor arcades have failed before.** DisneyQuest closed in Chicago in 2001 and Orlando in 2017 after attendance fell ([Wikipedia](https://en.wikipedia.org/wiki/DisneyQuest)).
    - **Rebuttal:** DisneyQuest was a separate ticketed venue whose technology was never updated. Play inside the park, filling gaps between reservations, is a different use case.
 5. **Paid line-skipping makes a lot of money.** Disney credited Genie+ for higher per-guest spending ([WDWNT](https://wdwnt.com/2022/02/average-per-ticket-spending-increases-at-disney-parks-due-partially-to-genie-and-lightning-lane)).
-   - **Rebuttal:** the Section 3 example keeps that revenue by selling extra rides instead of line-skips.
+   - **Rebuttal:** keep that revenue. The Section 3 example sells the same $20 add-on as an extra ride instead of a line-skip.
 
 ## Editor's notes
 
