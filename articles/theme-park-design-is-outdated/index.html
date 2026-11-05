@@ -62,6 +62,18 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .nav .meta { color: var(--muted); }
 .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--ride); transform-origin: left; transform: scaleX(0); }
 
+/* ---------- Chapter list (wide screens only) ---------- */
+.toc { display: none; }
+@media (min-width: 1600px) {
+  .toc { display: flex; flex-direction: column; gap: 2px; position: fixed; left: 24px; top: 50%; transform: translateY(-50%); z-index: 40; width: 168px; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
+  .toc.show { opacity: 1; pointer-events: auto; }
+  .toc a { display: grid; grid-template-columns: 18px 1fr; gap: 6px; padding: 6px 0 6px 12px; border-left: 2px solid var(--hair); font-size: 13px; line-height: 1.3; color: var(--muted); transition: color .3s, border-color .3s; }
+  .toc a:hover { color: var(--ink); text-decoration: none; }
+  .toc a span { font-weight: 650; font-variant-numeric: tabular-nums; }
+  .toc a.on { color: var(--ink); font-weight: 600; border-left-color: var(--ride); }
+  .toc a.on span { color: var(--ride); }
+}
+
 /* ---------- Hero ---------- */
 .hero { position: relative; }
 .hero-sticky { position: relative; min-height: min(78svh, 760px); padding: 120px 0 72px; overflow: hidden; display: grid; place-items: center; }
@@ -271,7 +283,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 
 /* ---------- Castle ---------- */
 .castle-wrap { width: 100%; }
-.castle { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 1.2vw, 14px); transition: filter .5s ease; }
+.castle { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 1.2vw, 14px); }
 .room { position: relative; }
 .room svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 8px 20px rgba(0,0,0,.12)); }
 .room .rl { margin-top: 8px; font-size: clamp(10px, 1.2vw, 13px); color: var(--ink2); text-align: center; line-height: 1.25; }
@@ -282,16 +294,13 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .castle-chip span { position: absolute; padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 650; opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
 .castle-chip span.on { opacity: 1; transform: none; }
 .castle-chip .c1 { background: var(--sign); color: var(--led); font-family: var(--mono); }
-.castle-chip .c2 { background: var(--food); color: #fff; }
 .castle-chip .c3 { background: var(--play); color: #fff; }
-.scrolly[data-step="2"] .castle { animation: rush .9s linear infinite; filter: blur(3px); }
-@keyframes rush { 0% { transform: translateX(0); } 50% { transform: translateX(-2.5%); } 100% { transform: translateX(0); } }
 .scrolly[data-step="3"] .room svg { filter: drop-shadow(0 12px 30px rgba(0,0,0,.18)) saturate(1.15); }
 
 /* ---------- Churro ---------- */
 .churro { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 100%; }
 .churro .zone { position: absolute; font-size: 13px; font-weight: 650; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
-.churro .rails { position: absolute; left: 2%; top: 20%; width: 52%; height: 62%; }
+.churro .rails { position: absolute; left: 2%; top: 20%; width: 52%; height: 60%; overflow: visible; }
 .churro .cart { position: absolute; right: 2%; top: 22%; width: 34%; }
 .cd { position: absolute; width: 2.1%; aspect-ratio: 1; border-radius: 50%; background: var(--ink2); transform: translate(-50%, -50%); transition: left 1.3s cubic-bezier(.4,0,.2,1), top 1.3s cubic-bezier(.4,0,.2,1), background-color .6s; transition-delay: calc(var(--i) * 35ms); box-shadow: 0 0 0 1.5px var(--surface); }
 .churro.spend .cd { background: var(--food); }
@@ -303,18 +312,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .stats2 b { display: block; font-size: clamp(28px, 4.4vw, 50px); letter-spacing: -.03em; line-height: 1; }
 .stats2 span { font-size: 13px; color: var(--ink2); }
 
-/* ---------- Rest split ---------- */
-.split { display: flex; gap: 12px; width: 100%; height: min(100%, 460px); }
-.pane { position: relative; flex: 1; border-radius: 22px; overflow: hidden; transition: flex-grow .9s cubic-bezier(.4,0,.2,1); background: var(--track); }
-.pane svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pane .pl { position: absolute; left: 14px; top: 14px; background: var(--card); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 650; white-space: nowrap; }
-.pane.lawn { background: var(--sky); }
-.scrolly[data-step="2"] .pane.lawn { flex-grow: 3.2; }
-.stat-chip { position: absolute; right: 14px; bottom: 14px; background: var(--card); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 16px; padding: 10px 14px; text-align: right; opacity: 0; transform: translateY(8px); transition: opacity .5s, transform .5s; max-width: 70%; }
-.stat-chip.on { opacity: 1; transform: none; }
-.stat-chip b { display: block; font-size: 28px; letter-spacing: -.03em; line-height: 1; }
-.stat-chip span { font-size: 12px; color: var(--ink2); }
-
 /* ---------- Examples ---------- */
 .ex { position: relative; width: 100%; height: 100%; }
 .ex-i { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; transform: scale(.94); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
@@ -323,8 +320,8 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ex-art svg { width: 62%; height: 62%; }
 .ex-stat { margin-top: 28px; font-size: clamp(40px, 6vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
 .ex-cap { margin-top: 10px; font-size: 15px; color: var(--ink2); max-width: 340px; }
-.ex-all { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: min(100%, 460px); }
-.ex-all .ex-art { width: 100%; border-radius: 28%; }
+.ex-all { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; width: min(100%, 460px); }
+.ex-all .ex-art { width: calc((100% - 28px) / 3); border-radius: 28%; }
 
 /* ---------- Icon grid ---------- */
 .icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 3vw, 34px); max-width: 720px; width: 100%; margin-top: 54px; }
@@ -361,25 +358,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 @keyframes buzzfade { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
 .cut .car { fill: var(--ride); }
 
-/* ---------- Ship ---------- */
-.ship-wrap { width: 100%; }
-.ship { width: 100%; height: auto; display: block; }
-.ship .hull { fill: var(--ink); }
-.ship .hull2 { fill: var(--ride); opacity: .25; }
-.ship .deck { fill: var(--track); stroke: var(--surface); stroke-width: 3; transition: fill .6s ease; transition-delay: calc(var(--i) * 40ms); }
-.ship .deck.g.on { fill: var(--paid); }
-.ship .deck.b.on { fill: var(--ride); }
-.ship .dl { font-family: var(--font); font-size: 12px; font-weight: 600; fill: var(--ink2); pointer-events: none; transition: fill .6s; }
-.ship .dl.on { fill: #fff; }
-.ship .dl.g.on { fill: #0b0b0b; }
-.ship .stack { fill: var(--ink); }
-.ship-legend { display: flex; justify-content: center; gap: 28px; margin-top: 18px; flex-wrap: wrap; }
-.ship-legend div { display: flex; align-items: baseline; gap: 8px; opacity: 0; transition: opacity .5s; }
-.ship-legend div.on { opacity: 1; }
-.ship-legend b { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.03em; }
-.ship-legend span { font-size: 14px; color: var(--ink2); display: inline-flex; align-items: center; gap: 6px; }
-@media (max-width: 600px) { .ship .dl:not(.keep) { display: none; } }
-
 /* ---------- Finale ---------- */
 .finale-viz { width: 100%; position: relative; height: 100%; display: flex; align-items: center; }
 .finale-one { width: 100%; transition: opacity .6s ease, transform .9s cubic-bezier(.4,0,.2,1); }
@@ -414,7 +392,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0s !important; transition-delay: 0s !important; }
   .hero-queue { transform: none !important; }
-  .scrolly[data-step="2"] .castle { filter: blur(1.5px); }
 }
 </style>
 </head>
@@ -424,6 +401,13 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <a class="brand" href="../../">Radical New Ideas</a>
   <div class="progress" id="progress"></div>
 </header>
+
+<nav class="toc" id="toc" aria-label="Chapters">
+  <a href="#ch-1"><span>1</span>The fix already exists</a>
+  <a href="#ch-2"><span>2</span>The idea</a>
+  <a href="#ch-3"><span>3</span>Dollars per enjoyment</a>
+  <a href="#ch-4"><span>4</span>What will everyone do instead?</a>
+</nav>
 
 <main>
 
@@ -490,7 +474,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 </section>
 
 <!-- ============ Chapter 1 ============ -->
-<section class="panel chapter reveal">
+<section class="panel chapter reveal" id="ch-1">
   <p class="num">Chapter 1</p>
   <h2>The fix already exists</h2>
 </section>
@@ -517,11 +501,10 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="panel dark-panel" id="s-money">
   <div class="hero-num" id="moneyNum" aria-label="$724,000,000">$0</div>
   <p class="lede reveal">That's what paid line-skipping made at Walt Disney World alone, in under three years. The figure comes from a leaked internal spreadsheet.<sup><a href="#src-6">6</a></sup></p>
-  <p class="lede reveal">Skipping costs $25 to $42 a day, or up to $449 for a premier pass, on top of a park ticket.<sup><a href="#src-7">7</a></sup> The technology works. Parks have chosen to sell it as a way out of a line they built.</p>
 </section>
 
 <!-- ============ Chapter 2 ============ -->
-<section class="panel chapter reveal">
+<section class="panel chapter reveal" id="ch-2">
   <p class="num">Chapter 2</p>
   <h2>The idea</h2>
 </section>
@@ -604,7 +587,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 </section>
 
 <!-- ============ Chapter 3 ============ -->
-<section class="panel chapter reveal">
+<section class="panel chapter reveal" id="ch-3">
   <p class="num">Chapter 3</p>
   <h2>Dollars per enjoyment</h2>
 </section>
@@ -649,15 +632,14 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       </div>
       <div class="castle-chip" style="position:relative">
         <span class="c1" data-only="1">⏱ 62 MIN</span>
-        <span class="c2" data-only="2">Keep moving, please!</span>
         <span class="c3" data-only="3">Walk-through · Explore at your own pace</span>
       </div>
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p>Universal's Harry Potter and the Forbidden Journey has one of the most beautiful queues ever built: a walk through Hogwarts castle, past moving portraits, Dumbledore's office and the Gryffindor common room.<sup><a href="#src-8">8</a></sup></p><p>Guests only ever see it in one of two ways.</p></div></div>
+    <div class="step"><div class="card"><p>Universal's Harry Potter and the Forbidden Journey has one of the most beautiful queues ever built: a walk through Hogwarts castle, past moving portraits, Dumbledore's office and the Gryffindor common room.<sup><a href="#src-7">7</a></sup></p><p>Guests only ever see it in one of two ways.</p></div></div>
     <div class="step"><div class="card"><p class="big">When the line is long, it's a crowded waiting room.</p></div></div>
-    <div class="step"><div class="card"><p class="big">When the line is short, you rush through.</p><p>Staff wave you along past all the details.</p></div></div>
+    <div class="step"><div class="card"><p class="big">When the line is short, you rush through.</p></div></div>
     <div class="step"><div class="card"><p>Now picture the same castle as a walk-through you <em>choose</em> to visit, at your own pace.</p><p>That's an attraction in its own right, and nobody has to queue to see it.</p></div></div>
   </div>
 </section>
@@ -667,7 +649,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="stage"><div class="viz">
     <div class="churro" id="churro" aria-hidden="true">
       <div class="stats2"><div data-on="1"><b>75%</b><span>skip food</span></div><div data-on="1"><b>65%</b><span>skip merch</span></div></div>
-      <svg class="rails" viewBox="0 0 300 200" preserveAspectRatio="none"><g stroke="var(--axis)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M10 50H290M10 100H250M10 150H290M290 50V100M290 150V200"/><path d="M10 0H290" stroke-dasharray="0"/></g></svg>
+      <svg class="rails" viewBox="0 0 300 150" preserveAspectRatio="none"><path d="M10 0H290V100M10 50H250M50 100H290M10 50V150H290" stroke="var(--axis)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
       <span class="zone" style="left:2%;top:88%">Ride queue</span>
       <svg class="cart" viewBox="0 0 200 200"><path d="M20 70Q100 10 180 70Z" fill="var(--food)"/><path d="M60 70Q100 22 100 70ZM140 70Q100 22 100 70Z" fill="#fff" opacity=".85"/><rect x="98" y="66" width="4" height="50" fill="var(--axis)"/><rect x="30" y="112" width="140" height="56" rx="10" fill="var(--wood)"/><rect x="40" y="122" width="120" height="14" rx="4" fill="var(--rest)"/><g fill="#d8a45a"><rect x="52" y="124" width="22" height="9" rx="4" transform="rotate(-12 63 128)"/><rect x="88" y="124" width="22" height="9" rx="4" transform="rotate(10 99 128)"/><rect x="122" y="124" width="22" height="9" rx="4" transform="rotate(-6 133 128)"/></g><circle cx="58" cy="176" r="12" fill="var(--ink)"/><circle cx="142" cy="176" r="12" fill="var(--ink)"/></svg>
       <span class="zone" style="right:8%;top:88%">Churro cart</span>
@@ -675,57 +657,14 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big quote">"But parks <em>need</em> lines, so people pay to skip them."</p></div></div>
-    <div class="step"><div class="card"><p>Do they? <b>75%</b> of US theme park guests say they sometimes skip food because of lines, and <b>65%</b> skip merchandise.<sup><a href="#src-9">9</a></sup></p></div></div>
+    <div class="step"><div class="card"><p>Do they? <b>75%</b> of US theme park guests say they sometimes skip food because of lines, and <b>65%</b> skip merchandise.<sup><a href="#src-8">8</a></sup></p></div></div>
     <div class="step"><div class="card"><p class="big">A guest in line can't buy a churro.</p><p>Give them their time back and they'll spend it in the park.</p></div></div>
   </div>
 </section>
 
 <!-- ============ Chapter 4 ============ -->
-<section class="panel chapter reveal">
+<section class="panel chapter reveal" id="ch-4">
   <p class="num">Chapter 4</p>
-  <h2>Let them rest</h2>
-</section>
-
-<!-- ============ Beat 14 · Rest ============ -->
-<section class="scrolly" id="s-rest">
-  <div class="stage"><div class="viz">
-    <div class="split" aria-hidden="true">
-      <div class="pane rails">
-        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">
-          <rect width="300" height="400" fill="var(--track)"/>
-          <g stroke="var(--axis)" stroke-width="5" stroke-linecap="round" fill="none">
-            <path d="M30 120H270M30 200H270M30 280H270M30 360H270"/>
-          </g>
-          <g fill="var(--muted)"><rect x="26" y="104" width="8" height="40" rx="3"/><rect x="146" y="104" width="8" height="40" rx="3"/><rect x="266" y="104" width="8" height="40" rx="3"/><rect x="26" y="184" width="8" height="40" rx="3"/><rect x="146" y="184" width="8" height="40" rx="3"/><rect x="266" y="184" width="8" height="40" rx="3"/><rect x="26" y="264" width="8" height="40" rx="3"/><rect x="146" y="264" width="8" height="40" rx="3"/><rect x="266" y="264" width="8" height="40" rx="3"/></g>
-          <g fill="var(--ink2)"><circle cx="60" cy="160" r="9"/><circle cx="90" cy="158" r="9"/><circle cx="120" cy="162" r="9"/><circle cx="180" cy="159" r="9"/><circle cx="215" cy="161" r="9"/><circle cx="245" cy="158" r="9"/><circle cx="70" cy="240" r="9"/><circle cx="104" cy="242" r="9"/><circle cx="170" cy="239" r="9"/><circle cx="205" cy="241" r="9"/><circle cx="240" cy="238" r="9"/><circle cx="64" cy="320" r="9"/><circle cx="98" cy="322" r="9"/><circle cx="132" cy="318" r="9"/><circle cx="196" cy="321" r="9"/><circle cx="232" cy="319" r="9"/></g>
-        </svg>
-        <span class="pl">Standing room only</span>
-      </div>
-      <div class="pane lawn">
-        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMax slice">
-          <rect width="400" height="400" fill="var(--sky)"/>
-          <path d="M0 230Q200 190 400 230V400H0Z" fill="var(--grass)"/>
-          <path d="M0 300Q200 270 400 310V400H0Z" fill="var(--grass2)"/>
-          <rect x="292" y="140" width="14" height="110" rx="4" fill="var(--wood)"/>
-          <circle cx="300" cy="130" r="64" fill="var(--leaf)"/><circle cx="262" cy="160" r="40" fill="var(--leaf)"/><circle cx="338" cy="162" r="42" fill="var(--leaf)"/>
-          <g fill="var(--ink2)"><rect x="70" y="262" width="46" height="13" rx="6.5"/><circle cx="62" cy="268" r="9"/><rect x="160" y="300" width="46" height="13" rx="6.5"/><circle cx="214" cy="306" r="9"/><rect x="250" y="262" width="46" height="13" rx="6.5"/><circle cx="242" cy="268" r="9"/></g>
-          <g><rect x="110" y="330" width="70" height="40" rx="6" fill="var(--rest)" opacity=".85"/></g>
-        </svg>
-        <span class="pl">A lawn · costs almost nothing</span>
-        <div class="stat-chip" data-on="1"><b>8.5%</b><span>of guests leave unhappy from physical discomfort</span></div>
-      </div>
-    </div>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p>Queues are standing room only, and parks make sure there's nowhere comfortable to lie down. Even outside the lines, seating is scarce.</p></div></div>
-    <div class="step"><div class="card"><p>Physical discomfort is one of the top reasons guests leave a park unhappy, and benches and shade are what they ask for most.<sup><a href="#src-10">10</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">A guest napping on a lawn costs the park nothing.</p><p>On the dollars-per-enjoyment chart, rest beats everything else.</p></div></div>
-  </div>
-</section>
-
-<!-- ============ Chapter 5 ============ -->
-<section class="panel chapter reveal">
-  <p class="num">Chapter 5</p>
   <h2>What will everyone do instead?</h2>
 </section>
 
@@ -746,19 +685,22 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <div class="ex-i" data-only="1"><div class="ex-art" style="background:color-mix(in srgb,var(--play) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--play)" stroke-width="3" stroke-linejoin="round"><rect x="8" y="12" width="20" height="28" rx="3" transform="rotate(-12 18 26)"/><rect x="20" y="8" width="20" height="28" rx="3" transform="rotate(10 30 22)"/></svg></div><div class="ex-stat">4 hours</div><p class="ex-cap">of free play, included with admission</p></div>
       <div class="ex-i" data-only="2"><div class="ex-art" style="background:color-mix(in srgb,var(--ride) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--ride)" stroke-width="3" stroke-linecap="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="24" cy="24" r="4"/><path d="M24 14v-2M30 18l2-2M18 18l-2-2"/></svg></div><div class="ex-stat">2 hours</div><p class="ex-cap">median visit, no ride system at all</p></div>
       <div class="ex-i" data-only="3"><div class="ex-art" style="background:color-mix(in srgb,var(--food) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--food)" stroke-width="3" stroke-linecap="round"><path d="M4 18q20 18 40 0"/><path d="M4 18v20M44 18v20"/><path d="M12 25v6M20 28v6M28 28v6M36 25v6"/></svg></div><div class="ex-stat">0 min</div><p class="ex-cap">wait for rope bridges and caves</p></div>
-      <div class="ex-i" data-only="4"><div class="ex-all">
+      <div class="ex-i" data-only="4"><div class="ex-art" style="background:color-mix(in srgb,var(--leaf) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="33" cy="14" r="5"/><path d="M4 40h40"/><path d="M10 40q0-8-4-12M10 40q1-7 5-10M24 40q0-9-5-13M24 40q1-8 6-11M36 40q0-6-3-9M36 40q1-5 5-8"/></svg></div><div class="ex-stat">8.5%</div><p class="ex-cap">of guests leave unhappy from physical discomfort</p></div>
+      <div class="ex-i" data-only="5"><div class="ex-all">
         <div class="ex-art" style="background:color-mix(in srgb,var(--rest) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--rest)" stroke-width="3" stroke-linecap="round"><path d="M10 40L32 18"/><path d="M36 6v6M33 9h6M42 16v4M40 18h4"/></svg></div>
         <div class="ex-art" style="background:color-mix(in srgb,var(--play) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--play)" stroke-width="3" stroke-linejoin="round"><rect x="8" y="12" width="20" height="28" rx="3" transform="rotate(-12 18 26)"/><rect x="20" y="8" width="20" height="28" rx="3" transform="rotate(10 30 22)"/></svg></div>
         <div class="ex-art" style="background:color-mix(in srgb,var(--ride) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--ride)" stroke-width="3" stroke-linecap="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="24" cy="24" r="4"/></svg></div>
         <div class="ex-art" style="background:color-mix(in srgb,var(--food) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--food)" stroke-width="3" stroke-linecap="round"><path d="M4 18q20 18 40 0"/><path d="M4 18v20M44 18v20"/><path d="M12 25v6M20 28v6M28 28v6M36 25v6"/></svg></div>
+        <div class="ex-art" style="background:color-mix(in srgb,var(--leaf) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="33" cy="14" r="5"/><path d="M4 40h40"/><path d="M10 40q0-8-4-12M10 40q1-7 5-10M24 40q0-9-5-13M24 40q1-8 6-11M36 40q0-6-3-9M36 40q1-5 5-8"/></svg></div>
       </div></div>
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Interactive wands</p><p>Guests roam the Wizarding World hunting for spots where a flick of a wand sets off an effect. Universal keeps expanding it.<sup><a href="#src-11">11</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">Sorcerers of the Magic Kingdom</p><p>A free card game included with admission. Guests could play for 15 minutes between rides, or for 4 hours straight.<sup><a href="#src-12">12</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">Meow Wolf</p><p>A walk-through art experience with no ride system at all. Guests stay for a median of two hours, and the Las Vegas location drew a million visitors in its first year.<sup><a href="#src-13">13</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Interactive wands</p><p>Guests roam the Wizarding World hunting for spots where a flick of a wand sets off an effect. Universal keeps expanding it.<sup><a href="#src-9">9</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Sorcerers of the Magic Kingdom</p><p>A free card game included with admission. Guests could play for 15 minutes between rides, or for 4 hours straight.<sup><a href="#src-10">10</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Meow Wolf</p><p>A walk-through art experience with no ride system at all. Guests stay for a median of two hours, and the Las Vegas location drew a million visitors in its first year.<sup><a href="#src-11">11</a></sup></p></div></div>
     <div class="step"><div class="card"><p class="big">Pirate's Lair and Redwood Creek</p><p>Disneyland's own rope bridges, caves and climbing trails. Kids spend hours there, and nobody has to queue.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Somewhere to rest</p><p>Physical discomfort is one of the top reasons guests leave unhappy, and benches and shade are what they ask for most.<sup><a href="#src-12">12</a></sup> A lawn to lie on costs the park almost nothing.</p></div></div>
     <div class="step"><div class="card"><p class="big">None of this is new.</p><p>Parks already know how to build places where guests happily spend hours. There just aren't enough of them.</p></div></div>
   </div>
 </section>
@@ -782,7 +724,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- ============ Beat 18 · Clocks ============ -->
 <section class="panel reveal" id="s-clocks">
   <h2 style="font-size:clamp(30px,4.6vw,56px);max-width:20ch">"Occupied time feels shorter than unoccupied time."</h2>
-  <p class="lede" style="margin-top:12px">David Maister's first law of waiting lines, 1985.<sup><a href="#src-14">14</a></sup></p>
+  <p class="lede" style="margin-top:12px">David Maister's first law of waiting lines, 1985.<sup><a href="#src-13">13</a></sup></p>
   <div class="clocks" aria-hidden="true">
     <div class="clk slow"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--ink)"/></svg><b>Empty time</b><span>drags</span></div>
     <div class="clk fast"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--play)"/></svg><b>Busy time</b><span>races</span></div>
@@ -815,28 +757,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div>
 </section>
 
-<!-- ============ Chapter 6 ============ -->
-<section class="panel chapter reveal">
-  <p class="num">Chapter 6</p>
-  <h2>Cruise ships figured this out</h2>
-</section>
-
-<!-- ============ Beat 20–21 · Ship ============ -->
-<section class="scrolly" id="s-ship">
-  <div class="stage"><div class="viz">
-    <div class="ship-wrap">
-      <svg class="ship" id="ship" viewBox="0 0 800 330" role="img" aria-label="Cross-section of a cruise ship: 3 capacity-limited headline experiences and 18 open-to-everyone spaces."></svg>
-      <div class="ship-legend">
-        <div data-on="1"><b>3</b><span><i class="sw" style="background:var(--paid)"></i>headline experiences</span></div>
-        <div data-on="2"><b>18</b><span><i class="sw" style="background:var(--ride)"></i>open to everyone</span></div>
-      </div>
-    </div>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p>A modern cruise ship carries thousands of guests…</p></div></div>
-    <div class="step"><div class="card"><p>…and a few headline experiences. You reserve a show from the app, and the empty seats go to standby.<sup><a href="#src-15">15</a></sup></p></div></div>
-    <div class="step"><div class="card"><p>Everything else is open to everyone.</p><p class="big">Nobody waits in line for a pool.</p></div></div>
-  </div>
+<!-- ============ Beat 20 · Cruise ships ============ -->
+<section class="panel reveal" id="s-ship">
+  <p class="lede" style="margin-top:0">Cruise ships already work this way. They offer a wide array of pools, games, bars and shows to thousands of guests at once, with almost no queueing. The few headline shows are reserved from an app.<sup><a href="#src-14">14</a></sup></p>
 </section>
 
 <!-- ============ Beat 22 · Finale ============ -->
@@ -870,16 +793,15 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <li id="src-4">Volcano Bay ends virtual lines: <a href="https://www.insideuniversal.net/2025/04/universal-volcano-bay-to-discontinue-taputapu-and-virtual-lines-beginning-oct-1-2025/">Inside Universal</a></li>
       <li id="src-5">Tokyo Priority Pass ends: <a href="https://www.disneyfoodblog.com/2026/07/31/well-another-disney-park-is-getting-rid-of-free-fastpasses/">Disney Food Blog</a></li>
       <li id="src-6">$724M Genie+ leak: <a href="https://www.fox5dc.com/news/disney-leak-nullbulge-genie-plus-cruise-line">Fox 5 DC / WSJ</a></li>
-      <li id="src-7">Lightning Lane prices: <a href="https://www.wdwmagic.com/other/disney-genie/news/13mar2026-disney-world-lightning-lane-premier-pass-spring-break-2026-prices,-sellouts,-and-what-to-know-before-you-buy.htm">WDWMagic</a></li>
-      <li id="src-8">Forbidden Journey queue rooms: <a href="https://insidethemagic.net/2010/05/tour-the-harry-potter-and-the-forbidden-journey-queue-in-the-wizarding-world/">Inside the Magic</a>; being rushed through: <a href="https://touringplans.com/blog/a-virtual-guided-walk-through-of-hogwarts/">TouringPlans</a>, <a href="https://mouseplanet.com/muggle-borns-guide-to-harry-potter-and-the-forbidden-journey/3172">MousePlanet</a></li>
-      <li id="src-9">Guests skipping food and merchandise because of queues: <a href="https://www.prnewswire.com/news-releases/75-of-us-theme-park-visitors-wont-buy-food-and-beverage-if-there-are-queues-finds-omnico-664140953.html">Omnico via PR Newswire</a></li>
-      <li id="src-10">Discomfort and unhappy guests: <a href="https://www.katapult.co.uk/top-10-reasons-why-theme-park-guests-leave-unhappy">Katapult</a></li>
-      <li id="src-11">Interactive wands: <a href="https://blooloop.com/theme-park/news/universal-orlando-wizarding-world-harry-potter-new-interactive-wands/">Blooloop</a></li>
-      <li id="src-12">Sorcerers of the Magic Kingdom: <a href="https://allears.net/tp/mk/sorcerers-of-the-magic-kingdom.htm">AllEars</a></li>
-      <li id="src-13">Meow Wolf visit length: <a href="https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets">Placer.ai</a>; first-year visitors: <a href="https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html">Yahoo</a></li>
-      <li id="src-14">Maister, <em>The Psychology of Waiting Lines</em> (1985): <a href="https://davidmaister.com/articles/5/52/index.html">davidmaister.com</a></li>
-      <li id="src-15">Royal Caribbean app reservations: <a href="https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app">Royal Caribbean FAQ</a></li>
-                      </ol>
+      <li id="src-7">Forbidden Journey queue rooms: <a href="https://insidethemagic.net/2010/05/tour-the-harry-potter-and-the-forbidden-journey-queue-in-the-wizarding-world/">Inside the Magic</a>; being rushed through: <a href="https://touringplans.com/blog/a-virtual-guided-walk-through-of-hogwarts/">TouringPlans</a>, <a href="https://mouseplanet.com/muggle-borns-guide-to-harry-potter-and-the-forbidden-journey/3172">MousePlanet</a></li>
+      <li id="src-8">Guests skipping food and merchandise because of queues: <a href="https://www.prnewswire.com/news-releases/75-of-us-theme-park-visitors-wont-buy-food-and-beverage-if-there-are-queues-finds-omnico-664140953.html">Omnico via PR Newswire</a></li>
+      <li id="src-9">Interactive wands: <a href="https://blooloop.com/theme-park/news/universal-orlando-wizarding-world-harry-potter-new-interactive-wands/">Blooloop</a></li>
+      <li id="src-10">Sorcerers of the Magic Kingdom: <a href="https://allears.net/tp/mk/sorcerers-of-the-magic-kingdom.htm">AllEars</a></li>
+      <li id="src-11">Meow Wolf visit length: <a href="https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets">Placer.ai</a>; first-year visitors: <a href="https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html">Yahoo</a></li>
+      <li id="src-12">Discomfort and unhappy guests: <a href="https://www.katapult.co.uk/top-10-reasons-why-theme-park-guests-leave-unhappy">Katapult</a></li>
+      <li id="src-13">Maister, <em>The Psychology of Waiting Lines</em> (1985): <a href="https://davidmaister.com/articles/5/52/index.html">davidmaister.com</a></li>
+      <li id="src-14">Royal Caribbean app reservations: <a href="https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app">Royal Caribbean FAQ</a></li>
+    </ol>
     <p class="note">The 6-hour day and the $100 / $20 pricing are illustrative examples, not published figures.</p>
   </details>
 </section>
@@ -968,6 +890,22 @@ onScroll();
   }
   const sign = `<g transform="translate(960 650)"><rect x="0" y="-6" width="150" height="62" rx="12" fill="var(--sign)"/><text x="75" y="38" text-anchor="middle" fill="var(--led)" style="font:700 30px var(--mono);letter-spacing:-1px">75 MIN</text></g>`;
   heroQ.innerHTML = rails + posts + dots + sign;
+})();
+
+/* ---------- Chapter list ---------- */
+(() => {
+  const toc = $('#toc'), links = $$('a', toc), chs = links.map(a => $(a.getAttribute('href')));
+  const hero = $('#hero'), end = $('#sources');
+  function upd() {
+    const mid = innerHeight / 2;
+    let cur = -1;
+    chs.forEach((c, k) => { if (c.getBoundingClientRect().top < mid) cur = k; });
+    links.forEach((a, k) => { a.classList.toggle('on', k === cur); k === cur ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'); });
+    toc.classList.toggle('show', hero.getBoundingClientRect().bottom < 0 && end.getBoundingClientRect().top > mid);
+  }
+  addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
+  addEventListener('resize', upd);
+  upd();
 })();
 
 /* ---------- 1955 → Today ---------- */
@@ -1243,35 +1181,12 @@ hooks['s-receipt'] = i => {
   for (let i = 0; i < N; i++) h += `<span class="cd" style="--i:${i}"></span>`;
   root.insertAdjacentHTML('beforeend', h);
   const cds = $$('.cd', root);
-  const A = i => { const r = Math.floor(i / 8), c = i % 8, col = r % 2 === 0 ? c : 7 - c; return [6 + col * 5.9, 30 + r * 19.5]; };
+  const A = i => { const r = Math.floor(i / 8), c = i % 8, col = r % 2 === 0 ? c : 7 - c; return [7 + col * 5.9, 30 + r * 20]; };
   let seed = 9; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const Bpts = cds.map((_, i) => { const ang = Math.PI * (.55 + rnd() * .9), rad = 14 + rnd() * 16; return [80 + Math.cos(ang) * rad * .9, 62 + Math.sin(ang) * rad * -.05 + (rnd() * 22)]; });
   const place = spend => cds.forEach((d, i) => { const [x, y] = spend ? Bpts[i] : A(i); d.style.left = x + '%'; d.style.top = y + '%'; });
   place(false);
   hooks['s-churro'] = i => { root.classList.toggle('spend', i >= 2); place(i >= 2); };
-})();
-
-/* ---------- Ship ---------- */
-(() => {
-  const svg = $('#ship');
-  const rows = [
-    [['Jogging track', 'b', 150], ['Waterslides', 'g', 130], ['Pool', 'b', 110], ['Loungers', 'b', 120], ['Mini golf', 'b', 110], ['Sports court', 'b', 100]],
-    [['Surf simulator', 'g', 120], ['Hot tubs', 'b', 90], ['Pool bar', 'b', 90], ['Arcade', 'b', 100], ['Buffet', 'b', 130], ['Spa', 'b', 100], ['Library', 'b', 90]],
-    [['Theater', 'g', 190], ['Promenade', 'b', 150], ['Café', 'b', 90], ['Trivia lounge', 'b', 120], ['Bar', 'b', 80], ['Kids club', 'b', 110]],
-  ];
-  let h = `<path class="stack" d="M480 18h46l8 36h-62z"/><path class="hull" d="M20 214H780L748 300Q740 314 724 314H96Q80 314 72 300Z"/><path class="hull2" d="M60 270H760" stroke="var(--surface)" stroke-width="3"/>`;
-  let idx = 0;
-  rows.forEach((row, r) => {
-    const total = row.reduce((s, c) => s + c[2], 0), x0 = 60 + r * -20, width = 680 + r * 40, y = 58 + r * 52;
-    let x = x0;
-    row.forEach(([name, k, w]) => {
-      const ww = w / total * width;
-      h += `<g><title>${name}${k === 'g' ? ' — capacity-limited, reserve in app' : ' — open to everyone'}</title><rect class="deck ${k}" data-on="${k === 'g' ? 1 : 2}" style="--i:${idx++}" x="${x.toFixed(1)}" y="${y}" width="${ww.toFixed(1)}" height="48" rx="6"/>`;
-      h += `<text class="dl ${k}${k === 'g' ? ' keep' : ''}" data-on="${k === 'g' ? 1 : 2}" x="${(x + ww / 2).toFixed(1)}" y="${y + 29}" text-anchor="middle">${name}</text></g>`;
-      x += ww;
-    });
-  });
-  svg.innerHTML = h;
 })();
 
 })();
