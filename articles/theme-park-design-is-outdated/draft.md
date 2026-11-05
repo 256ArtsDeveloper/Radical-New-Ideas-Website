@@ -1,6 +1,6 @@
 # Theme Park Design Is Outdated — Scrollytelling Draft
 
-This draft is written for a scroll-driven webpage. Each **beat** is one screen: a short block of copy paired with a graphic that animates as the reader scrolls. Copy blocks are kept to roughly 60 words or fewer. The **Visual** and **On scroll** lines are build notes, not reader-facing text.
+This draft is written for a scroll-driven webpage. Each **beat** is a short block of copy in a normal text column, paired with a pinned graphic that animates as the reader scrolls. Copy blocks are kept to roughly 60 words or fewer. The **Visual** and **On scroll** lines are build notes, not reader-facing text.
 
 **Recurring devices** (introduce each one once, then reuse it):
 - **The Day Bar:** a horizontal 12-hour timeline of one guest's day. It first appears full of gray "waiting" blocks and comes back at the end full of color.
@@ -237,10 +237,10 @@ The question isn't how to keep them busy. It's what's worth building for them.
 None of this is new. Parks already know how to build places where guests happily spend hours. There just aren't enough of them.
 
 ### Beat 17 — What to build
-**Visual:** a scattered grid of icons that settle into place: bowling, an arcade, axe throwing, a jungle gym, a walk-through, mini golf, a splash pad, a lawn.
+**Visual:** a scattered grid of icons that settle into place: bowling, an arcade, escape rooms, a jungle gym, a walk-through, mini golf, a splash pad, a lawn.
 
 **Copy**
-Bowling. Arcades. Axe throwing. Climbing structures. Mini golf. Walk-throughs. Lawns.
+Bowling. Arcades. Escape rooms. Climbing structures. Mini golf. Walk-throughs. Lawns.
 
 They cost far less than a ride, they have no hard capacity limit, and you can theme them as lavishly as anything else in the park.
 
@@ -271,41 +271,6 @@ Better still, build the play zone into the ride building itself. You're halfway 
 A modern cruise ship carries thousands of guests and a few headline experiences. You reserve a show from the app, and the empty seats go to standby.
 
 Everything else is open to everyone. Pools, loungers, bars, games: nobody waits in line for a pool.
-
-### Beat 21 — Not perfect
-**Visual:** a small aside card in a muted style.
-
-**Copy**
-Cruises aren't line-free. The waterslides on the biggest ships can still mean a 45-minute wait, and a seven-day sailing spreads demand across a whole week.
-
-But the ratio is the lesson: a few headline experiences, and plenty to do everywhere else.
-
----
-
-## Chapter 7 — "But what about…"
-
-**Format:** a stack of flip cards. The front of each card shows the objection and the back shows the answer. On desktop, scrolling flips them; on touch, tapping does.
-
-### Card 1 — "There isn't room on the big rides for everyone."
-**Visual:** a bar chart. One bar is `48,800 guests in the park`; next to it, `21,000 seats on its most popular coaster`.
-**Front:** Magic Kingdom's most popular coaster can carry fewer than half the park's guests in a day.
-**Back:** True, and a queue doesn't fix that either. Today the line makes the cut: some guests wait an hour, and others see the sign and give up. Reservations make the same cut without anyone losing an hour. They can do it fairly, too, and the money saved on queues can build more capacity.
-
-### Card 2 — "Disney tried free reservations. People hated them."
-**Front:** FastPass+ meant booking rides 60 days ahead, and guests said it killed spontaneity.
-**Back:** That was a planning race months in advance. Build it for the same day instead: tell the park what you want when you arrive, and let the plan adjust as the day goes.
-
-### Card 3 — "A park tried no lines and gave up."
-**Front:** Volcano Bay dropped its virtual lines in 2025.
-**Back:** Its virtual waits still ran for hours, because there wasn't enough else to do. A virtual line with nothing to fill the time just moves the wait somewhere else. Universal also gave no reason for ending it, and paid Express passes became more attractive once it was gone.
-
-### Card 4 — "Arcades flop."
-**Front:** DisneyQuest closed after its attendance fell.
-**Back:** DisneyQuest was a separately ticketed building whose games went more than a decade without an update. Play built into the park, to fill the time between rides, is a different idea.
-
-### Card 5 — "Line-skipping is too profitable to give up."
-**Front:** Paid skips earn hundreds of millions of dollars a year.
-**Back:** Then keep it. Sell the same $20 add-on, but as an extra ride instead of an escape from the line. Same price, same impulse purchase, same revenue, and a better day for everyone.
 
 ---
 
@@ -348,10 +313,7 @@ Show these as a collapsible list on the page, with each footnote linked to the b
 12. Sorcerers of the Magic Kingdom: [AllEars](https://allears.net/tp/mk/sorcerers-of-the-magic-kingdom.htm)
 13. Meow Wolf visit length: [Placer.ai](https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets); first-year visitors: [Yahoo](https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html)
 14. Maister, *The Psychology of Waiting Lines* (1985): [davidmaister.com](https://davidmaister.com/articles/5/52/index.html)
-15. Royal Caribbean app reservations: [Royal Caribbean FAQ](https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app); waterslide waits: [Cruise Fever](https://cruisefever.net/is-icon-of-the-seas-too-crowded-passengers-fresh-off-the-ship-weigh-in/)
-16. Mine Train capacity: [Theme Park Tourist](https://www.themeparktourist.com/features/20170730/33009/which-magic-kingdom-rides-serve-most-customers); Magic Kingdom attendance: [Fox 13 / TEA](https://www.fox13news.com/news/magic-kingdom-park-most-visited-park-worldwide)
-17. FastPass+ complaints: [Theme Park Insider](https://themeparkinsider.com/flume/201503/4453); Volcano Bay virtual waits: [TouringPlans](https://touringplans.com/blog/volcano-bay-lines-waves-waturi/)
-18. DisneyQuest closure: [Wikipedia](https://en.wikipedia.org/wiki/DisneyQuest)
+15. Royal Caribbean app reservations: [Royal Caribbean FAQ](https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app)
 
 ---
 

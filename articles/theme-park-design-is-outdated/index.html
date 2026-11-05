@@ -48,6 +48,7 @@
 /* ---------- Base ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
+main { overflow-x: clip; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 19px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: var(--ride); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -78,32 +79,30 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 @keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* ---------- Scrolly ---------- */
-.scrolly { position: relative; }
-.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-.viz { position: absolute; display: flex; align-items: center; justify-content: center; }
-.steps { position: relative; z-index: 2; margin-top: -100svh; pointer-events: none; }
-.step { min-height: 100svh; display: flex; }
-.step:last-child { margin-bottom: 30svh; }
-.card { pointer-events: auto; max-width: 400px; background: var(--card); -webkit-backdrop-filter: blur(24px) saturate(1.5); backdrop-filter: blur(24px) saturate(1.5); border: 1px solid var(--ring); border-radius: 22px; padding: 22px 24px; box-shadow: 0 12px 40px rgba(0,0,0,.07); opacity: .35; transition: opacity .45s ease; }
+/* Desktop: text flows in a normal column on the left; the graphic stays pinned on the right. */
+.scrolly { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; max-width: 1320px; margin: 0 auto; padding: 0 max(24px, 4vw); }
+.stage { grid-column: 2; grid-row: 1; align-self: start; position: sticky; top: 0; height: 100svh; }
+.viz { position: absolute; inset: 14svh 0 10svh; display: flex; align-items: center; justify-content: center; }
+.steps { grid-column: 1; grid-row: 1; padding: 30svh 0 40svh; }
+.step { min-height: 62svh; display: flex; align-items: center; }
+.card { max-width: 440px; font-size: 21px; line-height: 1.5; color: var(--ink); opacity: .3; transition: opacity .45s ease; }
 .step.active .card { opacity: 1; }
 .card p + p { margin-top: .7em; }
-.card .big { font-size: 27px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
+.card .big { font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
 .card .fine { font-size: 14px; color: var(--muted); line-height: 1.4; }
-.card.aside { background: color-mix(in srgb, var(--track) 85%, transparent); }
-.card.aside .tag { display: inline-block; font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .quote { font-style: italic; }
 
-@media (min-width: 900px) {
-  .viz { top: 50%; right: max(3vw, calc((100vw - 1320px) / 2)); width: min(58vw, 780px); height: min(78svh, 640px); transform: translateY(-50%); }
-  .step { align-items: center; padding-left: max(5vw, calc((100vw - 1320px) / 2)); }
-  .viz.center { right: auto; left: 50%; transform: translate(-50%, -50%); }
-}
+/* Phone: the graphic pins under the nav; text scrolls beneath it in a normal column. */
 @media (max-width: 899px) {
   body { font-size: 17px; }
-  .viz { left: 16px; right: 16px; top: 60px; height: calc(56svh - 60px); }
-  .step { align-items: flex-end; justify-content: center; padding: 0 16px 5svh; }
-  .card { padding: 18px 20px; border-radius: 20px; }
-  .card .big { font-size: 23px; }
+  .scrolly { display: block; padding: 0; }
+  .stage { position: sticky; top: 48px; height: 50svh; z-index: 3; background: var(--bg); }
+  .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: -28px; height: 28px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
+  .viz { inset: 16px 16px 8px; }
+  .steps { padding: 6svh 20px 30svh; }
+  .step { min-height: 46svh; align-items: flex-start; }
+  .card { font-size: 19px; }
+  .card .big { font-size: 25px; }
 }
 
 /* ---------- Panels ---------- */
@@ -227,7 +226,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: linear-gradient(135deg, #fffdf8 50%, transparent 50%) 0 0 / 14px 10px repeat-x, linear-gradient(225deg, #fffdf8 50%, transparent 50%) 7px 0 / 14px 10px repeat-x; }
 .rc-h { text-align: center; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 1.05em; }
 .rc-sub { text-align: center; color: #77746b; font-size: .85em; margin: 2px 0 14px; }
-.rc-line { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; opacity: 0; transform: translateY(-6px); transition: opacity .35s ease, transform .35s ease, max-height .5s ease, padding .5s ease; transition-delay: calc(var(--d) * 240ms); max-height: 4em; overflow: hidden; }
+.rc-line { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; opacity: 0; transform: translateY(-6px); transition: opacity .35s ease, transform .35s ease, max-height .5s ease, padding .5s ease; transition-delay: calc(var(--d) * 240ms); max-height: 7em; overflow: hidden; }
 .rc-line.on { opacity: 1; transform: none; }
 .rc-line small { display: block; color: #77746b; font-size: .82em; }
 .rc-line > span:last-child { white-space: nowrap; font-weight: 700; }
@@ -392,39 +391,12 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ship .dl.on { fill: #fff; }
 .ship .dl.g.on { fill: #0b0b0b; }
 .ship .stack { fill: var(--ink); }
-.ship .waitsign { opacity: 0; transition: opacity .4s; }
-.ship .waitsign.on { opacity: 1; }
 .ship-legend { display: flex; justify-content: center; gap: 28px; margin-top: 18px; flex-wrap: wrap; }
 .ship-legend div { display: flex; align-items: baseline; gap: 8px; opacity: 0; transition: opacity .5s; }
 .ship-legend div.on { opacity: 1; }
 .ship-legend b { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.03em; }
 .ship-legend span { font-size: 14px; color: var(--ink2); display: inline-flex; align-items: center; gap: 6px; }
 @media (max-width: 600px) { .ship .dl:not(.keep) { display: none; } }
-
-/* ---------- Flip cards ---------- */
-.objections { padding: 110px 16px 80px; max-width: 1180px; margin: 0 auto; }
-.objections header { text-align: center; margin-bottom: 44px; }
-.objections h2 { font-size: clamp(40px, 7vw, 80px); }
-.objections header p { color: var(--ink2); margin-top: 14px; }
-.flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-.flip { perspective: 1400px; background: none; border: 0; padding: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; display: block; width: 100%; }
-.flip-in { display: grid; transition: transform .8s cubic-bezier(.3,.7,.2,1); transform-style: preserve-3d; }
-.flip.flipped .flip-in { transform: rotateY(180deg); }
-.face { grid-area: 1 / 1; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; padding: 28px 26px 24px; display: flex; flex-direction: column; min-height: 300px; border: 1px solid var(--ring); }
-.front { background: var(--surface); box-shadow: 0 10px 30px rgba(0,0,0,.05); }
-.back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); }
-.face .q { font-size: 23px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
-.face .t { margin-top: 12px; font-size: 16px; color: var(--ink2); line-height: 1.45; }
-.back .t { color: color-mix(in srgb, var(--bg) 82%, transparent); font-size: 16px; margin-top: 0; }
-.back .a { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--play); margin-bottom: 10px; }
-.face .hint { margin-top: auto; padding-top: 18px; font-size: 13px; color: var(--muted); font-weight: 600; }
-.flip:focus-visible .face { outline: 3px solid var(--ride); outline-offset: 3px; }
-.hbars { margin-top: 18px; display: grid; gap: 10px; }
-.hbar .bl { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink2); margin-bottom: 4px; }
-.hbar .bl b { color: var(--ink); font-variant-numeric: tabular-nums; }
-.hbar .tr { height: 14px; border-radius: 4px; background: var(--track); }
-.hbar .fl { height: 100%; border-radius: 4px; background: var(--ink2); }
-.hbar.r .fl { background: var(--ride); }
 
 /* ---------- Finale ---------- */
 .finale-viz { width: 100%; position: relative; height: 100%; display: flex; align-items: center; }
@@ -515,7 +487,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <!-- ============ Beat 3 · The headliner ============ -->
 <section class="scrolly" id="s-sign">
-  <div class="stage"><div class="viz center">
+  <div class="stage"><div class="viz">
     <div class="sign" id="sign" role="img" aria-label="Rise of the Resistance wait time sign">
       <div class="nm">Rise of the Resistance · Standby</div>
       <div class="dig" id="signNum">0</div>
@@ -865,12 +837,12 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="icons">
     <div class="ic" style="--i:0;--x:-60px;--y:40px;--r:-14deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6c-3 0-4 4-3 8l-2 6c-2 6-1 14 1 22h8c2-8 3-16 1-22l-2-6c1-4 0-8-3-8z"/><path d="M14 16h8"/><circle cx="35" cy="34" r="8"/></svg></div><span>Bowling</span></div>
     <div class="ic" style="--i:1;--x:30px;--y:-50px;--r:12deg;--c:var(--food)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="30" width="36" height="12" rx="4"/><path d="M24 30V16"/><circle cx="24" cy="11" r="5"/><circle cx="35" cy="36" r="1.5" fill="currentColor"/></svg></div><span>Arcade</span></div>
-    <div class="ic" style="--i:2;--x:70px;--y:30px;--r:-8deg;--c:var(--ink2)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42L32 14"/><path d="M26 10c6-6 14-2 16 6l-10 4-6-10z"/></svg></div><span>Axe throwing</span></div>
+    <div class="ic" style="--i:2;--x:70px;--y:30px;--r:-8deg;--c:var(--ink2)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="24" r="8"/><path d="M23 24h20M37 24v7M43 24v5"/></svg></div><span>Escape rooms</span></div>
     <div class="ic" style="--i:3;--x:-40px;--y:-40px;--r:16deg;--c:var(--play)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42a18 18 0 0 1 36 0"/><path d="M24 24v18M14 28l4 14M34 28l-4 14M9 34h30"/></svg></div><span>Jungle gym</span></div>
     <div class="ic" style="--i:4;--x:50px;--y:60px;--r:-12deg;--c:var(--rest)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="30" cy="30" r="1.5" fill="currentColor"/></svg></div><span>Walk-through</span></div>
     <div class="ic" style="--i:5;--x:-70px;--y:20px;--r:10deg;--c:var(--free)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 38V6l14 6-14 6"/><ellipse cx="22" cy="40" rx="14" ry="4"/></svg></div><span>Mini golf</span></div>
     <div class="ic" style="--i:6;--x:20px;--y:-70px;--r:-16deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8c-5 7-8 11-8 15a8 8 0 0 0 16 0c0-4-3-8-8-15z"/><path d="M34 18c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11z"/></svg></div><span>Splash pad</span></div>
-    <div class="ic" style="--i:7;--x:-20px;--y:50px;--r:8deg;--c:var(--leaf)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="18" r="11"/><path d="M24 29v13M6 42h36"/></svg></div><span>Lawns</span></div>
+    <div class="ic" style="--i:7;--x:-20px;--y:50px;--r:8deg;--c:var(--leaf)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="33" cy="14" r="5"/><path d="M33 4v2M33 22v2M23 14h2M41 14h2"/><path d="M4 40h40"/><path d="M10 40q0-8-4-12M10 40q1-7 5-10M24 40q0-9-5-13M24 40q1-8 6-11M36 40q0-6-3-9M36 40q1-5 5-8"/></svg></div><span>Lawns</span></div>
   </div>
   <p class="lede">They cost far less than a ride, they have no hard capacity limit, and you can theme them as lavishly as anything else in the park.</p>
 </section>
@@ -932,39 +904,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     <div class="step"><div class="card"><p>A modern cruise ship carries thousands of guests…</p></div></div>
     <div class="step"><div class="card"><p>…and a few headline experiences. You reserve a show from the app, and the empty seats go to standby.<sup><a href="#src-15">15</a></sup></p></div></div>
     <div class="step"><div class="card"><p>Everything else is open to everyone.</p><p class="big">Nobody waits in line for a pool.</p></div></div>
-    <div class="step"><div class="card aside"><span class="tag">Not perfect</span><p>Cruises aren't line-free. The waterslides on the biggest ships can still mean a 45-minute wait, and a seven-day sailing spreads demand across a whole week.</p><p>But the ratio is the lesson: a few headline experiences, and plenty to do everywhere else.</p></div></div>
-  </div>
-</section>
-
-<!-- ============ Chapter 7 · Objections ============ -->
-<section class="objections" id="s-obj">
-  <header class="reveal"><p class="eyebrow" style="color:var(--ride)">Chapter 7</p><h2>But what about…</h2><p>Tap a card to see the answer.</p></header>
-  <div class="flips">
-    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
-      <span class="face front"><span class="q">"There isn't room on the big rides for everyone."</span><span class="t">Magic Kingdom's most popular coaster can carry fewer than half the park's guests in a day.<sup><a href="#src-16">16</a></sup></span>
-        <span class="hbars" role="img" aria-label="48,800 guests in the park versus 21,000 seats a day on its most popular coaster.">
-          <span class="hbar" style="display:block"><span class="bl"><span>Guests in the park</span><b>48,800</b></span><span class="tr" style="display:block"><span class="fl" style="display:block;width:100%"></span></span></span>
-          <span class="hbar r" style="display:block"><span class="bl"><span>Seats a day on its top coaster</span><b>21,000</b></span><span class="tr" style="display:block"><span class="fl" style="display:block;width:43%"></span></span></span>
-        </span>
-        <span class="hint">Tap for the answer →</span></span>
-      <span class="face back"><span class="a">Answer</span><span class="t">True, and a queue doesn't fix that either. Today the line makes the cut: some guests wait an hour, and others see the sign and give up. Reservations make the same cut without anyone losing an hour. They can do it fairly, too, and the money saved on queues can build more capacity.</span></span>
-    </span></button>
-    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
-      <span class="face front"><span class="q">"Disney tried free reservations. People hated them."</span><span class="t">FastPass+ meant booking rides 60 days ahead, and guests said it killed spontaneity.<sup><a href="#src-17">17</a></sup></span><span class="hint">Tap for the answer →</span></span>
-      <span class="face back"><span class="a">Answer</span><span class="t">That was a planning race months in advance. Build it for the same day instead: tell the park what you want when you arrive, and let the plan adjust as the day goes.</span></span>
-    </span></button>
-    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
-      <span class="face front"><span class="q">"A park tried no lines and gave up."</span><span class="t">Volcano Bay dropped its virtual lines in 2025.<sup><a href="#src-4">4</a></sup></span><span class="hint">Tap for the answer →</span></span>
-      <span class="face back"><span class="a">Answer</span><span class="t">Its virtual waits still ran for hours, because there wasn't enough else to do. A virtual line with nothing to fill the time just moves the wait somewhere else. Universal also gave no reason for ending it, and paid Express passes became more attractive once it was gone.</span></span>
-    </span></button>
-    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
-      <span class="face front"><span class="q">"Arcades flop."</span><span class="t">DisneyQuest closed after its attendance fell.<sup><a href="#src-18">18</a></sup></span><span class="hint">Tap for the answer →</span></span>
-      <span class="face back"><span class="a">Answer</span><span class="t">DisneyQuest was a separately ticketed building whose games went more than a decade without an update. Play built into the park, to fill the time between rides, is a different idea.</span></span>
-    </span></button>
-    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
-      <span class="face front"><span class="q">"Line-skipping is too profitable to give up."</span><span class="t">Paid skips earn hundreds of millions of dollars a year.<sup><a href="#src-6">6</a></sup></span><span class="hint">Tap for the answer →</span></span>
-      <span class="face back"><span class="a">Answer</span><span class="t">Then keep it. Sell the same $20 add-on, but as an extra ride instead of an escape from the line. Same price, same impulse purchase, same revenue, and a better day for everyone.</span></span>
-    </span></button>
   </div>
 </section>
 
@@ -1007,11 +946,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <li id="src-12">Sorcerers of the Magic Kingdom: <a href="https://allears.net/tp/mk/sorcerers-of-the-magic-kingdom.htm">AllEars</a></li>
       <li id="src-13">Meow Wolf visit length: <a href="https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets">Placer.ai</a>; first-year visitors: <a href="https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html">Yahoo</a></li>
       <li id="src-14">Maister, <em>The Psychology of Waiting Lines</em> (1985): <a href="https://davidmaister.com/articles/5/52/index.html">davidmaister.com</a></li>
-      <li id="src-15">Royal Caribbean app reservations: <a href="https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app">Royal Caribbean FAQ</a>; waterslide waits: <a href="https://cruisefever.net/is-icon-of-the-seas-too-crowded-passengers-fresh-off-the-ship-weigh-in/">Cruise Fever</a></li>
-      <li id="src-16">Mine Train capacity: <a href="https://www.themeparktourist.com/features/20170730/33009/which-magic-kingdom-rides-serve-most-customers">Theme Park Tourist</a>; Magic Kingdom attendance: <a href="https://www.fox13news.com/news/magic-kingdom-park-most-visited-park-worldwide">Fox 13 / TEA</a></li>
-      <li id="src-17">FastPass+ complaints: <a href="https://themeparkinsider.com/flume/201503/4453">Theme Park Insider</a>; Volcano Bay virtual waits: <a href="https://touringplans.com/blog/volcano-bay-lines-waves-waturi/">TouringPlans</a></li>
-      <li id="src-18">DisneyQuest closure: <a href="https://en.wikipedia.org/wiki/DisneyQuest">Wikipedia</a></li>
-    </ol>
+      <li id="src-15">Royal Caribbean app reservations: <a href="https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app">Royal Caribbean FAQ</a></li>
+                      </ol>
     <p class="note">The 6-hour day and the $100 / $20 pricing are illustrative examples, not published figures.</p>
   </details>
 </section>
@@ -1055,7 +991,7 @@ function applyStep(sc, i) {
 }
 const stepIO = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) applyStep(e.target.closest('.scrolly'), +e.target.dataset.i);
-}), { rootMargin: '-48% 0px -48% 0px' });
+}), { rootMargin: matchMedia('(max-width: 899px)').matches ? '-72% 0px -27% 0px' : '-50% 0px -49% 0px' });
 $$('.scrolly').forEach(sc => {
   $$('.step', sc).forEach((s, i) => { s.dataset.i = i; stepIO.observe(s); });
   applyStep(sc, -1);
@@ -1397,7 +1333,7 @@ hooks['s-receipt'] = i => {
     [['Theater', 'g', 190], ['Promenade', 'b', 150], ['Café', 'b', 90], ['Trivia lounge', 'b', 120], ['Bar', 'b', 80], ['Kids club', 'b', 110]],
   ];
   let h = `<path class="stack" d="M480 18h46l8 36h-62z"/><path class="hull" d="M20 214H780L748 300Q740 314 724 314H96Q80 314 72 300Z"/><path class="hull2" d="M60 270H760" stroke="var(--surface)" stroke-width="3"/>`;
-  let idx = 0, gx = 0;
+  let idx = 0;
   rows.forEach((row, r) => {
     const total = row.reduce((s, c) => s + c[2], 0), x0 = 60 + r * -20, width = 680 + r * 40, y = 58 + r * 52;
     let x = x0;
@@ -1405,19 +1341,12 @@ hooks['s-receipt'] = i => {
       const ww = w / total * width;
       h += `<g><title>${name}${k === 'g' ? ' — capacity-limited, reserve in app' : ' — open to everyone'}</title><rect class="deck ${k}" data-on="${k === 'g' ? 1 : 2}" style="--i:${idx++}" x="${x.toFixed(1)}" y="${y}" width="${ww.toFixed(1)}" height="48" rx="6"/>`;
       h += `<text class="dl ${k}${k === 'g' ? ' keep' : ''}" data-on="${k === 'g' ? 1 : 2}" x="${(x + ww / 2).toFixed(1)}" y="${y + 29}" text-anchor="middle">${name}</text></g>`;
-      if (name === 'Waterslides') gx = x + ww / 2;
       x += ww;
     });
   });
-  h += `<g class="waitsign" data-on="3" transform="translate(${gx - 46} 8)"><rect width="92" height="38" rx="9" fill="var(--sign)"/><text x="46" y="26" text-anchor="middle" fill="var(--led)" style="font:700 18px var(--mono)">45 MIN</text></g>`;
   svg.innerHTML = h;
 })();
 
-/* ---------- Flip cards ---------- */
-$$('.flip').forEach(b => b.addEventListener('click', e => {
-  if (e.target.closest('a')) return;
-  b.classList.toggle('flipped'); b.setAttribute('aria-pressed', b.classList.contains('flipped'));
-}));
 })();
 </script>
 </body>
