@@ -63,32 +63,28 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--ride); transform-origin: left; transform: scaleX(0); }
 
 /* ---------- Hero ---------- */
-.hero { height: 190svh; position: relative; }
-.hero-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; }
-.hero-queue { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 30%; will-change: transform; }
+.hero { position: relative; }
+.hero-sticky { position: relative; min-height: min(78svh, 760px); padding: 120px 0 72px; overflow: hidden; display: grid; place-items: center; }
+.hero-queue { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-queue .rail { stroke: var(--axis); stroke-width: 3; stroke-linecap: round; fill: none; }
 .hero-queue .post { fill: var(--axis); }
 .hero-queue .g { fill: var(--ink2); }
-.hero-scrim { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 48% at 50% 52%, var(--bg) 30%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 100%); }
+.hero-scrim { position: absolute; inset: 0; background: radial-gradient(ellipse 66% 60% at 50% 50%, var(--bg) 48%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 100%); }
 .hero-copy { position: relative; text-align: center; padding: 0 16px; max-width: 980px; }
 .eyebrow { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .hero h1 { font-size: clamp(46px, 9vw, 116px); margin: 14px 0 20px; }
 .dek { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink2); max-width: 680px; margin: 0 auto; line-height: 1.35; }
-.scroll-hint { margin-top: 44px; font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-.scroll-hint::after { content: ""; display: block; width: 1px; height: 36px; background: var(--muted); margin: 10px auto 0; animation: hint 1.8s ease-in-out infinite; transform-origin: top; }
-@keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* ---------- Scrolly ---------- */
 /* Desktop: text flows in a normal column on the left; the graphic stays pinned on the right. */
 .scrolly { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; max-width: 1320px; margin: 0 auto; padding: 0 max(24px, 4vw); }
 .stage { grid-column: 2; grid-row: 1; align-self: start; position: sticky; top: 0; height: 100svh; }
 .viz { position: absolute; inset: 14svh 0 10svh; display: flex; align-items: center; justify-content: center; }
-.steps { grid-column: 1; grid-row: 1; padding: 30svh 0 40svh; }
-.step { min-height: 62svh; display: flex; align-items: center; }
-.card { max-width: 440px; font-size: 21px; line-height: 1.5; color: var(--ink); opacity: .3; transition: opacity .45s ease; }
-.step.active .card { opacity: 1; }
+.steps { grid-column: 1; grid-row: 1; padding: 14svh 0 22svh; }
+.step { min-height: 32svh; display: flex; align-items: center; }
+.card { max-width: 480px; font-size: 19px; line-height: 1.6; color: var(--ink); }
 .card p + p { margin-top: .7em; }
-.card .big { font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
+.card .big { font-size: 26px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
 .card .fine { font-size: 14px; color: var(--muted); line-height: 1.4; }
 .quote { font-style: italic; }
 
@@ -99,18 +95,18 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
   .stage { position: sticky; top: 48px; height: 50svh; z-index: 3; background: var(--bg); }
   .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: -28px; height: 28px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
   .viz { inset: 16px 16px 8px; }
-  .steps { padding: 6svh 20px 30svh; }
-  .step { min-height: 46svh; align-items: flex-start; }
-  .card { font-size: 19px; }
-  .card .big { font-size: 25px; }
+  .steps { padding: 4svh 20px 24svh; }
+  .step { min-height: 30svh; align-items: flex-start; }
+  .card { font-size: 17px; }
+  .card .big { font-size: 22px; }
 }
 
 /* ---------- Panels ---------- */
-.panel { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 96px 16px; text-align: center; }
+.panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: clamp(72px, 12vw, 128px) 16px; text-align: center; }
 .panel .lede { max-width: 640px; margin: 24px auto 0; color: var(--ink2); font-size: clamp(19px, 2vw, 23px); line-height: 1.45; }
-.chapter { min-height: 80svh; }
+.chapter { padding-bottom: clamp(24px, 4vw, 48px); }
 .chapter .num { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--ride); }
-.chapter h2 { font-size: clamp(40px, 7vw, 88px); margin-top: 14px; max-width: 14ch; }
+.chapter h2 { font-size: clamp(34px, 5.4vw, 64px); margin-top: 14px; max-width: 14ch; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 
@@ -440,7 +436,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <header class="nav">
   <a class="brand" href="../../">Radical New Ideas</a>
-  <span class="meta">7 min scroll</span>
+  <span class="meta">7 min read</span>
   <div class="progress" id="progress"></div>
 </header>
 
@@ -455,7 +451,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <p class="eyebrow">Radical New Ideas</p>
       <h1>Theme Park Design Is Outdated</h1>
       <p class="dek">We've spent seventy years perfecting the line. It's time to get rid of it.</p>
-      <p class="scroll-hint">Scroll</p>
     </div>
   </div>
 </section>
@@ -923,7 +918,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <!-- ============ Beat 23 · The ask ============ -->
 <section class="panel ask">
-  <h3 class="reveal">Include <span>reservations</span> with every ticket.</h3>
+  <h3 class="reveal">Move <span>every guest</span> to the reservation system.</h3>
   <h3 class="reveal">Sell <span>more rides</span>, not shorter lines.</h3>
   <h3 class="reveal">Spend the queue budget on places to <span>play and rest</span>.</h3>
 </section>
@@ -1006,16 +1001,11 @@ const revealIO = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: .3 });
 $$('.reveal, #s-money').forEach(el => revealIO.observe(el));
 
-/* ---------- Progress + hero ---------- */
-const progress = $('#progress'), hero = $('#hero'), heroQ = $('#heroQueue'), heroCopy = $('#heroCopy');
+/* ---------- Progress ---------- */
+const progress = $('#progress'), heroQ = $('#heroQueue');
 function onScroll() {
   const max = document.documentElement.scrollHeight - innerHeight;
   progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-  if (!reduce) {
-    const p = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight - innerHeight)));
-    heroQ.style.transform = `scale(${1.7 - .7 * p})`;
-    heroCopy.style.opacity = String(1 - Math.max(0, (p - .55) / .45));
-  }
 }
 addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
 onScroll();
@@ -1039,7 +1029,7 @@ onScroll();
       dots += `<circle class="g" cx="${(x + rnd() * 6).toFixed(1)}" cy="${(y + (rnd() - .5) * 18).toFixed(1)}" r="${(7 + rnd() * 2).toFixed(1)}"/>`;
     }
   }
-  const sign = `<g transform="translate(525 150)"><rect x="0" y="-6" width="150" height="62" rx="12" fill="var(--sign)"/><text x="75" y="38" text-anchor="middle" fill="var(--led)" style="font:700 30px var(--mono);letter-spacing:-1px">75 MIN</text></g>`;
+  const sign = `<g transform="translate(960 650)"><rect x="0" y="-6" width="150" height="62" rx="12" fill="var(--sign)"/><text x="75" y="38" text-anchor="middle" fill="var(--led)" style="font:700 30px var(--mono);letter-spacing:-1px">75 MIN</text></g>`;
   heroQ.innerHTML = rails + posts + dots + sign;
 })();
 
