@@ -117,11 +117,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .year .y2 { opacity: 0; transform: translateY(.15em); }
 .on-1 .year .y1 { opacity: 0; transform: translateY(-.15em); }
 .on-1 .year .y2 { opacity: 1; transform: none; }
-.mini-queue { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 40px auto 0; max-width: 520px; }
-.mini-queue i { width: 10px; height: 10px; border-radius: 50%; background: var(--ink2); transition: opacity .4s ease, transform .4s ease; transition-delay: calc(var(--i) * 12ms); }
-.mini-queue i.late { opacity: 0; transform: scale(.3); }
-.on-1 .mini-queue i.late { opacity: 1; transform: none; }
-.mini-queue + .cap { margin-top: 14px; font-size: 14px; color: var(--muted); }
 
 /* ---------- Day bar ---------- */
 .daybar { width: 100%; }
@@ -198,15 +193,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .dark-panel .lede { color: #c3c2b7; }
 .dark-panel .hero-num { background: linear-gradient(180deg, #ffd27a, #eda100); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-/* ---------- Price ladder ---------- */
-.ladder { display: flex; align-items: flex-end; justify-content: center; gap: clamp(20px, 6vw, 64px); height: min(52svh, 440px); margin-top: 48px; width: 100%; max-width: 640px; border-bottom: 1px solid var(--axis); }
-.rung { flex: 1; max-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
-.rung .bar { width: 100%; background: var(--paid); border-radius: 6px 6px 0 0; height: calc(var(--h) * 1%); transform-origin: bottom; transform: scaleY(0); transition: transform 1.1s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 220ms); min-height: 4px; }
-.in .rung .bar { transform: none; }
-.rung .v { font-size: clamp(22px, 3.4vw, 34px); font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
-.rung-labels { display: flex; justify-content: center; gap: clamp(20px, 6vw, 64px); width: 100%; max-width: 640px; margin-top: 10px; }
-.rung-labels span { flex: 1; max-width: 120px; font-size: 13px; color: var(--ink2); line-height: 1.3; }
-
 /* ---------- Capacity canvas ---------- */
 .cap-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
 .cap-wrap canvas { flex: 1; width: 100%; min-height: 0; }
@@ -280,7 +266,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ce .pt { opacity: 0; transition: opacity .5s ease, transform 1.2s cubic-bezier(.5,0,.2,1); }
 .ce .pt.on { opacity: 1; }
 .ce .pt circle { stroke: var(--surface); stroke-width: 3; }
-.ce #ptQueue { transform: translateY(-227px); }
+.ce #ptQueue { transform: translateY(-184px); }
 .ce #ptQueue.on { transform: none; transition-delay: 0s, .35s; }
 
 /* ---------- Castle ---------- */
@@ -436,7 +422,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <header class="nav">
   <a class="brand" href="../../">Radical New Ideas</a>
-  <span class="meta">7 min read</span>
   <div class="progress" id="progress"></div>
 </header>
 
@@ -460,8 +445,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="stage"><div class="viz">
     <div class="years" aria-hidden="true">
       <div class="year"><span class="y1">1955</span><span class="y2">Today</span></div>
-      <div class="mini-queue" id="miniQueue"></div>
-      <p class="cap">Each dot is a guest in line.</p>
     </div>
   </div></div>
   <div class="steps">
@@ -522,8 +505,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <li class="tl-i free"><span class="tl-y">2017</span><span class="tl-n"><b>Volcano Bay</b>Opens with no physical lines</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
       <li class="tl-i later" data-on="1"><span class="tl-y">2021</span><span class="tl-n"><b>Genie+ / Lightning Lane</b>Replace free FastPass</span><span class="chip c-paid">Paid</span></li>
       <li class="tl-i free"><span class="tl-y">2023</span><span class="tl-n"><b>Tokyo Priority Pass</b>Free line-skipping returns</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
-      <li class="tl-i later" data-on="1"><span class="tl-y">2025</span><span class="tl-n"><b>Volcano Bay</b>Ends its virtual lines</span><span class="chip c-end">Ended</span></li>
-      <li class="tl-i later" data-on="1"><span class="tl-y">2026</span><span class="tl-n"><b>Tokyo Disney</b>Ends its free Priority Pass</span><span class="chip c-end">Ended</span></li>
     </ol>
   </div></div>
   <div class="steps">
@@ -536,18 +517,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="panel dark-panel" id="s-money">
   <div class="hero-num" id="moneyNum" aria-label="$724,000,000">$0</div>
   <p class="lede reveal">That's what paid line-skipping made at Walt Disney World alone, in under three years. The figure comes from a leaked internal spreadsheet.<sup><a href="#src-6">6</a></sup></p>
-</section>
-
-<!-- ============ Beat 7 · Price ladder ============ -->
-<section class="panel reveal" id="s-ladder">
-  <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">The price of skipping</h2>
-  <div class="ladder" role="img" aria-label="Multi Pass from $25 to $42 a day; Premier Pass up to $449 per person.">
-    <div class="rung" title="Multi Pass, low end: $25"><span class="v">$25</span><div class="bar" style="--h:5.6;--i:0"></div></div>
-    <div class="rung" title="Multi Pass, high end: $42"><span class="v">$42</span><div class="bar" style="--h:9.4;--i:1"></div></div>
-    <div class="rung" title="Premier Pass, Magic Kingdom: $449"><span class="v">$449</span><div class="bar" style="--h:100;--i:2"></div></div>
-  </div>
-  <div class="rung-labels"><span>Multi Pass<br>low</span><span>Multi Pass<br>high</span><span>Premier Pass<br>per person</span></div>
-  <p class="lede">All of it on top of a park ticket.<sup><a href="#src-7">7</a></sup> The technology works. Parks have chosen to sell it as a way out of a line they built.</p>
+  <p class="lede reveal">Skipping costs $25 to $42 a day, or up to $449 for a premier pass, on top of a park ticket.<sup><a href="#src-7">7</a></sup> The technology works. Parks have chosen to sell it as a way out of a line they built.</p>
 </section>
 
 <!-- ============ Chapter 2 ============ -->
@@ -626,41 +596,10 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
         </ul>
         <div class="btn">Plan my day</div>
       </div>
-      <div class="scr" data-only="1">
-        <h4>Your plan</h4><p class="sub">Built around lunch and the parade.</p>
-        <ul class="plan">
-          <li><span class="t">9:40 AM</span><span class="r">Space Mountain</span></li>
-          <li><span class="t">10:25 AM</span><span class="r">Matterhorn Bobsleds</span></li>
-          <li><span class="t">11:10 AM</span><span class="r p">Pirate's Lair</span></li>
-          <li><span class="t">12:15 PM</span><span class="r f">Lunch</span></li>
-          <li><span class="t">1:30 PM</span><span class="r">Indiana Jones Adventure</span></li>
-          <li><span class="t">2:20 PM</span><span class="r">Rise of the Resistance</span></li>
-          <li><span class="t">3:30 PM</span><span class="r">Haunted Mansion</span></li>
-        </ul>
-      </div>
-      <div class="scr lock" data-only="2">
-        <div class="clock">9:30</div><div class="date">Saturday</div>
-        <div class="notif"><span class="ic"></span><span><b>Space Mountain</b>Ready for you in 10 min. It's a 4-minute walk.</span></div>
-      </div>
-      <div class="scr" data-only="3">
-        <h4>Your plan</h4><p class="sub">Updated just now</p>
-        <div class="alert"><b>Indiana Jones Adventure</b> is temporarily closed. We moved you to 3:15 PM.</div>
-        <ul class="plan">
-          <li><span class="t">12:15 PM</span><span class="r f">Lunch</span></li>
-          <li><span class="t moved">1:30 PM</span><span class="r moved">Indiana Jones Adventure</span></li>
-          <li><span class="t">1:30 PM</span><span class="r p">Wand-casting, Main St.</span></li>
-          <li><span class="t">2:20 PM</span><span class="r">Rise of the Resistance</span></li>
-          <li><span class="t new">3:15 PM</span><span class="r new">Indiana Jones Adventure</span></li>
-          <li><span class="t">3:30 PM</span><span class="r">Haunted Mansion</span></li>
-        </ul>
-      </div>
     </div></div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Tell the park what you want to ride. It works out when.</p></div></div>
-    <div class="step"><div class="card"><p>The app builds your day around meals and shows.</p></div></div>
-    <div class="step"><div class="card"><p>Your phone tells you when to walk over. Each ride keeps a short buffer line so it always runs full.</p></div></div>
-    <div class="step"><div class="card"><p>If a ride breaks down or your lunch runs long, the plan adjusts.</p><p>Pre-shows stay wherever they make the ride better.</p></div></div>
   </div>
 </section>
 
@@ -673,9 +612,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- ============ Beat 11 · Cost/Enjoyment ============ -->
 <section class="scrolly" id="s-ce">
   <div class="stage"><div class="viz">
-    <svg class="ce" viewBox="0 0 600 440" role="img" aria-label="Chart of cost to build against guest enjoyment. Rides: high cost, high enjoyment. Themed queues: high cost, negative enjoyment. Lawns and play areas: low cost, high enjoyment.">
+    <svg class="ce" viewBox="0 0 600 440" role="img" aria-label="Chart of cost to build against guest enjoyment. Rides: high cost, high enjoyment. Themed queues: high cost, negative enjoyment. Play areas: low cost, high enjoyment.">
       <rect x="84" y="240.5" width="496" height="151.5" fill="var(--neg)"/>
-      <line class="grid" x1="84" x2="580" y1="132" y2="132"/>
       <line class="grid" x1="332" x2="332" y1="24" y2="392"/>
       <line class="ax" x1="84" x2="84" y1="24" y2="392"/>
       <line class="ax" x1="84" x2="580" y1="240.5" y2="240.5"/>
@@ -686,16 +624,15 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <text class="lbl" x="580" y="420" text-anchor="end">Cost to build →</text>
       <text class="qlbl" x="96" y="44">Best value</text>
       <text class="qlbl" x="570" y="378" text-anchor="end">Worst value</text>
-      <g class="pt" id="ptRide" data-on="0"><title>Ride: high cost, high enjoyment</title><circle cx="505.6" cy="63" r="10" fill="var(--ride)"/><text class="plbl" x="505.6" y="96" text-anchor="middle">Ride</text></g>
-      <g class="pt" id="ptQueue" data-on="1"><title>Themed queue: high cost, negative enjoyment</title><circle cx="421.3" cy="348.7" r="10" fill="var(--wait)"/><text class="plbl" x="407" y="354" text-anchor="end">Themed queue</text></g>
-      <g class="pt" id="ptLawn" data-on="2"><title>Lawn: almost free, decent enjoyment</title><circle cx="113.8" cy="136.6" r="10" fill="var(--rest)"/><text class="plbl" x="129" y="142">Lawn</text></g>
-      <g class="pt" id="ptPlay" data-on="2"><title>Play area: low cost, high enjoyment</title><circle cx="203" cy="67.3" r="10" fill="var(--play)"/><text class="plbl" x="219" y="73">Play area</text></g>
+      <g class="pt" id="ptRide" data-on="0"><title>Ride: high cost, high enjoyment</title><circle cx="456" cy="132" r="10" fill="var(--ride)"/><text class="plbl" x="456" y="164" text-anchor="middle">Ride</text></g>
+      <g class="pt" id="ptQueue" data-on="1"><title>Themed queue: high cost, negative enjoyment</title><circle cx="456" cy="316" r="10" fill="var(--wait)"/><text class="plbl" x="456" y="348" text-anchor="middle">Themed queue</text></g>
+      <g class="pt" id="ptPlay" data-on="2"><title>Play area: low cost, high enjoyment</title><circle cx="208" cy="132" r="10" fill="var(--play)"/><text class="plbl" x="208" y="164" text-anchor="middle">Play area</text></g>
     </svg>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p>Judge everything a park builds by one number: <b>dollars per enjoyment</b>. How much did it cost, and how much do guests actually enjoy it?</p><p>Rides score well.</p></div></div>
     <div class="step"><div class="card"><p>Queues are the worst-value thing in the park: expensive to build, and miserable to be in.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Lawns and play areas score brilliantly.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Play areas score brilliantly.</p></div></div>
   </div>
 </section>
 
@@ -1033,13 +970,8 @@ onScroll();
   heroQ.innerHTML = rails + posts + dots + sign;
 })();
 
-/* ---------- 1955 mini queue ---------- */
-(() => {
-  const mq = $('#miniQueue'); let h = '';
-  for (let i = 0; i < 64; i++) h += `<i class="${i >= 22 ? 'late' : ''}" style="--i:${i - 22}"></i>`;
-  mq.innerHTML = h;
-  hooks['s-years'] = (i, sc) => sc.classList.toggle('on-1', i >= 1);
-})();
+/* ---------- 1955 → Today ---------- */
+hooks['s-years'] = (i, sc) => sc.classList.toggle('on-1', i >= 1);
 
 /* ---------- Day bar ---------- */
 const RIDES = ['Space Mountain', 'Indiana Jones Adventure', 'Matterhorn Bobsleds', 'Big Thunder Mountain', 'Haunted Mansion', 'Pirates of the Caribbean', 'Rise of the Resistance', 'Smugglers Run'];
@@ -1179,6 +1111,8 @@ $$('.people').forEach(p => {
   const home = () => [W * .05 + rnd() * (gate.x - W * .05 - 50), H * .1 + rnd() * H * .8];
   const dots = [];
   for (let k = 0; k < N; k++) dots.push({ x: 0, y: 0, tx: 0, ty: 0, st: 'q', q: k, a: 1, turn: k });
+  // Spares refill the tail of the line the moment someone boards, so the line never shows a gap.
+  for (let k = 0; k < 2; k++) dots.push({ x: 0, y: 0, tx: 0, ty: 0, st: 'spare', a: 0, turn: N + k });
   function retarget(snap) {
     dots.forEach(d => {
       if (d.st === 'q') [d.tx, d.ty] = qPos(d.q);
@@ -1210,6 +1144,8 @@ $$('.people').forEach(p => {
       if (!d) return;
       d.st = 'ride'; d.tx = gate.x + gate.w / 2; d.ty = H / 2;
       dots.forEach(o => { if (o.st === 'q') { o.q--; } });
+      const sp = dots.find(o => o.st === 'spare');
+      if (sp) { sp.st = 'q'; sp.q = dots.filter(o => o.st === 'q').length - 1; [sp.x, sp.y] = qPos(sp.q); sp.a = 0; }
       retarget(false);
     } else {
       const idle = dots.filter(d => d.st === 'idle').sort((a, b) => a.turn - b.turn)[0];
@@ -1218,7 +1154,7 @@ $$('.people').forEach(p => {
   }
   function respawn(d) {
     d.a = 0;
-    if (mode === 0) { d.st = 'q'; d.q = dots.filter(o => o.st === 'q').length; [d.tx, d.ty] = qPos(d.q); d.x = d.tx - 30; d.y = d.ty; }
+    if (mode === 0) { d.st = 'spare'; }
     else { d.st = 'idle'; [d.hx, d.hy] = home(); d.tx = d.hx; d.ty = d.hy; d.x = gate.x + gate.w / 2; d.y = gate.y + gate.h + 6; d.turn = ++turn + N; }
   }
   function update(dt) {
@@ -1232,6 +1168,7 @@ $$('.people').forEach(p => {
         else { const m = Math.min(dist, speed * dt); d.x += dx / dist * m; d.y += dy / dist * m; }
       } else { d.x += (d.tx - d.x) * k; d.y += (d.ty - d.y) * k; }
       if (d.st === 'idle') { d.tx = d.hx + Math.sin((performance.now() / 900) + d.turn) * 4; }
+      if (d.st === 'spare') return;
       if (d.st === 'ride') { d.a -= dt / 450; if (d.a <= 0) respawn(d); }
       else if (d.a < 1) d.a = Math.min(1, d.a + dt / 400);
     });
