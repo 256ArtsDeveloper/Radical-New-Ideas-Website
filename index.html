@@ -59,6 +59,13 @@ a { color: inherit; text-decoration: none; }
 .bar .f { background: var(--food); }
 .article:hover .bar .w.p, .article:focus-visible .bar .w.p { background: var(--play); }
 .article:hover .bar .w.s, .article:focus-visible .bar .w.s { background: var(--rest); }
+/* Card art for the modular society article: one fused block that splits into separate services on hover. */
+.art.mod { padding: 10%; }
+.mods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-radius: 14px; overflow: hidden; transition: gap .6s cubic-bezier(.2,.7,.2,1); }
+.mods i { aspect-ratio: 1; background: var(--wait); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--track) 60%, transparent); transition: background-color .6s ease, border-radius .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s; transition-delay: calc(var(--d) * 40ms); }
+.article:hover .mods, .article:focus-visible .mods { gap: 8px; overflow: visible; }
+.article:hover .mods i, .article:focus-visible .mods i { border-radius: 10px; background: var(--c); box-shadow: none; }
+.article:hover .mods i:nth-child(odd), .article:focus-visible .mods i:nth-child(odd) { transform: translateY(-4px); }
 .meta { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--ride); }
 .article h3 { margin-top: 12px; font-size: clamp(30px, 4.4vw, 52px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
 .article p { margin-top: 14px; font-size: clamp(17px, 1.7vw, 20px); color: var(--ink2); line-height: 1.45; max-width: 36ch; }
@@ -85,6 +92,15 @@ footer { border-top: 1px solid var(--hair); padding: 28px 16px 48px; text-align:
   <div class="list-h"><h2>Articles</h2><span id="count"></span></div>
 
   <div class="articles" id="articles">
+    <a class="article" href="articles/modular-society/">
+      <div>
+        <span class="meta">Society · November 2026</span>
+        <h3>Modular Society</h3>
+        <p>Every healthy system needs a pressure valve. What if leaving your government were as easy as switching banks?</p>
+        <div class="foot"><span class="go">Read →</span></div>
+      </div>
+      <div class="art mod" aria-hidden="true"><div class="mods"><i style="--d:0;--c:var(--ride)"></i><i style="--d:1;--c:var(--play)"></i><i style="--d:2;--c:var(--food)"></i><i style="--d:3;--c:var(--rest)"></i><i style="--d:4;--c:var(--rest)"></i><i style="--d:5;--c:var(--ride)"></i><i style="--d:6;--c:var(--play)"></i><i style="--d:7;--c:var(--food)"></i></div></div>
+    </a>
     <a class="article" href="articles/theme-park-design-is-outdated/">
       <div>
         <span class="meta">Theme parks · November 2026</span>
