@@ -183,14 +183,14 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ck-state.bad { color: var(--bad); } .ck-state.good { color: var(--good); }
 
 /* ---------- Valve pills ---------- */
-.pills { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 10px; max-width: 640px; }
-.pill { border-radius: 999px; padding: .42em .95em; font-weight: 650; letter-spacing: -.01em; line-height: 1.2; white-space: nowrap; background: color-mix(in srgb, var(--ride) 11%, var(--surface)); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ride) 22%, transparent); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1), filter .5s; transition-delay: calc(var(--i, 0) * 40ms); }
+.pills { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; align-items: center; gap: 10px; max-width: 640px; }
+.pill { display: inline-flex; align-items: center; justify-content: center; text-align: center; border-radius: 999px; padding: .42em .95em; font-weight: 650; letter-spacing: -.01em; line-height: 1.2; white-space: nowrap; background: color-mix(in srgb, var(--ride) 11%, var(--surface)); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ride) 22%, transparent); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1), filter .5s; transition-delay: calc(var(--i, 0) * 40ms); }
 .pill.l { font-size: clamp(17px, 2.1vw, 26px); }
 .pill.m { font-size: clamp(14px, 1.45vw, 18px); }
 .pill.s { font-size: clamp(12px, 1.1vw, 14px); color: var(--ink2); }
 .pill.shady { background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border: 1.5px dashed color-mix(in srgb, var(--bad) 55%, transparent); }
 .scrolly[data-step="2"] .pill.ok { opacity: .3; }
-@media (max-width: 899px) { .pills { gap: 6px; } .pill.l { font-size: 15px; } .pill.m { font-size: 13px; } .pill.s { font-size: 11px; } }
+@media (max-width: 899px) { .pills { gap: 5px; } .pill { padding: .36em .8em; } .pill.l { font-size: 13.5px; } .pill.m { font-size: 11.5px; } .pill.s { font-size: 10px; } }
 
 /* ---------- Rules table ---------- */
 .rules { width: 100%; max-width: 900px; margin-top: 44px; border-collapse: collapse; text-align: left; font-size: clamp(14px, 1.5vw, 18px); }
@@ -518,19 +518,19 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="panel reveal" id="s-rules">
   <h2 class="title">Every valve has its own rules.</h2>
   <table class="rules">
-    <thead><tr><th>Valve</th><th>When you can use it</th><th>Who decides if it works</th></tr></thead>
+    <thead><tr><th>Valve</th><th>When you can use it</th></tr></thead>
     <tbody>
-      <tr style="--i:0"><td>Voting</td><td>Once every few years</td><td>The majority, for everyone</td></tr>
-      <tr style="--i:1"><td>Campaigning</td><td>Election season</td><td>Other voters</td></tr>
-      <tr style="--i:2"><td>Protesting</td><td>With a permit, in some places</td><td>Nobody, officially</td></tr>
-      <tr style="--i:3"><td>Quitting your job</td><td>After two weeks' notice</td><td>You</td></tr>
-      <tr style="--i:4"><td>Cancelling a service</td><td>Anytime, or when the contract ends</td><td>You, plus a fee</td></tr>
-      <tr style="--i:5"><td>Downgrading</td><td>Next billing cycle</td><td>You</td></tr>
-      <tr style="--i:6"><td>Leaving a review</td><td>Anytime</td><td>Strangers reading it</td></tr>
-      <tr style="--i:7"><td>Telling friends</td><td>Anytime</td><td>Your friends</td></tr>
-      <tr style="--i:8" class="sh"><td>Half-assing work</td><td>Until your boss notices</td><td>Your boss</td></tr>
-      <tr style="--i:9" class="sh"><td>Pirating</td><td>Until you get caught</td><td>The courts</td></tr>
-      <tr style="--i:10"><td>Moving countries</td><td>If you get a visa</td><td>Another government</td></tr>
+      <tr style="--i:0"><td>Voting</td><td>Once every few years</td></tr>
+      <tr style="--i:1"><td>Campaigning</td><td>Election season</td></tr>
+      <tr style="--i:2"><td>Protesting</td><td>With a permit, in some places</td></tr>
+      <tr style="--i:3"><td>Quitting your job</td><td>After two weeks' notice</td></tr>
+      <tr style="--i:4"><td>Cancelling a service</td><td>Anytime, or when the contract ends</td></tr>
+      <tr style="--i:5"><td>Downgrading</td><td>Next billing cycle</td></tr>
+      <tr style="--i:6"><td>Leaving a review</td><td>Anytime</td></tr>
+      <tr style="--i:7"><td>Telling friends</td><td>Anytime</td></tr>
+      <tr style="--i:8" class="sh"><td>Half-assing work</td><td>Until your boss notices</td></tr>
+      <tr style="--i:9" class="sh"><td>Pirating</td><td>Until you get caught</td></tr>
+      <tr style="--i:10"><td>Moving countries</td><td>If you get a visa</td></tr>
     </tbody>
   </table>
   <p class="lede">Deadlines, forms, gatekeepers. Most people never learn them all, so most pressure never gets out.</p>
@@ -539,11 +539,11 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- Backwards -->
 <section class="scrolly" id="s-switch">
   <div class="stage"><div class="viz">
-    <svg class="swc" id="swc" viewBox="0 0 520 440" role="img" aria-label="Rough time it takes to leave: a streaming app in a tap, a phone plan in a day, a bank in a week, a job in two weeks; your kid's school means moving house, laws and taxes wait for the next election, and a country takes years and a visa."></svg>
+    <svg class="swc" id="swc" viewBox="0 0 520 440" role="img" aria-label="Rough time it takes to leave: a streaming app in a few minutes, a phone plan in a day, a bank in a week; a new job takes months of searching, your kid's school means moving house, laws and taxes wait for the next election, and a country takes years and a visa."></svg>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p>The smallest things in your life are the easiest to leave. Your streaming app cancels in a tap.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Your laws, taxes and police take years to change, or a visa to escape.</p></div></div>
+    <div class="step"><div class="card"><p>The smallest things in your life are the easiest to leave. You can cancel a streaming app in a few minutes, and switch banks in a week.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Changing jobs takes months of searching. Your laws, taxes and police take years to change, or a visa to escape.</p></div></div>
     <div class="step"><div class="card"><p class="big">Big bundles are rigid.</p><p>When everything comes in one package, nothing can change without changing it all. So it falls behind what people need.</p><p class="fine">Switching times are rough, illustrative estimates.</p></div></div>
   </div>
 </section>
@@ -998,11 +998,11 @@ hooks['s-pressure'] = (i, sc) => {
 (() => {
   const svg = $('#swc');
   const ROWS = [
-    ['Streaming app', 'One tap', 5, 'sm'],
+    ['Streaming app', 'A few minutes', 300, 'sm'],
     ['Phone plan', 'About a day', 86400, 'sm'],
     ['Bank', 'About a week', 604800, 'sm'],
-    ['Job', "Two weeks' notice", 1209600, 'sm'],
-    ["Your kid's school", 'Move house', 7776000, 'bg'],
+    ['Switching jobs', 'Months of job hunting', 7889400, 'bg'],
+    ["Your kid's school", 'Move house', 15778800, 'bg'],
     ['Laws & taxes', 'Wait for the next election', 126230400, 'bg', true],
     ['Your country', 'Years, if you get a visa', 157788000, 'bg']
   ];
@@ -1019,7 +1019,7 @@ hooks['s-pressure'] = (i, sc) => {
     const y = y0 + k * RH;
     h += `<g class="row${key ? ' key' : ''}"><text class="nm" x="0" y="${y + 22}">${n}</text><text class="vl" x="0" y="${y + 40}">${v}</text>`;
     h += `<rect x="${X0}" y="${y + 14}" width="${X1 - X0}" height="24" rx="6" fill="var(--track)"/>`;
-    h += `<rect class="bar ${kind}" data-on="${kind === 'sm' ? 0 : 1}" style="--i:${kind === 'sm' ? k : k - 4}" x="${X0}" y="${y + 14}" width="${Math.max(6, x(s) - X0)}" height="24" rx="6"/></g>`;
+    h += `<rect class="bar ${kind}" data-on="${kind === 'sm' ? 0 : 1}" style="--i:${kind === 'sm' ? k : k - 3}" x="${X0}" y="${y + 14}" width="${Math.max(6, x(s) - X0)}" height="24" rx="6"/></g>`;
   });
   h += `<text class="bundle-note" x="${X1}" y="${bottom + 44}" text-anchor="end">Courts, police, schools and roads, all in one package</text>`;
   svg.innerHTML = h;
