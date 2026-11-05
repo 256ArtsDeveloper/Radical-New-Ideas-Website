@@ -91,8 +91,8 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .scrolly { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; max-width: 1320px; margin: 0 auto; padding: 0 max(24px, 4vw); }
 .stage { grid-column: 2; grid-row: 1; align-self: start; position: sticky; top: 0; height: 100svh; }
 .viz { position: absolute; inset: 14svh 0 10svh; display: flex; align-items: center; justify-content: center; }
-.steps { grid-column: 1; grid-row: 1; padding: 14svh 0 22svh; }
-.step { min-height: 32svh; display: flex; align-items: center; }
+.steps { grid-column: 1; grid-row: 1; padding: 10svh 0 16svh; }
+.step { min-height: 24svh; display: flex; align-items: center; }
 .card { max-width: 480px; font-size: 19px; line-height: 1.6; color: var(--ink); }
 .card p + p { margin-top: .7em; }
 .card .big { font-size: 26px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
@@ -106,14 +106,14 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
   .stage { position: sticky; top: 48px; height: 50svh; z-index: 3; background: var(--bg); }
   .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: -28px; height: 28px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
   .viz { inset: 16px 16px 8px; }
-  .steps { padding: 4svh 20px 24svh; }
-  .step { min-height: 30svh; align-items: flex-start; }
+  .steps { padding: 4svh 20px 16svh; }
+  .step { min-height: 22svh; align-items: flex-start; }
   .card { font-size: 17px; }
   .card .big { font-size: 22px; }
 }
 
 /* ---------- Panels ---------- */
-.panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: clamp(72px, 12vw, 128px) 16px; text-align: center; }
+.panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: clamp(56px, 8vw, 96px) 16px; text-align: center; }
 .panel .lede { max-width: 640px; margin: 24px auto 0; color: var(--ink2); font-size: clamp(19px, 2vw, 23px); line-height: 1.45; }
 .chapter { padding-bottom: clamp(24px, 4vw, 48px); }
 .chapter .num { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--ride); }
