@@ -1,0 +1,1424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Theme Park Design Is Outdated</title>
+<meta name="description" content="Queues ration ride capacity with guests' time. Reservations can do it with a schedule — and the business model doesn't even need to change.">
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  color-scheme: light;
+  --bg: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --hair: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,.10); --card: rgba(252,252,251,.84);
+  --track: #efeee9; --wait: #b4b2a9; --neg: rgba(227,73,72,.07);
+  --ride: #2a78d6; --food: #eb6834; --play: #1baf7a; --rest: #eda100;
+  --free: #008300; --paid: #eda100; --ok: #006300;
+  --stone: #e4dac8; --stone2: #cbbda3; --wood: #8a5a3b; --gold: #c9a227; --glass: #cfe9de; --leaf: #2f8f57; --fire: #f08a24; --wine: #8c3b2f; --board: #2f4a3a;
+  --grass: #8cc66d; --grass2: #6fae52; --sky: #eaf3fb;
+  --sign: #15140f; --led: #ffb020;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --hair: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10); --card: rgba(26,26,25,.80);
+    --track: #222220; --wait: #57564f; --neg: rgba(230,103,103,.10);
+    --ride: #3987e5; --food: #d95926; --play: #199e70; --rest: #c98500;
+    --free: #0ca30c; --paid: #c98500; --ok: #0ca30c;
+    --stone: #3b352c; --stone2: #4d4538; --wood: #6b4630; --gold: #b8932a; --glass: #24423a; --leaf: #2f8f57; --wine: #5e2a22; --board: #1f3328;
+    --grass: #3f6b33; --grass2: #335a2a; --sky: #15202b;
+    --sign: #000; --led: #ffb020;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --hair: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10); --card: rgba(26,26,25,.80);
+  --track: #222220; --wait: #57564f; --neg: rgba(230,103,103,.10);
+  --ride: #3987e5; --food: #d95926; --play: #199e70; --rest: #c98500;
+  --free: #0ca30c; --paid: #c98500; --ok: #0ca30c;
+  --stone: #3b352c; --stone2: #4d4538; --wood: #6b4630; --gold: #b8932a; --glass: #24423a; --leaf: #2f8f57; --wine: #5e2a22; --board: #1f3328;
+  --grass: #3f6b33; --grass2: #335a2a; --sky: #15202b;
+  --sign: #000; --led: #ffb020;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 19px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--ride); text-decoration: none; }
+a:hover { text-decoration: underline; }
+sup a { font-size: .62em; font-weight: 600; padding: 0 .15em; }
+b, strong { font-weight: 650; }
+h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
+
+/* ---------- Nav ---------- */
+.nav { position: fixed; inset: 0 0 auto 0; height: 48px; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0 max(16px, env(safe-area-inset-left)); background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: saturate(1.8) blur(20px); backdrop-filter: saturate(1.8) blur(20px); border-bottom: 1px solid var(--ring); font-size: 14px; }
+.nav .brand { font-weight: 650; letter-spacing: -.01em; color: var(--ink); }
+.nav .meta { color: var(--muted); }
+.progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--ride); transform-origin: left; transform: scaleX(0); }
+
+/* ---------- Hero ---------- */
+.hero { height: 190svh; position: relative; }
+.hero-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+.hero-queue { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 30%; will-change: transform; }
+.hero-queue .rail { stroke: var(--axis); stroke-width: 3; stroke-linecap: round; fill: none; }
+.hero-queue .post { fill: var(--axis); }
+.hero-queue .g { fill: var(--ink2); }
+.hero-scrim { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 48% at 50% 52%, var(--bg) 30%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 100%); }
+.hero-copy { position: relative; text-align: center; padding: 0 16px; max-width: 980px; }
+.eyebrow { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hero h1 { font-size: clamp(46px, 9vw, 116px); margin: 14px 0 20px; }
+.dek { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink2); max-width: 680px; margin: 0 auto; line-height: 1.35; }
+.scroll-hint { margin-top: 44px; font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.scroll-hint::after { content: ""; display: block; width: 1px; height: 36px; background: var(--muted); margin: 10px auto 0; animation: hint 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ---------- Scrolly ---------- */
+.scrolly { position: relative; }
+.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.viz { position: absolute; display: flex; align-items: center; justify-content: center; }
+.steps { position: relative; z-index: 2; margin-top: -100svh; pointer-events: none; }
+.step { min-height: 100svh; display: flex; }
+.step:last-child { margin-bottom: 30svh; }
+.card { pointer-events: auto; max-width: 400px; background: var(--card); -webkit-backdrop-filter: blur(24px) saturate(1.5); backdrop-filter: blur(24px) saturate(1.5); border: 1px solid var(--ring); border-radius: 22px; padding: 22px 24px; box-shadow: 0 12px 40px rgba(0,0,0,.07); opacity: .35; transition: opacity .45s ease; }
+.step.active .card { opacity: 1; }
+.card p + p { margin-top: .7em; }
+.card .big { font-size: 27px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
+.card .fine { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.card.aside { background: color-mix(in srgb, var(--track) 85%, transparent); }
+.card.aside .tag { display: inline-block; font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.quote { font-style: italic; }
+
+@media (min-width: 900px) {
+  .viz { top: 50%; right: max(3vw, calc((100vw - 1320px) / 2)); width: min(58vw, 780px); height: min(78svh, 640px); transform: translateY(-50%); }
+  .step { align-items: center; padding-left: max(5vw, calc((100vw - 1320px) / 2)); }
+  .viz.center { right: auto; left: 50%; transform: translate(-50%, -50%); }
+}
+@media (max-width: 899px) {
+  body { font-size: 17px; }
+  .viz { left: 16px; right: 16px; top: 60px; height: calc(56svh - 60px); }
+  .step { align-items: flex-end; justify-content: center; padding: 0 16px 5svh; }
+  .card { padding: 18px 20px; border-radius: 20px; }
+  .card .big { font-size: 23px; }
+}
+
+/* ---------- Panels ---------- */
+.panel { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 96px 16px; text-align: center; }
+.panel .lede { max-width: 640px; margin: 24px auto 0; color: var(--ink2); font-size: clamp(19px, 2vw, 23px); line-height: 1.45; }
+.chapter { min-height: 80svh; }
+.chapter .num { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--ride); }
+.chapter h2 { font-size: clamp(40px, 7vw, 88px); margin-top: 14px; max-width: 14ch; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---------- 1955 ---------- */
+.years { text-align: center; width: 100%; }
+.year { font-size: clamp(90px, 18vw, 230px); font-weight: 800; letter-spacing: -.05em; line-height: .9; position: relative; height: 1em; }
+.year span { position: absolute; inset: 0; transition: opacity .6s ease, transform .6s ease; }
+.year .y2 { opacity: 0; transform: translateY(.15em); }
+.on-1 .year .y1 { opacity: 0; transform: translateY(-.15em); }
+.on-1 .year .y2 { opacity: 1; transform: none; }
+.mini-queue { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 40px auto 0; max-width: 520px; }
+.mini-queue i { width: 10px; height: 10px; border-radius: 50%; background: var(--ink2); transition: opacity .4s ease, transform .4s ease; transition-delay: calc(var(--i) * 12ms); }
+.mini-queue i.late { opacity: 0; transform: scale(.3); }
+.on-1 .mini-queue i.late { opacity: 1; transform: none; }
+.mini-queue + .cap { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+/* ---------- Day bar ---------- */
+.daybar { width: 100%; }
+.db-head { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; min-height: 64px; }
+.db-stat { display: flex; flex-direction: column; gap: 2px; }
+.db-k { font-size: 13px; color: var(--ink2); display: flex; align-items: center; gap: 8px; }
+.db-v { font-size: clamp(30px, 4.4vw, 52px); font-weight: 700; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.sw { width: 12px; height: 12px; border-radius: 4px; display: inline-block; flex: none; }
+.sw.k-wait { background: var(--wait); } .sw.k-ride { background: var(--ride); } .sw.k-food { background: var(--food); } .sw.k-play { background: var(--play); } .sw.k-rest { background: var(--rest); }
+.db-stat.fun { display: none; }
+.daybar.better .db-stat.fun { display: flex; }
+.daybar.better .db-stat.waitstat .db-v { color: var(--muted); }
+.db-track { position: relative; height: clamp(56px, 9vw, 84px); border-radius: 14px; background: var(--track); overflow: hidden; }
+.seg { position: absolute; top: 0; bottom: 0; border-radius: 4px; transform-origin: left center; cursor: default; transition: transform .55s cubic-bezier(.2,.7,.2,1), background-color .7s ease, opacity .4s ease; transition-delay: calc(var(--d) * 1ms), calc(var(--d) * .5ms), 0ms; }
+.daybar:not(.filled) .seg { transform: scaleX(0); }
+.seg.k-wait { background: var(--wait); } .seg.k-ride { background: var(--ride); } .seg.k-food { background: var(--food); } .seg.k-play { background: var(--play); } .seg.k-rest { background: var(--rest); }
+.daybar.emph .seg:not(.k-wait) { opacity: .25; }
+.db-axis { position: relative; height: 22px; margin-top: 8px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.db-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.db-axis span:first-child { transform: none; } .db-axis span:last-child { transform: translateX(-100%); }
+.db-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 14px; font-size: 13px; color: var(--ink2); }
+.db-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.db-legend .lg-better { display: none; }
+.daybar.better .db-legend .lg-today { display: none; }
+.daybar.better .db-legend .lg-better { display: inline-flex; }
+.db-callout { margin-top: 14px; font-size: 15px; font-weight: 600; color: var(--ink); opacity: 0; transition: opacity .5s; }
+.daybar.emph .db-callout { opacity: 1; }
+.db-note { margin-top: 10px; font-size: 12px; color: var(--muted); }
+.tip { position: fixed; z-index: 60; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--ring); box-shadow: 0 8px 24px rgba(0,0,0,.12); border-radius: 10px; padding: 8px 10px; font-size: 13px; line-height: 1.35; opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s; max-width: 240px; }
+.tip.show { opacity: 1; transform: none; }
+.tip b { display: block; }
+.tip span { color: var(--ink2); }
+
+/* ---------- Wait sign ---------- */
+.sign { background: var(--sign); color: var(--led); border-radius: 28px; padding: 34px 48px 30px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.25), inset 0 0 0 6px #2a2820; min-width: min(420px, 90%); }
+.sign .nm { color: #d8d4c6; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+.sign .dig { font-family: var(--mono); font-size: clamp(96px, 15vw, 170px); font-weight: 700; line-height: 1; letter-spacing: -.04em; text-shadow: 0 0 24px rgba(255,176,32,.55); font-variant-numeric: tabular-nums; margin: 10px 0 0; }
+.sign .unit { font-family: var(--mono); font-size: 24px; letter-spacing: .3em; }
+.sign .peak { display: inline-block; margin-top: 16px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: #15140f; background: var(--led); border-radius: 999px; padding: 4px 12px; opacity: 0; transition: opacity .4s; }
+.sign.peaking .peak { opacity: 1; }
+
+/* ---------- Pictogram ---------- */
+.picto { display: grid; gap: 34px; margin-top: 48px; }
+.picto-row { display: grid; grid-template-columns: 90px auto 70px; align-items: center; gap: 18px; text-align: left; }
+.picto-row .lab { font-size: 15px; color: var(--ink2); font-weight: 600; }
+.people { display: flex; gap: clamp(4px, 1.2vw, 12px); }
+.person { width: clamp(20px, 4.5vw, 40px); height: auto; color: var(--hair); transition: color .5s ease; transition-delay: calc(var(--i) * 90ms); }
+.in .person.lit { color: var(--ink); }
+.picto-row .pct { font-size: clamp(26px, 4vw, 40px); font-weight: 700; letter-spacing: -.03em; }
+@media (max-width: 600px) { .picto-row { grid-template-columns: 1fr; gap: 8px; text-align: center; } .people { justify-content: center; } }
+
+/* ---------- Timeline ---------- */
+.tl { list-style: none; width: 100%; max-width: 640px; }
+.tl-i { display: grid; grid-template-columns: 60px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--hair); transition: opacity .5s ease, max-height .6s ease, padding .6s ease; max-height: 80px; overflow: hidden; }
+.tl-i.later { max-height: 0; padding: 0; opacity: 0; border-bottom-width: 0; }
+.tl-i.later.on { max-height: 80px; padding: 12px 0; opacity: 1; border-bottom-width: 1px; }
+.tl-y { font-size: 15px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl-n { font-size: 15px; color: var(--ink2); line-height: 1.3; }
+.tl-n b { color: var(--ink); display: block; font-size: 17px; }
+.chip { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.c-free { color: #fff; background: var(--free); }
+.chip.c-paid { color: #0b0b0b; background: var(--paid); }
+.chip.c-end { color: var(--ink); background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink2); }
+.tl-i .chip.c-gone { display: none; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--axis); }
+@media (max-width: 899px) { .tl-i, .tl-i.later.on { padding: 7px 0; } .tl-n { font-size: 13px; } .tl-n b { font-size: 15px; } .tl-y { font-size: 13px; } }
+.scrolly[data-step="1"] .tl-i.free { opacity: .5; }
+.scrolly[data-step="1"] .tl-i.free b { text-decoration: line-through; text-decoration-thickness: 2px; }
+.scrolly[data-step="1"] .tl-i.free .c-free { display: none; }
+.scrolly[data-step="1"] .tl-i.free .c-gone { display: inline-block; }
+
+/* ---------- Hero number ---------- */
+.hero-num { font-size: clamp(56px, 13vw, 180px); font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.dark-panel { background: #0b0b0b; color: #f0efec; }
+.dark-panel .lede { color: #c3c2b7; }
+.dark-panel .hero-num { background: linear-gradient(180deg, #ffd27a, #eda100); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---------- Price ladder ---------- */
+.ladder { display: flex; align-items: flex-end; justify-content: center; gap: clamp(20px, 6vw, 64px); height: min(52svh, 440px); margin-top: 48px; width: 100%; max-width: 640px; border-bottom: 1px solid var(--axis); }
+.rung { flex: 1; max-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.rung .bar { width: 100%; background: var(--paid); border-radius: 6px 6px 0 0; height: calc(var(--h) * 1%); transform-origin: bottom; transform: scaleY(0); transition: transform 1.1s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 220ms); min-height: 4px; }
+.in .rung .bar { transform: none; }
+.rung .v { font-size: clamp(22px, 3.4vw, 34px); font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+.rung-labels { display: flex; justify-content: center; gap: clamp(20px, 6vw, 64px); width: 100%; max-width: 640px; margin-top: 10px; }
+.rung-labels span { flex: 1; max-width: 120px; font-size: 13px; color: var(--ink2); line-height: 1.3; }
+
+/* ---------- Capacity canvas ---------- */
+.cap-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
+.cap-wrap canvas { flex: 1; width: 100%; min-height: 0; }
+.cap-stats { display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: 1px solid var(--hair); }
+.cap-stats div { display: flex; flex-direction: column; }
+.cap-stats .k { font-size: 13px; color: var(--ink2); }
+.cap-stats .v { font-size: clamp(24px, 3.4vw, 38px); font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.cap-stats .v.zero { color: var(--ok); }
+
+/* ---------- Receipts ---------- */
+.receipts { display: flex; gap: clamp(12px, 3vw, 32px); align-items: flex-start; justify-content: center; width: 100%; }
+.receipt { position: relative; flex: 1; max-width: 330px; background: #fffdf8; color: #1b1a17; font-family: var(--mono); font-size: clamp(11px, 1.35vw, 15px); padding: 22px clamp(14px, 2vw, 24px) 24px; border-radius: 6px 6px 0 0; box-shadow: 0 20px 40px rgba(0,0,0,.12); }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: linear-gradient(135deg, #fffdf8 50%, transparent 50%) 0 0 / 14px 10px repeat-x, linear-gradient(225deg, #fffdf8 50%, transparent 50%) 7px 0 / 14px 10px repeat-x; }
+.rc-h { text-align: center; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 1.05em; }
+.rc-sub { text-align: center; color: #77746b; font-size: .85em; margin: 2px 0 14px; }
+.rc-line { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; opacity: 0; transform: translateY(-6px); transition: opacity .35s ease, transform .35s ease, max-height .5s ease, padding .5s ease; transition-delay: calc(var(--d) * 240ms); max-height: 4em; overflow: hidden; }
+.rc-line.on { opacity: 1; transform: none; }
+.rc-line small { display: block; color: #77746b; font-size: .82em; }
+.rc-line > span:last-child { white-space: nowrap; font-weight: 700; }
+.rc-rule { border-top: 1.5px dashed #b9b4a6; margin: 8px 0; }
+.rc-line.total { font-weight: 700; font-size: 1.1em; }
+.scrolly[data-step="2"] .rc-line.addon { max-height: 0; padding: 0; opacity: .0; }
+.rc-line.wait { position: relative; }
+.rc-line.wait .bad { color: #b23a2c; }
+.stamp { position: absolute; right: -6px; bottom: 14px; transform: rotate(-9deg) scale(1.6); opacity: 0; color: #0e7a2a; border: 3px solid #0e7a2a; border-radius: 8px; padding: 4px 10px; font-weight: 800; font-size: 1.5em; letter-spacing: .04em; transition: opacity .25s ease, transform .35s cubic-bezier(.3,1.6,.5,1); background: rgba(255,253,248,.85); }
+.stamp.on { opacity: 1; transform: rotate(-9deg) scale(1); }
+.noaddon { text-align: center; margin-bottom: 14px; font-size: 13px; font-weight: 650; color: var(--ink2); opacity: 0; transition: opacity .4s; }
+.scrolly[data-step="2"] .noaddon { opacity: 1; }
+.rc-col { display: flex; flex-direction: column; align-items: stretch; flex: 1; max-width: 330px; }
+
+/* ---------- Phone ---------- */
+.phone { height: min(100%, 580px); aspect-ratio: 9 / 19; border-radius: 13% / 6.2%; background: #0b0b0b; padding: 3.2%; box-shadow: 0 30px 80px rgba(0,0,0,.25), inset 0 0 0 2px #333; container-type: size; }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 10.5% / 5%; overflow: hidden; background: var(--surface); font-size: 2.55cqh; }
+.island { position: absolute; top: 2.2%; left: 50%; width: 30%; height: 3.6%; background: #000; border-radius: 99px; transform: translateX(-50%); z-index: 3; }
+.scr { position: absolute; inset: 0; padding: 18% 7% 6%; opacity: 0; transform: translateY(3%); transition: opacity .45s ease, transform .45s ease; }
+.scr.on { opacity: 1; transform: none; }
+.scr h4 { font-size: 1.45em; letter-spacing: -.02em; margin-bottom: .2em; }
+.scr .sub { font-size: .8em; color: var(--ink2); margin-bottom: .9em; }
+.pick { list-style: none; }
+.pick li { display: flex; align-items: center; justify-content: space-between; padding: .55em 0; border-bottom: 1px solid var(--hair); font-size: .88em; }
+.check { width: 1.25em; height: 1.25em; border-radius: 50%; border: 1.5px solid var(--axis); display: grid; place-items: center; flex: none; }
+.check.y { background: var(--ride); border-color: var(--ride); }
+.check.y::after { content: ""; width: .32em; height: .6em; border: solid #fff; border-width: 0 .14em .14em 0; transform: translateY(-.06em) rotate(45deg); }
+.btn { margin-top: 1em; background: var(--ride); color: #fff; text-align: center; border-radius: .8em; padding: .7em; font-weight: 650; font-size: .9em; }
+.plan { list-style: none; }
+.plan li { display: grid; grid-template-columns: 5em 1fr; gap: .4em; align-items: center; padding: .5em 0; font-size: .86em; border-bottom: 1px solid var(--hair); }
+.plan .t { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .9em; }
+.plan .r { display: flex; align-items: center; gap: .45em; }
+.plan .r::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: var(--ride); flex: none; }
+.plan .r.f::before { background: var(--food); }
+.plan .r.p::before { background: var(--play); }
+.plan .moved { text-decoration: line-through; color: var(--muted); }
+.plan .new { color: var(--ride); font-weight: 650; }
+.lock { background: linear-gradient(160deg, #3a6fd8, #7a4cc9 60%, #d0607d); color: #fff; text-align: center; }
+.lock .clock { font-size: 3.4em; font-weight: 300; letter-spacing: -.03em; margin-top: .3em; }
+.lock .date { font-size: .85em; opacity: .85; }
+.notif { margin-top: 2.4em; background: rgba(255,255,255,.82); color: #111; border-radius: 1em; padding: .8em .9em; text-align: left; font-size: .82em; display: grid; grid-template-columns: 2.2em 1fr; gap: .6em; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.2); transform: translateY(-40%); opacity: 0; transition: transform .6s cubic-bezier(.2,.9,.3,1.2) .35s, opacity .4s ease .35s; }
+.scr.on .notif { transform: none; opacity: 1; }
+.notif .ic { width: 2.2em; height: 2.2em; border-radius: .55em; background: var(--ride); }
+.notif b { display: block; }
+.alert { background: color-mix(in srgb, var(--rest) 22%, transparent); border-radius: .7em; padding: .6em .7em; font-size: .78em; margin-bottom: .8em; }
+
+/* ---------- Cost / enjoyment chart ---------- */
+.ce { width: 100%; height: 100%; }
+.ce text { font-family: var(--font); }
+.ce .ax { stroke: var(--axis); stroke-width: 1.5; }
+.ce .grid { stroke: var(--hair); stroke-width: 1; }
+.ce .lbl { fill: var(--muted); font-size: 13px; }
+.ce .qlbl { fill: var(--ink2); font-size: 14px; font-weight: 650; }
+.ce .plbl { fill: var(--ink); font-size: 16px; font-weight: 650; }
+.ce .pt { opacity: 0; transition: opacity .5s ease, transform 1.2s cubic-bezier(.5,0,.2,1); }
+.ce .pt.on { opacity: 1; }
+.ce .pt circle { stroke: var(--surface); stroke-width: 3; }
+.ce #ptQueue { transform: translateY(-227px); }
+.ce #ptQueue.on { transform: none; transition-delay: 0s, .35s; }
+
+/* ---------- Castle ---------- */
+.castle-wrap { width: 100%; }
+.castle { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 1.2vw, 14px); transition: filter .5s ease; }
+.room { position: relative; }
+.room svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 8px 20px rgba(0,0,0,.12)); }
+.room .rl { margin-top: 8px; font-size: clamp(10px, 1.2vw, 13px); color: var(--ink2); text-align: center; line-height: 1.25; }
+.crowd { position: absolute; inset: 30% 6% 22% 6%; pointer-events: none; }
+.crowd i { position: absolute; width: clamp(5px, .9vw, 10px); height: clamp(5px, .9vw, 10px); border-radius: 50%; background: var(--ink); opacity: 0; transform: scale(.4); transition: opacity .4s ease, transform .4s ease; transition-delay: calc(var(--i) * 18ms); box-shadow: 0 0 0 1.5px var(--surface); }
+.scrolly[data-step="1"] .crowd i { opacity: .85; transform: none; }
+.castle-chip { display: flex; justify-content: center; margin-top: 22px; min-height: 36px; }
+.castle-chip span { position: absolute; padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 650; opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+.castle-chip span.on { opacity: 1; transform: none; }
+.castle-chip .c1 { background: var(--sign); color: var(--led); font-family: var(--mono); }
+.castle-chip .c2 { background: var(--food); color: #fff; }
+.castle-chip .c3 { background: var(--play); color: #fff; }
+.scrolly[data-step="2"] .castle { animation: rush .9s linear infinite; filter: blur(3px); }
+@keyframes rush { 0% { transform: translateX(0); } 50% { transform: translateX(-2.5%); } 100% { transform: translateX(0); } }
+.scrolly[data-step="3"] .room svg { filter: drop-shadow(0 12px 30px rgba(0,0,0,.18)) saturate(1.15); }
+
+/* ---------- Churro ---------- */
+.churro { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 100%; }
+.churro .zone { position: absolute; font-size: 13px; font-weight: 650; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.churro .rails { position: absolute; left: 2%; top: 20%; width: 52%; height: 62%; }
+.churro .cart { position: absolute; right: 2%; top: 22%; width: 34%; }
+.cd { position: absolute; width: 2.1%; aspect-ratio: 1; border-radius: 50%; background: var(--ink2); transform: translate(-50%, -50%); transition: left 1.3s cubic-bezier(.4,0,.2,1), top 1.3s cubic-bezier(.4,0,.2,1), background-color .6s; transition-delay: calc(var(--i) * 35ms); box-shadow: 0 0 0 1.5px var(--surface); }
+.churro.spend .cd { background: var(--food); }
+.churro .rails { transition: opacity .6s; }
+.churro.spend .rails { opacity: .25; }
+.stats2 { position: absolute; left: 0; right: 0; top: 0; display: flex; gap: 28px; justify-content: center; }
+.stats2 div { text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .5s, transform .5s; }
+.stats2 div.on { opacity: 1; transform: none; }
+.stats2 b { display: block; font-size: clamp(28px, 4.4vw, 50px); letter-spacing: -.03em; line-height: 1; }
+.stats2 span { font-size: 13px; color: var(--ink2); }
+
+/* ---------- Rest split ---------- */
+.split { display: flex; gap: 12px; width: 100%; height: min(100%, 460px); }
+.pane { position: relative; flex: 1; border-radius: 22px; overflow: hidden; transition: flex-grow .9s cubic-bezier(.4,0,.2,1); background: var(--track); }
+.pane svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pane .pl { position: absolute; left: 14px; top: 14px; background: var(--card); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 650; white-space: nowrap; }
+.pane.lawn { background: var(--sky); }
+.scrolly[data-step="2"] .pane.lawn { flex-grow: 3.2; }
+.stat-chip { position: absolute; right: 14px; bottom: 14px; background: var(--card); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 16px; padding: 10px 14px; text-align: right; opacity: 0; transform: translateY(8px); transition: opacity .5s, transform .5s; max-width: 70%; }
+.stat-chip.on { opacity: 1; transform: none; }
+.stat-chip b { display: block; font-size: 28px; letter-spacing: -.03em; line-height: 1; }
+.stat-chip span { font-size: 12px; color: var(--ink2); }
+
+/* ---------- Examples ---------- */
+.ex { position: relative; width: 100%; height: 100%; }
+.ex-i { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; transform: scale(.94); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+.ex-i.on { opacity: 1; transform: none; }
+.ex-art { width: min(52%, 280px); aspect-ratio: 1; border-radius: 32%; display: grid; place-items: center; }
+.ex-art svg { width: 62%; height: 62%; }
+.ex-stat { margin-top: 28px; font-size: clamp(40px, 6vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.ex-cap { margin-top: 10px; font-size: 15px; color: var(--ink2); max-width: 340px; }
+.ex-all { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: min(100%, 460px); }
+.ex-all .ex-art { width: 100%; border-radius: 28%; }
+
+/* ---------- Icon grid ---------- */
+.icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 3vw, 34px); max-width: 720px; width: 100%; margin-top: 54px; }
+.ic { display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; transition: transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .8s ease; transition-delay: calc(var(--i) * 70ms); }
+.in .ic { transform: none; opacity: 1; }
+.ic .tile { width: clamp(64px, 12vw, 108px); aspect-ratio: 1; border-radius: 28%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 10px 30px rgba(0,0,0,.06); color: var(--c); }
+.ic svg { width: 48%; height: 48%; }
+.ic span { font-size: 14px; color: var(--ink2); }
+
+/* ---------- Clocks ---------- */
+.clocks { display: flex; gap: clamp(24px, 8vw, 90px); justify-content: center; margin-top: 54px; flex-wrap: wrap; }
+.clk { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.clk svg { width: clamp(140px, 22vw, 220px); height: auto; }
+.clk .face { fill: var(--surface); stroke: var(--axis); stroke-width: 2; }
+.clk .tick { stroke: var(--axis); stroke-width: 2; stroke-linecap: round; }
+.clk .hand { stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; transform-box: view-box; transform-origin: 60px 60px; }
+.clk.slow .hand { animation: spin 40s linear infinite; }
+.clk.fast .hand { stroke: var(--play); animation: spin 3.5s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.clk b { font-size: 17px; } .clk span { font-size: 14px; color: var(--ink2); margin-top: -10px; }
+
+/* ---------- Cutaway ---------- */
+.cut { width: 100%; height: auto; max-height: 100%; }
+.cut .wall { fill: var(--surface); stroke: var(--axis); stroke-width: 2; }
+.cut .floor { fill: var(--track); }
+.cut .lbl { font-size: 15px; font-weight: 650; fill: var(--ink2); font-family: var(--font); letter-spacing: .03em; }
+.cut .kid { fill: var(--ink2); }
+.cut .bob { animation: bob 1.6s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); transform-box: fill-box; }
+@keyframes bob { 50% { transform: translateY(-9px); } }
+.cut #you { fill: var(--ride); transition: transform 2.4s cubic-bezier(.5,0,.3,1) .9s; }
+.cut #you.on { transform: translate(298px, 18px); }
+.cut .buzz { opacity: 0; transition: opacity .3s; }
+.cut .buzz.on { opacity: 1; animation: buzzfade 2.2s ease forwards; }
+@keyframes buzzfade { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
+.cut .car { fill: var(--ride); }
+
+/* ---------- Ship ---------- */
+.ship-wrap { width: 100%; }
+.ship { width: 100%; height: auto; display: block; }
+.ship .hull { fill: var(--ink); }
+.ship .hull2 { fill: var(--ride); opacity: .25; }
+.ship .deck { fill: var(--track); stroke: var(--surface); stroke-width: 3; transition: fill .6s ease; transition-delay: calc(var(--i) * 40ms); }
+.ship .deck.g.on { fill: var(--paid); }
+.ship .deck.b.on { fill: var(--ride); }
+.ship .dl { font-family: var(--font); font-size: 12px; font-weight: 600; fill: var(--ink2); pointer-events: none; transition: fill .6s; }
+.ship .dl.on { fill: #fff; }
+.ship .dl.g.on { fill: #0b0b0b; }
+.ship .stack { fill: var(--ink); }
+.ship .waitsign { opacity: 0; transition: opacity .4s; }
+.ship .waitsign.on { opacity: 1; }
+.ship-legend { display: flex; justify-content: center; gap: 28px; margin-top: 18px; flex-wrap: wrap; }
+.ship-legend div { display: flex; align-items: baseline; gap: 8px; opacity: 0; transition: opacity .5s; }
+.ship-legend div.on { opacity: 1; }
+.ship-legend b { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.03em; }
+.ship-legend span { font-size: 14px; color: var(--ink2); display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 600px) { .ship .dl:not(.keep) { display: none; } }
+
+/* ---------- Flip cards ---------- */
+.objections { padding: 110px 16px 80px; max-width: 1180px; margin: 0 auto; }
+.objections header { text-align: center; margin-bottom: 44px; }
+.objections h2 { font-size: clamp(40px, 7vw, 80px); }
+.objections header p { color: var(--ink2); margin-top: 14px; }
+.flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.flip { perspective: 1400px; background: none; border: 0; padding: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; display: block; width: 100%; }
+.flip-in { display: grid; transition: transform .8s cubic-bezier(.3,.7,.2,1); transform-style: preserve-3d; }
+.flip.flipped .flip-in { transform: rotateY(180deg); }
+.face { grid-area: 1 / 1; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 24px; padding: 28px 26px 24px; display: flex; flex-direction: column; min-height: 300px; border: 1px solid var(--ring); }
+.front { background: var(--surface); box-shadow: 0 10px 30px rgba(0,0,0,.05); }
+.back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); }
+.face .q { font-size: 23px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
+.face .t { margin-top: 12px; font-size: 16px; color: var(--ink2); line-height: 1.45; }
+.back .t { color: color-mix(in srgb, var(--bg) 82%, transparent); font-size: 16px; margin-top: 0; }
+.back .a { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--play); margin-bottom: 10px; }
+.face .hint { margin-top: auto; padding-top: 18px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.flip:focus-visible .face { outline: 3px solid var(--ride); outline-offset: 3px; }
+.hbars { margin-top: 18px; display: grid; gap: 10px; }
+.hbar .bl { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink2); margin-bottom: 4px; }
+.hbar .bl b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.hbar .tr { height: 14px; border-radius: 4px; background: var(--track); }
+.hbar .fl { height: 100%; border-radius: 4px; background: var(--ink2); }
+.hbar.r .fl { background: var(--ride); }
+
+/* ---------- Finale ---------- */
+.finale-viz { width: 100%; position: relative; height: 100%; display: flex; align-items: center; }
+.finale-one { width: 100%; transition: opacity .6s ease, transform .9s cubic-bezier(.4,0,.2,1); }
+.scrolly[data-step="1"] .finale-one { opacity: 0; transform: scale(.3); }
+.many { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px 10px; align-content: center; opacity: 0; transform: scale(1.4); transition: opacity .7s ease .2s, transform 1s cubic-bezier(.2,.7,.2,1) .1s; pointer-events: none; }
+.scrolly[data-step="1"] .many { opacity: 1; transform: none; }
+.mini { position: relative; height: 16px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.mini i { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
+.mini .k-ride { background: var(--ride); } .mini .k-food { background: var(--food); } .mini .k-play { background: var(--play); } .mini .k-rest { background: var(--rest); }
+
+/* ---------- Ask ---------- */
+.ask { gap: 0; }
+.ask h3 { font-size: clamp(32px, 5.6vw, 68px); max-width: 16ch; margin: 0 auto; }
+.ask h3 + h3 { margin-top: .5em; }
+.ask h3:nth-child(1) { transition-delay: 0s; } .ask h3:nth-child(2) { transition-delay: .35s; } .ask h3:nth-child(3) { transition-delay: .7s; }
+.ask h3 span { color: var(--ride); }
+
+/* ---------- Sources ---------- */
+.sources { max-width: 760px; margin: 0 auto; padding: 40px 16px 120px; }
+.sources details { border-top: 1px solid var(--hair); padding-top: 18px; }
+.sources summary { cursor: pointer; font-weight: 650; font-size: 18px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.sources summary::-webkit-details-marker { display: none; }
+.sources summary::after { content: "+"; font-size: 24px; font-weight: 400; color: var(--muted); }
+.sources details[open] summary::after { content: "–"; }
+.sources ol { margin: 18px 0 0 22px; font-size: 15px; color: var(--ink2); line-height: 1.5; }
+.sources li { padding: 4px 0; }
+.sources li:target { background: color-mix(in srgb, var(--ride) 12%, transparent); border-radius: 6px; }
+.sources .note { margin-top: 18px; font-size: 14px; color: var(--muted); }
+footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(--muted); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0s !important; transition-delay: 0s !important; }
+  .hero-queue { transform: none !important; }
+  .scrolly[data-step="2"] .castle { filter: blur(1.5px); }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <span class="brand">Radical New Ideas</span>
+  <span class="meta">7 min scroll</span>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+
+<!-- ============ Beat 0 · Title ============ -->
+<section class="hero" id="hero">
+  <div class="hero-sticky">
+    <svg class="hero-queue" id="heroQueue" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="hero-scrim"></div>
+    <div class="hero-copy" id="heroCopy">
+      <p class="eyebrow">Radical New Ideas</p>
+      <h1>Theme Park Design Is Outdated</h1>
+      <p class="dek">We've spent seventy years perfecting the line. It's time to get rid of it.</p>
+      <p class="scroll-hint">Scroll</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Beat 1 · Since the beginning ============ -->
+<section class="scrolly" id="s-years">
+  <div class="stage"><div class="viz">
+    <div class="years" aria-hidden="true">
+      <div class="year"><span class="y1">1955</span><span class="y2">Today</span></div>
+      <div class="mini-queue" id="miniQueue"></div>
+      <p class="cap">Each dot is a guest in line.</p>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>When Disneyland opened in 1955, the line opened with it.</p></div></div>
+    <div class="step"><div class="card"><p>Since then the rides have gone from teacups to trackless robots that sync with projection domes.</p><p>The line is the one thing that hasn't changed. You stand. You shuffle. You hope.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 2 · The Day Bar ============ -->
+<section class="scrolly" id="s-day">
+  <div class="stage"><div class="viz"><div class="daybar" id="day1" role="img" aria-label="A 12-hour day at Disneyland: about 6 hours waiting in line and about 40 minutes on rides."></div></div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Take one ordinary day at Disneyland: eight popular rides, about 45 minutes in line for each.</p></div></div>
+    <div class="step"><div class="card"><p>That's <b>six hours standing in line</b> and <b>about forty minutes on rides</b>.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Half your day goes to waiting.</p><p class="fine">An illustrative estimate assuming 8 rides, a ~45-minute average standby and a ~5-minute average ride.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 3 · The headliner ============ -->
+<section class="scrolly" id="s-sign">
+  <div class="stage"><div class="viz center">
+    <div class="sign" id="sign" role="img" aria-label="Rise of the Resistance wait time sign">
+      <div class="nm">Rise of the Resistance · Standby</div>
+      <div class="dig" id="signNum">0</div>
+      <div class="unit">MIN</div>
+      <div class="peak">Afternoon peak</div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Disneyland's Rise of the Resistance averages a <b>61-minute</b> wait.<sup><a href="#src-1">1</a></sup></p></div></div>
+    <div class="step"><div class="card"><p>On a busy afternoon it peaks above <b>90 minutes</b>.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 4 · What guests think ============ -->
+<section class="panel reveal" id="s-picto">
+  <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">Ask guests what the worst part of a theme park is.</h2>
+  <div class="picto" role="img" aria-label="5 in 10 Americans and 7 in 10 Brits say long queues are the worst part.">
+    <div class="picto-row"><span class="lab">United States</span><div class="people" data-lit="5"></div><span class="pct">50%</span></div>
+    <div class="picto-row"><span class="lab">United Kingdom</span><div class="people" data-lit="7"></div><span class="pct">70%</span></div>
+  </div>
+  <p class="lede">Half of Americans and 70% of Brits give the same answer: <b>the lines</b>.<sup><a href="#src-2">2</a></sup></p>
+</section>
+
+<!-- ============ Chapter 1 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 1</p>
+  <h2>The fix already exists</h2>
+</section>
+
+<!-- ============ Beat 5 · Free, then paid ============ -->
+<section class="scrolly" id="s-timeline">
+  <div class="stage"><div class="viz">
+    <ol class="tl">
+      <li class="tl-i free"><span class="tl-y">1999</span><span class="tl-n"><b>FastPass</b>Free paper tickets for every guest</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
+      <li class="tl-i free"><span class="tl-y">2013</span><span class="tl-n"><b>FastPass+</b>Free, booked from your phone</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
+      <li class="tl-i later" data-on="1"><span class="tl-y">2017</span><span class="tl-n"><b>MaxPass</b>Disneyland starts charging</span><span class="chip c-paid">Paid</span></li>
+      <li class="tl-i free"><span class="tl-y">2017</span><span class="tl-n"><b>Volcano Bay</b>Opens with no physical lines</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
+      <li class="tl-i later" data-on="1"><span class="tl-y">2021</span><span class="tl-n"><b>Genie+ / Lightning Lane</b>Replace free FastPass</span><span class="chip c-paid">Paid</span></li>
+      <li class="tl-i free"><span class="tl-y">2023</span><span class="tl-n"><b>Tokyo Priority Pass</b>Free line-skipping returns</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
+      <li class="tl-i later" data-on="1"><span class="tl-y">2025</span><span class="tl-n"><b>Volcano Bay</b>Ends its virtual lines</span><span class="chip c-end">Ended</span></li>
+      <li class="tl-i later" data-on="1"><span class="tl-y">2026</span><span class="tl-n"><b>Tokyo Disney</b>Ends its free Priority Pass</span><span class="chip c-end">Ended</span></li>
+    </ol>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Parks solved this decades ago. Disney handed out free FastPasses in 1999, and a water park in Orlando opened with no physical lines at all.<sup><a href="#src-3">3</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Then, one by one, the free versions disappeared.<sup><a href="#src-4">4</a>,<a href="#src-5">5</a></sup></p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 6 · $724M ============ -->
+<section class="panel dark-panel" id="s-money">
+  <div class="hero-num" id="moneyNum" aria-label="$724,000,000">$0</div>
+  <p class="lede reveal">That's what paid line-skipping made at Walt Disney World alone, in under three years. The figure comes from a leaked internal spreadsheet.<sup><a href="#src-6">6</a></sup></p>
+</section>
+
+<!-- ============ Beat 7 · Price ladder ============ -->
+<section class="panel reveal" id="s-ladder">
+  <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">The price of skipping</h2>
+  <div class="ladder" role="img" aria-label="Multi Pass from $25 to $42 a day; Premier Pass up to $449 per person.">
+    <div class="rung" title="Multi Pass, low end: $25"><span class="v">$25</span><div class="bar" style="--h:5.6;--i:0"></div></div>
+    <div class="rung" title="Multi Pass, high end: $42"><span class="v">$42</span><div class="bar" style="--h:9.4;--i:1"></div></div>
+    <div class="rung" title="Premier Pass, Magic Kingdom: $449"><span class="v">$449</span><div class="bar" style="--h:100;--i:2"></div></div>
+  </div>
+  <div class="rung-labels"><span>Multi Pass<br>low</span><span>Multi Pass<br>high</span><span>Premier Pass<br>per person</span></div>
+  <p class="lede">All of it on top of a park ticket.<sup><a href="#src-7">7</a></sup> The technology works. Parks have chosen to sell it as a way out of a line they built.</p>
+</section>
+
+<!-- ============ Chapter 2 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 2</p>
+  <h2>The idea</h2>
+</section>
+
+<!-- ============ Beat 8 · Capacity ============ -->
+<section class="scrolly" id="s-cap">
+  <div class="stage"><div class="viz">
+    <div class="cap-wrap" role="img" aria-label="Animation: the same ride serves the same number of guests per hour whether they wait in a queue or arrive on schedule.">
+      <canvas id="capCanvas"></canvas>
+      <div class="cap-stats">
+        <div><span class="k">Riders per hour</span><span class="v">1,500</span></div>
+        <div style="text-align:right"><span class="k">Standing in line</span><span class="v" id="capLine">—</span></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">A line doesn't make room.</p><p>A queue doesn't make a ride hold more people. It only decides who rides, based on who's willing to stand there longest.</p></div></div>
+    <div class="step"><div class="card"><p>A schedule can make the same decision.</p><p>The ride stays just as full, and nobody has to stand anywhere.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 9 · Receipts ============ -->
+<section class="scrolly" id="s-receipt">
+  <div class="stage"><div class="viz">
+    <div style="width:100%">
+      <p class="noaddon">A guest who buys no add-ons</p>
+      <div class="receipts">
+        <div class="rc-col"><div class="receipt">
+          <div class="rc-h">Today</div><div class="rc-sub">Park receipt</div>
+          <div class="rc-line" data-on="0" style="--d:0"><span>Park ticket</span><span>$100</span></div>
+          <div class="rc-line addon" data-on="0" style="--d:1"><span>Fast pass × 4</span><span>$80</span></div>
+          <div class="rc-rule"></div>
+          <div class="rc-line total" data-on="0" style="--d:2"><span>Total</span><span data-total>$180</span></div>
+          <div class="rc-line" data-on="0" style="--d:3"><span>Rides</span><span data-rides>12</span></div>
+          <div class="rc-line wait" data-on="0" style="--d:4"><span>Time in line</span><span class="bad">~6 h</span></div>
+        </div></div>
+        <div class="rc-col"><div class="receipt">
+          <div class="rc-h">Proposed</div><div class="rc-sub">Park receipt</div>
+          <div class="rc-line" data-on="0" style="--d:0"><span>Park ticket<small>incl. 8 ride reservations</small></span><span>$100</span></div>
+          <div class="rc-line addon" data-on="0" style="--d:1"><span>Extra ride reservation × 4</span><span>$80</span></div>
+          <div class="rc-rule"></div>
+          <div class="rc-line total" data-on="0" style="--d:2"><span>Total</span><span data-total>$180</span></div>
+          <div class="rc-line" data-on="0" style="--d:3"><span>Rides</span><span data-rides>12</span></div>
+          <div class="rc-line wait" data-on="0" style="--d:4"><span>Time in line</span><span style="opacity:.25">—</span></div>
+          <div class="stamp" data-on="1">0 h</div>
+        </div></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">The receipt doesn't change.</p><p>Today a park sells you a $100 ticket, then four $20 fast passes during the day. They squeeze in four extra rides, but you still stand in line for the other eight.</p></div></div>
+    <div class="step"><div class="card"><p>Instead, sell the same $100 ticket with reservations included, and the same four $20 add-ons as extra ride reservations. You can still buy them on impulse from your phone, mid-afternoon.</p><p><b>The price is the same. The upsell is the same. The six hours in line are gone.</b></p></div></div>
+    <div class="step"><div class="card"><p>And the guest who never buys an add-on? Today they get the worst day in the park.</p><p>Under this model they get the same eight rides, and they don't wait for any of them.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 10 · How it works ============ -->
+<section class="scrolly" id="s-phone">
+  <div class="stage"><div class="viz">
+    <div class="phone" aria-hidden="true"><div class="screen">
+      <div class="island"></div>
+      <div class="scr" data-only="0,-1">
+        <h4>Your day</h4><p class="sub">Pick the rides you want. Order doesn't matter.</p>
+        <ul class="pick">
+          <li>Space Mountain<span class="check y"></span></li>
+          <li>Indiana Jones Adventure<span class="check y"></span></li>
+          <li>Matterhorn Bobsleds<span class="check y"></span></li>
+          <li>Rise of the Resistance<span class="check y"></span></li>
+          <li>Haunted Mansion<span class="check y"></span></li>
+          <li>Jungle Cruise<span class="check"></span></li>
+          <li>Big Thunder Mountain<span class="check y"></span></li>
+        </ul>
+        <div class="btn">Plan my day</div>
+      </div>
+      <div class="scr" data-only="1">
+        <h4>Your plan</h4><p class="sub">Built around lunch and the parade.</p>
+        <ul class="plan">
+          <li><span class="t">9:40 AM</span><span class="r">Space Mountain</span></li>
+          <li><span class="t">10:25 AM</span><span class="r">Matterhorn Bobsleds</span></li>
+          <li><span class="t">11:10 AM</span><span class="r p">Pirate's Lair</span></li>
+          <li><span class="t">12:15 PM</span><span class="r f">Lunch</span></li>
+          <li><span class="t">1:30 PM</span><span class="r">Indiana Jones Adventure</span></li>
+          <li><span class="t">2:20 PM</span><span class="r">Rise of the Resistance</span></li>
+          <li><span class="t">3:30 PM</span><span class="r">Haunted Mansion</span></li>
+        </ul>
+      </div>
+      <div class="scr lock" data-only="2">
+        <div class="clock">9:30</div><div class="date">Saturday</div>
+        <div class="notif"><span class="ic"></span><span><b>Space Mountain</b>Ready for you in 10 min. It's a 4-minute walk.</span></div>
+      </div>
+      <div class="scr" data-only="3">
+        <h4>Your plan</h4><p class="sub">Updated just now</p>
+        <div class="alert"><b>Indiana Jones Adventure</b> is temporarily closed. We moved you to 3:15 PM.</div>
+        <ul class="plan">
+          <li><span class="t">12:15 PM</span><span class="r f">Lunch</span></li>
+          <li><span class="t moved">1:30 PM</span><span class="r moved">Indiana Jones Adventure</span></li>
+          <li><span class="t">1:30 PM</span><span class="r p">Wand-casting, Main St.</span></li>
+          <li><span class="t">2:20 PM</span><span class="r">Rise of the Resistance</span></li>
+          <li><span class="t new">3:15 PM</span><span class="r new">Indiana Jones Adventure</span></li>
+          <li><span class="t">3:30 PM</span><span class="r">Haunted Mansion</span></li>
+        </ul>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">Tell the park what you want to ride. It works out when.</p></div></div>
+    <div class="step"><div class="card"><p>The app builds your day around meals and shows.</p></div></div>
+    <div class="step"><div class="card"><p>Your phone tells you when to walk over. Each ride keeps a short buffer line so it always runs full.</p></div></div>
+    <div class="step"><div class="card"><p>If a ride breaks down or your lunch runs long, the plan adjusts.</p><p>Pre-shows stay wherever they make the ride better.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 3 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 3</p>
+  <h2>Dollars per enjoyment</h2>
+</section>
+
+<!-- ============ Beat 11 · Cost/Enjoyment ============ -->
+<section class="scrolly" id="s-ce">
+  <div class="stage"><div class="viz">
+    <svg class="ce" viewBox="0 0 600 440" role="img" aria-label="Chart of cost to build against guest enjoyment. Rides: high cost, high enjoyment. Themed queues: high cost, negative enjoyment. Lawns and play areas: low cost, high enjoyment.">
+      <rect x="84" y="240.5" width="496" height="151.5" fill="var(--neg)"/>
+      <line class="grid" x1="84" x2="580" y1="132" y2="132"/>
+      <line class="grid" x1="332" x2="332" y1="24" y2="392"/>
+      <line class="ax" x1="84" x2="84" y1="24" y2="392"/>
+      <line class="ax" x1="84" x2="580" y1="240.5" y2="240.5"/>
+      <text class="lbl" x="76" y="34" text-anchor="end">Fun</text>
+      <text class="lbl" x="76" y="245" text-anchor="end">0</text>
+      <text class="lbl" x="76" y="388" text-anchor="end">Awful</text>
+      <text class="lbl" x="84" y="420">Cheap</text>
+      <text class="lbl" x="580" y="420" text-anchor="end">Cost to build →</text>
+      <text class="qlbl" x="96" y="44">Best value</text>
+      <text class="qlbl" x="570" y="378" text-anchor="end">Worst value</text>
+      <g class="pt" id="ptRide" data-on="0"><title>Ride: high cost, high enjoyment</title><circle cx="505.6" cy="63" r="10" fill="var(--ride)"/><text class="plbl" x="505.6" y="96" text-anchor="middle">Ride</text></g>
+      <g class="pt" id="ptQueue" data-on="1"><title>Themed queue: high cost, negative enjoyment</title><circle cx="421.3" cy="348.7" r="10" fill="var(--wait)"/><text class="plbl" x="407" y="354" text-anchor="end">Themed queue</text></g>
+      <g class="pt" id="ptLawn" data-on="2"><title>Lawn: almost free, decent enjoyment</title><circle cx="113.8" cy="136.6" r="10" fill="var(--rest)"/><text class="plbl" x="129" y="142">Lawn</text></g>
+      <g class="pt" id="ptPlay" data-on="2"><title>Play area: low cost, high enjoyment</title><circle cx="203" cy="67.3" r="10" fill="var(--play)"/><text class="plbl" x="219" y="73">Play area</text></g>
+    </svg>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Judge everything a park builds by one number: <b>dollars per enjoyment</b>. How much did it cost, and how much do guests actually enjoy it?</p><p>Rides score well.</p></div></div>
+    <div class="step"><div class="card"><p>Queues are the worst-value thing in the park: expensive to build, and miserable to be in.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Lawns and play areas score brilliantly.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 12 · Castle ============ -->
+<section class="scrolly" id="s-castle">
+  <div class="stage"><div class="viz">
+    <div class="castle-wrap" aria-hidden="true">
+      <div class="castle" id="castle">
+        <div class="room"><svg viewBox="0 0 160 200"><defs><clipPath id="arch1"><path d="M0 200V72A80 72 0 0 1 160 72V200Z"/></clipPath></defs><g clip-path="url(#arch1)"><rect width="160" height="200" fill="var(--glass)"/><g stroke="#fff" stroke-opacity=".6" stroke-width="2"><path d="M20 0V200M48 0V200M80 0V200M112 0V200M140 0V200M0 40H160M0 80H160M0 120H160"/></g><rect y="168" width="160" height="32" fill="var(--wood)"/><g fill="var(--leaf)"><ellipse cx="34" cy="150" rx="10" ry="22" transform="rotate(-20 34 150)"/><ellipse cx="46" cy="146" rx="9" ry="24" transform="rotate(15 46 146)"/><ellipse cx="110" cy="140" rx="12" ry="30" transform="rotate(-10 110 140)"/><ellipse cx="126" cy="148" rx="9" ry="22" transform="rotate(25 126 148)"/><circle cx="80" cy="152" r="14"/></g><g fill="var(--stone2)"><rect x="28" y="162" width="24" height="14" rx="3"/><rect x="104" y="162" width="28" height="14" rx="3"/><rect x="70" y="162" width="20" height="14" rx="3"/></g></g><path d="M1 200V72A79 71 0 0 1 159 72V200" fill="none" stroke="var(--stone2)" stroke-width="4"/></svg><div class="crowd"></div><p class="rl">Greenhouses</p></div>
+        <div class="room"><svg viewBox="0 0 160 200"><defs><clipPath id="arch2"><path d="M0 200V72A80 72 0 0 1 160 72V200Z"/></clipPath></defs><g clip-path="url(#arch2)"><rect width="160" height="200" fill="var(--stone)"/><g fill="none" stroke="var(--gold)" stroke-width="5"><rect x="18" y="46" width="44" height="56" rx="3"/><rect x="96" y="40" width="46" height="62" rx="3"/><rect x="22" y="116" width="36" height="44" rx="3"/><rect x="100" y="116" width="40" height="48" rx="3"/></g><g fill="var(--wine)"><rect x="21" y="49" width="38" height="50"/><rect x="99" y="43" width="40" height="56"/></g><g fill="var(--board)"><rect x="25" y="119" width="30" height="38"/><rect x="103" y="119" width="34" height="42"/></g><g fill="var(--stone)"><circle cx="40" cy="68" r="8"/><circle cx="119" cy="64" r="9"/><circle cx="40" cy="134" r="6"/><circle cx="120" cy="136" r="7"/></g><rect y="176" width="160" height="24" fill="var(--stone2)"/></g><path d="M1 200V72A79 71 0 0 1 159 72V200" fill="none" stroke="var(--stone2)" stroke-width="4"/></svg><div class="crowd"></div><p class="rl">Portrait gallery</p></div>
+        <div class="room"><svg viewBox="0 0 160 200"><defs><clipPath id="arch3"><path d="M0 200V72A80 72 0 0 1 160 72V200Z"/></clipPath></defs><g clip-path="url(#arch3)"><rect width="160" height="200" fill="var(--wine)"/><circle cx="80" cy="64" r="30" fill="var(--sky)" stroke="var(--gold)" stroke-width="5"/><path d="M80 34V94M50 64H110" stroke="var(--gold)" stroke-width="3"/><g><rect x="6" y="40" width="30" height="130" fill="var(--wood)"/><rect x="124" y="40" width="30" height="130" fill="var(--wood)"/><g fill="var(--gold)"><rect x="9" y="50" width="6" height="22"/><rect x="17" y="54" width="6" height="18"/><rect x="25" y="48" width="7" height="24"/><rect x="127" y="84" width="6" height="22"/><rect x="135" y="88" width="7" height="18"/><rect x="144" y="82" width="6" height="24"/></g><g fill="var(--board)"><rect x="9" y="84" width="7" height="22"/><rect x="18" y="88" width="6" height="18"/><rect x="127" y="50" width="7" height="22"/><rect x="136" y="54" width="6" height="18"/><rect x="9" y="120" width="7" height="22"/><rect x="136" y="120" width="7" height="22"/></g></g><rect x="44" y="132" width="72" height="12" rx="3" fill="var(--wood)"/><rect x="50" y="144" width="8" height="34" fill="var(--wood)"/><rect x="102" y="144" width="8" height="34" fill="var(--wood)"/><rect y="178" width="160" height="22" fill="var(--stone2)"/></g><path d="M1 200V72A79 71 0 0 1 159 72V200" fill="none" stroke="var(--stone2)" stroke-width="4"/></svg><div class="crowd"></div><p class="rl">Headmaster's office</p></div>
+        <div class="room"><svg viewBox="0 0 160 200"><defs><clipPath id="arch4"><path d="M0 200V72A80 72 0 0 1 160 72V200Z"/></clipPath></defs><g clip-path="url(#arch4)"><rect width="160" height="200" fill="var(--stone)"/><rect x="26" y="44" width="108" height="56" rx="4" fill="var(--board)" stroke="var(--wood)" stroke-width="5"/><g stroke="#e9f2ec" stroke-opacity=".8" stroke-width="2" fill="none"><path d="M38 60h40M38 72h28M38 84h46"/><circle cx="110" cy="72" r="12"/></g><g fill="var(--wood)"><rect x="16" y="118" width="54" height="10" rx="2"/><rect x="90" y="118" width="54" height="10" rx="2"/><rect x="16" y="148" width="54" height="10" rx="2"/><rect x="90" y="148" width="54" height="10" rx="2"/></g><rect y="176" width="160" height="24" fill="var(--stone2)"/></g><path d="M1 200V72A79 71 0 0 1 159 72V200" fill="none" stroke="var(--stone2)" stroke-width="4"/></svg><div class="crowd"></div><p class="rl">Classroom</p></div>
+        <div class="room"><svg viewBox="0 0 160 200"><defs><clipPath id="arch5"><path d="M0 200V72A80 72 0 0 1 160 72V200Z"/></clipPath></defs><g clip-path="url(#arch5)"><rect width="160" height="200" fill="var(--wine)"/><rect x="44" y="86" width="72" height="90" fill="var(--stone2)"/><path d="M56 176V124A24 24 0 0 1 104 124V176Z" fill="#1d130c"/><path d="M80 170c-14-8-12-24 0-36 2 10 10 12 10 22 4-4 4-10 2-14 8 8 6 24-12 28z" fill="var(--fire)"/><path d="M80 170c-6-4-6-12 0-18 2 6 6 8 4 14z" fill="#ffd27a"/><rect x="36" y="80" width="88" height="8" fill="var(--wood)"/><path d="M118 178v-34q0-8 8-8h18q8 0 8 8v34z" fill="var(--wine)" stroke="var(--gold)" stroke-width="3"/><rect y="178" width="160" height="22" fill="var(--wood)"/></g><path d="M1 200V72A79 71 0 0 1 159 72V200" fill="none" stroke="var(--stone2)" stroke-width="4"/></svg><div class="crowd"></div><p class="rl">Common room</p></div>
+      </div>
+      <div class="castle-chip" style="position:relative">
+        <span class="c1" data-only="1">⏱ 62 MIN</span>
+        <span class="c2" data-only="2">Keep moving, please!</span>
+        <span class="c3" data-only="3">Walk-through · Explore at your own pace</span>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Universal's Harry Potter and the Forbidden Journey has one of the most beautiful queues ever built: a walk through Hogwarts castle, past moving portraits, Dumbledore's office and the Gryffindor common room.<sup><a href="#src-8">8</a></sup></p><p>Guests only ever see it in one of two ways.</p></div></div>
+    <div class="step"><div class="card"><p class="big">When the line is long, it's a crowded waiting room.</p></div></div>
+    <div class="step"><div class="card"><p class="big">When the line is short, you rush through.</p><p>Staff wave you along past all the details.</p></div></div>
+    <div class="step"><div class="card"><p>Now picture the same castle as a walk-through you <em>choose</em> to visit, at your own pace.</p><p>That's an attraction in its own right, and nobody has to queue to see it.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 13 · Churro ============ -->
+<section class="scrolly" id="s-churro">
+  <div class="stage"><div class="viz">
+    <div class="churro" id="churro" aria-hidden="true">
+      <div class="stats2"><div data-on="1"><b>75%</b><span>skip food</span></div><div data-on="1"><b>65%</b><span>skip merch</span></div></div>
+      <svg class="rails" viewBox="0 0 300 200" preserveAspectRatio="none"><g stroke="var(--axis)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M10 50H290M10 100H250M10 150H290M290 50V100M290 150V200"/><path d="M10 0H290" stroke-dasharray="0"/></g></svg>
+      <span class="zone" style="left:2%;top:88%">Ride queue</span>
+      <svg class="cart" viewBox="0 0 200 200"><path d="M20 70Q100 10 180 70Z" fill="var(--food)"/><path d="M60 70Q100 22 100 70ZM140 70Q100 22 100 70Z" fill="#fff" opacity=".85"/><rect x="98" y="66" width="4" height="50" fill="var(--axis)"/><rect x="30" y="112" width="140" height="56" rx="10" fill="var(--wood)"/><rect x="40" y="122" width="120" height="14" rx="4" fill="var(--rest)"/><g fill="#d8a45a"><rect x="52" y="124" width="22" height="9" rx="4" transform="rotate(-12 63 128)"/><rect x="88" y="124" width="22" height="9" rx="4" transform="rotate(10 99 128)"/><rect x="122" y="124" width="22" height="9" rx="4" transform="rotate(-6 133 128)"/></g><circle cx="58" cy="176" r="12" fill="var(--ink)"/><circle cx="142" cy="176" r="12" fill="var(--ink)"/></svg>
+      <span class="zone" style="right:8%;top:88%">Churro cart</span>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big quote">"But parks <em>need</em> lines, so people pay to skip them."</p></div></div>
+    <div class="step"><div class="card"><p>Do they? <b>75%</b> of US theme park guests say they sometimes skip food because of lines, and <b>65%</b> skip merchandise.<sup><a href="#src-9">9</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">A guest in line can't buy a churro.</p><p>Give them their time back and they'll spend it in the park.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 4 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 4</p>
+  <h2>Let them rest</h2>
+</section>
+
+<!-- ============ Beat 14 · Rest ============ -->
+<section class="scrolly" id="s-rest">
+  <div class="stage"><div class="viz">
+    <div class="split" aria-hidden="true">
+      <div class="pane rails">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="400" fill="var(--track)"/>
+          <g stroke="var(--axis)" stroke-width="5" stroke-linecap="round" fill="none">
+            <path d="M30 120H270M30 200H270M30 280H270M30 360H270"/>
+          </g>
+          <g fill="var(--muted)"><rect x="26" y="104" width="8" height="40" rx="3"/><rect x="146" y="104" width="8" height="40" rx="3"/><rect x="266" y="104" width="8" height="40" rx="3"/><rect x="26" y="184" width="8" height="40" rx="3"/><rect x="146" y="184" width="8" height="40" rx="3"/><rect x="266" y="184" width="8" height="40" rx="3"/><rect x="26" y="264" width="8" height="40" rx="3"/><rect x="146" y="264" width="8" height="40" rx="3"/><rect x="266" y="264" width="8" height="40" rx="3"/></g>
+          <g fill="var(--ink2)"><circle cx="60" cy="160" r="9"/><circle cx="90" cy="158" r="9"/><circle cx="120" cy="162" r="9"/><circle cx="180" cy="159" r="9"/><circle cx="215" cy="161" r="9"/><circle cx="245" cy="158" r="9"/><circle cx="70" cy="240" r="9"/><circle cx="104" cy="242" r="9"/><circle cx="170" cy="239" r="9"/><circle cx="205" cy="241" r="9"/><circle cx="240" cy="238" r="9"/><circle cx="64" cy="320" r="9"/><circle cx="98" cy="322" r="9"/><circle cx="132" cy="318" r="9"/><circle cx="196" cy="321" r="9"/><circle cx="232" cy="319" r="9"/></g>
+        </svg>
+        <span class="pl">Standing room only</span>
+      </div>
+      <div class="pane lawn">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMax slice">
+          <rect width="400" height="400" fill="var(--sky)"/>
+          <path d="M0 230Q200 190 400 230V400H0Z" fill="var(--grass)"/>
+          <path d="M0 300Q200 270 400 310V400H0Z" fill="var(--grass2)"/>
+          <rect x="292" y="140" width="14" height="110" rx="4" fill="var(--wood)"/>
+          <circle cx="300" cy="130" r="64" fill="var(--leaf)"/><circle cx="262" cy="160" r="40" fill="var(--leaf)"/><circle cx="338" cy="162" r="42" fill="var(--leaf)"/>
+          <g fill="var(--ink2)"><rect x="70" y="262" width="46" height="13" rx="6.5"/><circle cx="62" cy="268" r="9"/><rect x="160" y="300" width="46" height="13" rx="6.5"/><circle cx="214" cy="306" r="9"/><rect x="250" y="262" width="46" height="13" rx="6.5"/><circle cx="242" cy="268" r="9"/></g>
+          <g><rect x="110" y="330" width="70" height="40" rx="6" fill="var(--rest)" opacity=".85"/></g>
+        </svg>
+        <span class="pl">A lawn · costs almost nothing</span>
+        <div class="stat-chip" data-on="1"><b>8.5%</b><span>of guests leave unhappy from physical discomfort</span></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Queues are standing room only, and parks make sure there's nowhere comfortable to lie down. Even outside the lines, seating is scarce.</p></div></div>
+    <div class="step"><div class="card"><p>Physical discomfort is one of the top reasons guests leave a park unhappy, and benches and shade are what they ask for most.<sup><a href="#src-10">10</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">A guest napping on a lawn costs the park nothing.</p><p>On the dollars-per-enjoyment chart, rest beats everything else.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 5 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 5</p>
+  <h2>What will everyone do instead?</h2>
+</section>
+
+<!-- ============ Beat 15 · Day bar revisited ============ -->
+<section class="scrolly" id="s-dayback">
+  <div class="stage"><div class="viz"><div class="daybar" id="day2" role="img" aria-label="The same 12-hour day, with the six hours of waiting replaced by play, rest and food."></div></div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Take away six hours of standing in line…</p></div></div>
+    <div class="step"><div class="card"><p>…and you've given every guest six hours back.</p><p class="big">The question isn't how to keep them busy. It's what's worth building for them.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 16 · It already works ============ -->
+<section class="scrolly" id="s-ex">
+  <div class="stage"><div class="viz">
+    <div class="ex" aria-hidden="true">
+      <div class="ex-i" data-only="0"><div class="ex-art" style="background:color-mix(in srgb,var(--rest) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--rest)" stroke-width="3" stroke-linecap="round"><path d="M10 40L32 18"/><path d="M36 6v6M33 9h6M42 16v4M40 18h4M28 8v3M26.5 9.5h3"/></svg></div><div class="ex-stat">+14</div><p class="ex-cap">new spell-casting spots at Epic Universe</p></div>
+      <div class="ex-i" data-only="1"><div class="ex-art" style="background:color-mix(in srgb,var(--play) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--play)" stroke-width="3" stroke-linejoin="round"><rect x="8" y="12" width="20" height="28" rx="3" transform="rotate(-12 18 26)"/><rect x="20" y="8" width="20" height="28" rx="3" transform="rotate(10 30 22)"/></svg></div><div class="ex-stat">4 hours</div><p class="ex-cap">of free play, included with admission</p></div>
+      <div class="ex-i" data-only="2"><div class="ex-art" style="background:color-mix(in srgb,var(--ride) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--ride)" stroke-width="3" stroke-linecap="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="24" cy="24" r="4"/><path d="M24 14v-2M30 18l2-2M18 18l-2-2"/></svg></div><div class="ex-stat">2 hours</div><p class="ex-cap">median visit, no ride system at all</p></div>
+      <div class="ex-i" data-only="3"><div class="ex-art" style="background:color-mix(in srgb,var(--food) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--food)" stroke-width="3" stroke-linecap="round"><path d="M4 18q20 18 40 0"/><path d="M4 18v20M44 18v20"/><path d="M12 25v6M20 28v6M28 28v6M36 25v6"/></svg></div><div class="ex-stat">0 min</div><p class="ex-cap">wait for rope bridges and caves</p></div>
+      <div class="ex-i" data-only="4"><div class="ex-all">
+        <div class="ex-art" style="background:color-mix(in srgb,var(--rest) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--rest)" stroke-width="3" stroke-linecap="round"><path d="M10 40L32 18"/><path d="M36 6v6M33 9h6M42 16v4M40 18h4"/></svg></div>
+        <div class="ex-art" style="background:color-mix(in srgb,var(--play) 22%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--play)" stroke-width="3" stroke-linejoin="round"><rect x="8" y="12" width="20" height="28" rx="3" transform="rotate(-12 18 26)"/><rect x="20" y="8" width="20" height="28" rx="3" transform="rotate(10 30 22)"/></svg></div>
+        <div class="ex-art" style="background:color-mix(in srgb,var(--ride) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--ride)" stroke-width="3" stroke-linecap="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="24" cy="24" r="4"/></svg></div>
+        <div class="ex-art" style="background:color-mix(in srgb,var(--food) 20%,transparent)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--food)" stroke-width="3" stroke-linecap="round"><path d="M4 18q20 18 40 0"/><path d="M4 18v20M44 18v20"/><path d="M12 25v6M20 28v6M28 28v6M36 25v6"/></svg></div>
+      </div></div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">Interactive wands</p><p>Guests roam the Wizarding World hunting for spots where a flick of a wand sets off an effect. Universal keeps expanding it.<sup><a href="#src-11">11</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Sorcerers of the Magic Kingdom</p><p>A free card game included with admission. Guests could play for 15 minutes between rides, or for 4 hours straight.<sup><a href="#src-12">12</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Meow Wolf</p><p>A walk-through art experience with no ride system at all. Guests stay for a median of two hours, and the Las Vegas location drew a million visitors in its first year.<sup><a href="#src-13">13</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Pirate's Lair and Redwood Creek</p><p>Disneyland's own rope bridges, caves and climbing trails. Kids spend hours there, and nobody has to queue.</p></div></div>
+    <div class="step"><div class="card"><p class="big">None of this is new.</p><p>Parks already know how to build places where guests happily spend hours. There just aren't enough of them.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 17 · What to build ============ -->
+<section class="panel reveal" id="s-icons">
+  <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">What to build</h2>
+  <div class="icons">
+    <div class="ic" style="--i:0;--x:-60px;--y:40px;--r:-14deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6c-3 0-4 4-3 8l-2 6c-2 6-1 14 1 22h8c2-8 3-16 1-22l-2-6c1-4 0-8-3-8z"/><path d="M14 16h8"/><circle cx="35" cy="34" r="8"/></svg></div><span>Bowling</span></div>
+    <div class="ic" style="--i:1;--x:30px;--y:-50px;--r:12deg;--c:var(--food)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="30" width="36" height="12" rx="4"/><path d="M24 30V16"/><circle cx="24" cy="11" r="5"/><circle cx="35" cy="36" r="1.5" fill="currentColor"/></svg></div><span>Arcade</span></div>
+    <div class="ic" style="--i:2;--x:70px;--y:30px;--r:-8deg;--c:var(--ink2)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42L32 14"/><path d="M26 10c6-6 14-2 16 6l-10 4-6-10z"/></svg></div><span>Axe throwing</span></div>
+    <div class="ic" style="--i:3;--x:-40px;--y:-40px;--r:16deg;--c:var(--play)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42a18 18 0 0 1 36 0"/><path d="M24 24v18M14 28l4 14M34 28l-4 14M9 34h30"/></svg></div><span>Jungle gym</span></div>
+    <div class="ic" style="--i:4;--x:50px;--y:60px;--r:-12deg;--c:var(--rest)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="30" cy="30" r="1.5" fill="currentColor"/></svg></div><span>Walk-through</span></div>
+    <div class="ic" style="--i:5;--x:-70px;--y:20px;--r:10deg;--c:var(--free)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 38V6l14 6-14 6"/><ellipse cx="22" cy="40" rx="14" ry="4"/></svg></div><span>Mini golf</span></div>
+    <div class="ic" style="--i:6;--x:20px;--y:-70px;--r:-16deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8c-5 7-8 11-8 15a8 8 0 0 0 16 0c0-4-3-8-8-15z"/><path d="M34 18c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11z"/></svg></div><span>Splash pad</span></div>
+    <div class="ic" style="--i:7;--x:-20px;--y:50px;--r:8deg;--c:var(--leaf)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="18" r="11"/><path d="M24 29v13M6 42h36"/></svg></div><span>Lawns</span></div>
+  </div>
+  <p class="lede">They cost far less than a ride, they have no hard capacity limit, and you can theme them as lavishly as anything else in the park.</p>
+</section>
+
+<!-- ============ Beat 18 · Clocks ============ -->
+<section class="panel reveal" id="s-clocks">
+  <h2 style="font-size:clamp(30px,4.6vw,56px);max-width:20ch">"Occupied time feels shorter than unoccupied time."</h2>
+  <p class="lede" style="margin-top:12px">David Maister's first law of waiting lines, 1985.<sup><a href="#src-14">14</a></sup></p>
+  <div class="clocks" aria-hidden="true">
+    <div class="clk slow"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--ink)"/></svg><b>Empty time</b><span>drags</span></div>
+    <div class="clk fast"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--play)"/></svg><b>Busy time</b><span>races</span></div>
+  </div>
+  <p class="lede">Time with a known end feels shorter too. A reservation gives you both: something to do, and a moment when it ends.</p>
+</section>
+
+<!-- ============ Beat 19 · Cutaway ============ -->
+<section class="scrolly" id="s-cut">
+  <div class="stage"><div class="viz">
+    <svg class="cut" viewBox="0 0 620 320" aria-hidden="true">
+      <path class="wall" d="M10 300V70L160 20L310 70L460 20L610 70V300Z"/>
+      <rect class="floor" x="10" y="270" width="600" height="30"/>
+      <line x1="310" y1="70" x2="310" y2="200" stroke="var(--axis)" stroke-width="2"/>
+      <text class="lbl" x="40" y="104">PLAY ZONE</text>
+      <text class="lbl" x="580" y="104" text-anchor="end">RIDE</text>
+      <g stroke="var(--play)" stroke-width="5" fill="none" stroke-linecap="round"><path d="M60 270V170H160V270M60 200H160M60 230H160M110 170V270"/><path d="M200 270Q200 170 270 160"/></g>
+      <g fill="var(--rest)"><circle cx="230" cy="262" r="8"/><circle cx="248" cy="264" r="7"/><circle cx="264" cy="261" r="8"/><circle cx="240" cy="250" r="7"/></g>
+      <g><circle class="kid bob" style="--i:0" cx="90" cy="160" r="9"/><circle class="kid bob" style="--i:1" cx="140" cy="190" r="9"/><circle class="kid bob" style="--i:2" cx="250" cy="236" r="9"/><circle class="kid bob" style="--i:3" cx="190" cy="252" r="9"/></g>
+      <path d="M340 230C380 120 440 250 490 150S580 200 590 240" fill="none" stroke="var(--axis)" stroke-width="6" stroke-linecap="round"/>
+      <rect class="car" x="350" y="252" width="56" height="18" rx="6"/>
+      <text class="lbl" x="378" y="246" text-anchor="middle" style="font-size:12px">LOAD</text>
+      <circle id="you" data-on="1" cx="80" cy="252" r="10"/>
+      <g class="buzz" data-on="1"><rect x="40" y="198" width="132" height="34" rx="12" fill="var(--ink)"/><text x="106" y="220" text-anchor="middle" fill="var(--bg)" style="font:600 13px var(--font)">You're up in 2 min</text></g>
+    </svg>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>Better still, build the play zone into the ride building itself.</p></div></div>
+    <div class="step"><div class="card"><p>You're halfway through a game when your phone says you're up, and you walk thirty seconds to the ride.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 6 ============ -->
+<section class="panel chapter reveal">
+  <p class="num">Chapter 6</p>
+  <h2>Cruise ships figured this out</h2>
+</section>
+
+<!-- ============ Beat 20–21 · Ship ============ -->
+<section class="scrolly" id="s-ship">
+  <div class="stage"><div class="viz">
+    <div class="ship-wrap">
+      <svg class="ship" id="ship" viewBox="0 0 800 330" role="img" aria-label="Cross-section of a cruise ship: 3 capacity-limited headline experiences and 18 open-to-everyone spaces."></svg>
+      <div class="ship-legend">
+        <div data-on="1"><b>3</b><span><i class="sw" style="background:var(--paid)"></i>headline experiences</span></div>
+        <div data-on="2"><b>18</b><span><i class="sw" style="background:var(--ride)"></i>open to everyone</span></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p>A modern cruise ship carries thousands of guests…</p></div></div>
+    <div class="step"><div class="card"><p>…and a few headline experiences. You reserve a show from the app, and the empty seats go to standby.<sup><a href="#src-15">15</a></sup></p></div></div>
+    <div class="step"><div class="card"><p>Everything else is open to everyone.</p><p class="big">Nobody waits in line for a pool.</p></div></div>
+    <div class="step"><div class="card aside"><span class="tag">Not perfect</span><p>Cruises aren't line-free. The waterslides on the biggest ships can still mean a 45-minute wait, and a seven-day sailing spreads demand across a whole week.</p><p>But the ratio is the lesson: a few headline experiences, and plenty to do everywhere else.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 7 · Objections ============ -->
+<section class="objections" id="s-obj">
+  <header class="reveal"><p class="eyebrow" style="color:var(--ride)">Chapter 7</p><h2>But what about…</h2><p>Tap a card to see the answer.</p></header>
+  <div class="flips">
+    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
+      <span class="face front"><span class="q">"There isn't room on the big rides for everyone."</span><span class="t">Magic Kingdom's most popular coaster can carry fewer than half the park's guests in a day.<sup><a href="#src-16">16</a></sup></span>
+        <span class="hbars" role="img" aria-label="48,800 guests in the park versus 21,000 seats a day on its most popular coaster.">
+          <span class="hbar" style="display:block"><span class="bl"><span>Guests in the park</span><b>48,800</b></span><span class="tr" style="display:block"><span class="fl" style="display:block;width:100%"></span></span></span>
+          <span class="hbar r" style="display:block"><span class="bl"><span>Seats a day on its top coaster</span><b>21,000</b></span><span class="tr" style="display:block"><span class="fl" style="display:block;width:43%"></span></span></span>
+        </span>
+        <span class="hint">Tap for the answer →</span></span>
+      <span class="face back"><span class="a">Answer</span><span class="t">True, and a queue doesn't fix that either. Today the line makes the cut: some guests wait an hour, and others see the sign and give up. Reservations make the same cut without anyone losing an hour. They can do it fairly, too, and the money saved on queues can build more capacity.</span></span>
+    </span></button>
+    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
+      <span class="face front"><span class="q">"Disney tried free reservations. People hated them."</span><span class="t">FastPass+ meant booking rides 60 days ahead, and guests said it killed spontaneity.<sup><a href="#src-17">17</a></sup></span><span class="hint">Tap for the answer →</span></span>
+      <span class="face back"><span class="a">Answer</span><span class="t">That was a planning race months in advance. Build it for the same day instead: tell the park what you want when you arrive, and let the plan adjust as the day goes.</span></span>
+    </span></button>
+    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
+      <span class="face front"><span class="q">"A park tried no lines and gave up."</span><span class="t">Volcano Bay dropped its virtual lines in 2025.<sup><a href="#src-4">4</a></sup></span><span class="hint">Tap for the answer →</span></span>
+      <span class="face back"><span class="a">Answer</span><span class="t">Its virtual waits still ran for hours, because there wasn't enough else to do. A virtual line with nothing to fill the time just moves the wait somewhere else. Universal also gave no reason for ending it, and paid Express passes became more attractive once it was gone.</span></span>
+    </span></button>
+    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
+      <span class="face front"><span class="q">"Arcades flop."</span><span class="t">DisneyQuest closed after its attendance fell.<sup><a href="#src-18">18</a></sup></span><span class="hint">Tap for the answer →</span></span>
+      <span class="face back"><span class="a">Answer</span><span class="t">DisneyQuest was a separately ticketed building whose games went more than a decade without an update. Play built into the park, to fill the time between rides, is a different idea.</span></span>
+    </span></button>
+    <button class="flip reveal" aria-pressed="false"><span class="flip-in">
+      <span class="face front"><span class="q">"Line-skipping is too profitable to give up."</span><span class="t">Paid skips earn hundreds of millions of dollars a year.<sup><a href="#src-6">6</a></sup></span><span class="hint">Tap for the answer →</span></span>
+      <span class="face back"><span class="a">Answer</span><span class="t">Then keep it. Sell the same $20 add-on, but as an extra ride instead of an escape from the line. Same price, same impulse purchase, same revenue, and a better day for everyone.</span></span>
+    </span></button>
+  </div>
+</section>
+
+<!-- ============ Beat 22 · Finale ============ -->
+<section class="scrolly" id="s-finale">
+  <div class="stage"><div class="viz">
+    <div class="finale-viz" aria-hidden="true">
+      <div class="finale-one"><div class="daybar" id="day3"></div></div>
+      <div class="many" id="many"></div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">Theme parks have spent seventy years perfecting the line.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The next seventy should be spent designing the day.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Beat 23 · The ask ============ -->
+<section class="panel ask">
+  <h3 class="reveal">Include <span>reservations</span> with every ticket.</h3>
+  <h3 class="reveal">Sell <span>more rides</span>, not shorter lines.</h3>
+  <h3 class="reveal">Spend the queue budget on places to <span>play and rest</span>.</h3>
+</section>
+
+<section class="sources" id="sources">
+  <details>
+    <summary>Sources</summary>
+    <ol>
+      <li id="src-1">Rise of the Resistance (Disneyland) wait times: <a href="https://disneyblog.com/destinations/disneyland-resort/disneyland-park/star-wars-galaxys-edge/star-wars-rise-of-the-resistance-disneyland-park/">Disneyblog / Queue-Times</a></li>
+      <li id="src-2">"Long queues are the worst thing" survey: <a href="https://accesso.com/learn/virtual-queuing-less-waiting-more-fun/">accesso</a></li>
+      <li id="src-3">FastPass history: <a href="https://www.wikipedia.org/wiki/Fastpass">Wikipedia</a></li>
+      <li id="src-4">Volcano Bay ends virtual lines: <a href="https://www.insideuniversal.net/2025/04/universal-volcano-bay-to-discontinue-taputapu-and-virtual-lines-beginning-oct-1-2025/">Inside Universal</a></li>
+      <li id="src-5">Tokyo Priority Pass ends: <a href="https://www.disneyfoodblog.com/2026/07/31/well-another-disney-park-is-getting-rid-of-free-fastpasses/">Disney Food Blog</a></li>
+      <li id="src-6">$724M Genie+ leak: <a href="https://www.fox5dc.com/news/disney-leak-nullbulge-genie-plus-cruise-line">Fox 5 DC / WSJ</a></li>
+      <li id="src-7">Lightning Lane prices: <a href="https://www.wdwmagic.com/other/disney-genie/news/13mar2026-disney-world-lightning-lane-premier-pass-spring-break-2026-prices,-sellouts,-and-what-to-know-before-you-buy.htm">WDWMagic</a></li>
+      <li id="src-8">Forbidden Journey queue rooms: <a href="https://insidethemagic.net/2010/05/tour-the-harry-potter-and-the-forbidden-journey-queue-in-the-wizarding-world/">Inside the Magic</a>; being rushed through: <a href="https://touringplans.com/blog/a-virtual-guided-walk-through-of-hogwarts/">TouringPlans</a>, <a href="https://mouseplanet.com/muggle-borns-guide-to-harry-potter-and-the-forbidden-journey/3172">MousePlanet</a></li>
+      <li id="src-9">Guests skipping food and merchandise because of queues: <a href="https://www.prnewswire.com/news-releases/75-of-us-theme-park-visitors-wont-buy-food-and-beverage-if-there-are-queues-finds-omnico-664140953.html">Omnico via PR Newswire</a></li>
+      <li id="src-10">Discomfort and unhappy guests: <a href="https://www.katapult.co.uk/top-10-reasons-why-theme-park-guests-leave-unhappy">Katapult</a></li>
+      <li id="src-11">Interactive wands: <a href="https://blooloop.com/theme-park/news/universal-orlando-wizarding-world-harry-potter-new-interactive-wands/">Blooloop</a></li>
+      <li id="src-12">Sorcerers of the Magic Kingdom: <a href="https://allears.net/tp/mk/sorcerers-of-the-magic-kingdom.htm">AllEars</a></li>
+      <li id="src-13">Meow Wolf visit length: <a href="https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets">Placer.ai</a>; first-year visitors: <a href="https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html">Yahoo</a></li>
+      <li id="src-14">Maister, <em>The Psychology of Waiting Lines</em> (1985): <a href="https://davidmaister.com/articles/5/52/index.html">davidmaister.com</a></li>
+      <li id="src-15">Royal Caribbean app reservations: <a href="https://www.royalcaribbean.com/faq/questions/what-reservations-can-be-made-with-the-app">Royal Caribbean FAQ</a>; waterslide waits: <a href="https://cruisefever.net/is-icon-of-the-seas-too-crowded-passengers-fresh-off-the-ship-weigh-in/">Cruise Fever</a></li>
+      <li id="src-16">Mine Train capacity: <a href="https://www.themeparktourist.com/features/20170730/33009/which-magic-kingdom-rides-serve-most-customers">Theme Park Tourist</a>; Magic Kingdom attendance: <a href="https://www.fox13news.com/news/magic-kingdom-park-most-visited-park-worldwide">Fox 13 / TEA</a></li>
+      <li id="src-17">FastPass+ complaints: <a href="https://themeparkinsider.com/flume/201503/4453">Theme Park Insider</a>; Volcano Bay virtual waits: <a href="https://touringplans.com/blog/volcano-bay-lines-waves-waturi/">TouringPlans</a></li>
+      <li id="src-18">DisneyQuest closure: <a href="https://en.wikipedia.org/wiki/DisneyQuest">Wikipedia</a></li>
+    </ol>
+    <p class="note">The 6-hour day and the $100 / $20 pricing are illustrative examples, not published figures.</p>
+  </details>
+</section>
+
+</main>
+<footer>Radical New Ideas</footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const hooks = {};
+
+/* ---------- Count up ---------- */
+function countUp(el, to, fmt = v => Math.round(v).toLocaleString('en-US'), dur = 1300) {
+  const from = parseFloat(el.dataset.cur || 0);
+  cancelAnimationFrame(el._raf);
+  if (reduce) { el.textContent = fmt(to); el.dataset.cur = to; return; }
+  const t0 = performance.now();
+  const tick = t => {
+    const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3), v = from + (to - from) * e;
+    el.textContent = fmt(v); el.dataset.cur = v;
+    if (p < 1) el._raf = requestAnimationFrame(tick);
+  };
+  el._raf = requestAnimationFrame(tick);
+}
+const hm = m => `${Math.floor(m / 60)}h ${String(Math.round(m % 60)).padStart(2, '0')}m`;
+
+/* ---------- Scrolly step engine ---------- */
+function applyStep(sc, i) {
+  if (sc._step === i) return;
+  sc._step = i;
+  sc.dataset.step = i;
+  $$('[data-on]', sc).forEach(el => el.classList.toggle('on', i >= +el.dataset.on));
+  $$('[data-only]', sc).forEach(el => el.classList.toggle('on', el.dataset.only.split(',').map(Number).includes(i)));
+  $$('.step', sc).forEach((s, k) => s.classList.toggle('active', k === i));
+  hooks[sc.id]?.(i, sc);
+}
+const stepIO = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) applyStep(e.target.closest('.scrolly'), +e.target.dataset.i);
+}), { rootMargin: '-48% 0px -48% 0px' });
+$$('.scrolly').forEach(sc => {
+  $$('.step', sc).forEach((s, i) => { s.dataset.i = i; stepIO.observe(s); });
+  applyStep(sc, -1);
+});
+
+/* ---------- Reveal panels ---------- */
+const revealIO = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  revealIO.unobserve(e.target);
+  if (e.target.id === 's-money') countUp($('#moneyNum'), 724000000, v => '$' + Math.round(v).toLocaleString('en-US'), 1800);
+}), { threshold: .3 });
+$$('.reveal, #s-money').forEach(el => revealIO.observe(el));
+
+/* ---------- Progress + hero ---------- */
+const progress = $('#progress'), hero = $('#hero'), heroQ = $('#heroQueue'), heroCopy = $('#heroCopy');
+function onScroll() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  if (!reduce) {
+    const p = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight - innerHeight)));
+    heroQ.style.transform = `scale(${1.7 - .7 * p})`;
+    heroCopy.style.opacity = String(1 - Math.max(0, (p - .55) / .45));
+  }
+}
+addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+onScroll();
+
+/* ---------- Hero queue ---------- */
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const rows = 10, x0 = 70, x1 = 1130, y0 = 70, gap = 74;
+  let rails = '', dots = '', posts = '';
+  for (let r = 0; r <= rows; r++) {
+    const y = y0 + r * gap - gap / 2;
+    const left = r % 2 === 1 ? x0 + 40 : x0, right = r % 2 === 0 && r > 0 ? x1 - 40 : x1;
+    rails += `<path class="rail" d="M${left} ${y}H${right}"/>`;
+    for (let x = left; x <= right; x += 106) posts += `<circle class="post" cx="${x}" cy="${y}" r="5"/>`;
+  }
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let r = 0; r < rows; r++) {
+    const y = y0 + r * gap;
+    for (let x = x0 + 30; x <= x1 - 30; x += 22 + rnd() * 10) {
+      if (rnd() < .08) continue;
+      dots += `<circle class="g" cx="${(x + rnd() * 6).toFixed(1)}" cy="${(y + (rnd() - .5) * 18).toFixed(1)}" r="${(7 + rnd() * 2).toFixed(1)}"/>`;
+    }
+  }
+  const sign = `<g transform="translate(525 150)"><rect x="0" y="-6" width="150" height="62" rx="12" fill="var(--sign)"/><text x="75" y="38" text-anchor="middle" fill="var(--led)" style="font:700 30px var(--mono);letter-spacing:-1px">75 MIN</text></g>`;
+  heroQ.innerHTML = rails + posts + dots + sign;
+})();
+
+/* ---------- 1955 mini queue ---------- */
+(() => {
+  const mq = $('#miniQueue'); let h = '';
+  for (let i = 0; i < 64; i++) h += `<i class="${i >= 22 ? 'late' : ''}" style="--i:${i - 22}"></i>`;
+  mq.innerHTML = h;
+  hooks['s-years'] = (i, sc) => sc.classList.toggle('on-1', i >= 1);
+})();
+
+/* ---------- Day bar ---------- */
+const RIDES = ['Space Mountain', 'Indiana Jones Adventure', 'Matterhorn Bobsleds', 'Big Thunder Mountain', 'Haunted Mansion', 'Pirates of the Caribbean', 'Rise of the Resistance', 'Smugglers Run'];
+const FUN = [['play', 'Wand-casting'], ['play', 'Arcade'], ['rest', 'Lawn nap'], ['play', 'Castle walk-through'], ['play', 'Mini golf'], ['rest', 'Shaded hammocks'], ['play', 'Climbing trail'], ['rest', 'Lawn & lemonade']];
+const STARTS = [0, 60, 120, 240, 300, 360, 450, 510];
+function schedule() {
+  const s = [];
+  STARTS.forEach((r, k) => {
+    s.push({ a: r, b: r + 45, today: 'wait', better: FUN[k][0], lt: `Waiting for ${RIDES[k]}`, lb: FUN[k][1] });
+    s.push({ a: r + 45, b: r + 50, today: 'ride', better: 'ride', lt: RIDES[k], lb: RIDES[k] });
+  });
+  s.push({ a: 180, b: 240, today: 'food', better: 'food', lt: 'Lunch', lb: 'Lunch' });
+  s.push({ a: 420, b: 440, today: 'food', better: 'food', lt: 'Snack', lb: 'Snack' });
+  s.push({ a: 570, b: 630, today: 'food', better: 'food', lt: 'Dinner', lb: 'Dinner' });
+  return s.sort((x, y) => x.a - y.a);
+}
+const clock = m => { const t = 9 * 60 + m, h = Math.floor(t / 60), mm = String(t % 60).padStart(2, '0'); return `${((h + 11) % 12) + 1}:${mm} ${h >= 12 ? 'PM' : 'AM'}`; };
+function makeDayBar(el) {
+  const segs = schedule();
+  el.innerHTML = `
+    <div class="db-head">
+      <div class="db-stat waitstat"><span class="db-k"><i class="sw k-wait"></i>Waiting in line</span><b class="db-v" data-v="wait">0h 00m</b></div>
+      <div class="db-stat"><span class="db-k"><i class="sw k-ride"></i>Riding</span><b class="db-v" data-v="ride">0h 00m</b></div>
+      <div class="db-stat fun"><span class="db-k"><i class="sw k-play"></i>Playing & resting</span><b class="db-v" data-v="fun">0h 00m</b></div>
+    </div>
+    <div class="db-track"></div>
+    <div class="db-axis"><span style="left:0">9 AM</span><span style="left:25%">Noon</span><span style="left:50%">3 PM</span><span style="left:75%">6 PM</span><span style="left:100%">9 PM</span></div>
+    <div class="db-legend">
+      <span class="lg-today"><i class="sw k-wait"></i>Waiting</span><span><i class="sw k-ride"></i>Rides</span><span><i class="sw k-food"></i>Food</span>
+      <span class="lg-better"><i class="sw k-play"></i>Play</span><span class="lg-better"><i class="sw k-rest"></i>Rest</span>
+    </div>
+    <div class="db-callout">6 of 12 hours, standing in line.</div>`;
+  const track = $('.db-track', el);
+  segs.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'seg k-' + s.today;
+    d.style.left = `calc(${s.a / 7.2}% + 1px)`;
+    d.style.width = `max(3px, calc(${(s.b - s.a) / 7.2}% - 2px))`;
+    d.style.setProperty('--d', Math.round(s.a * 1.4));
+    d._s = s;
+    track.appendChild(d);
+  });
+  const api = {
+    el,
+    fill(on) { el.classList.toggle('filled', on); },
+    mode(better) {
+      el.classList.toggle('better', better);
+      $$('.seg', el).forEach(d => d.className = 'seg k-' + (better ? d._s.better : d._s.today));
+    },
+    stats(wait, ride, fun) {
+      countUp($('[data-v=wait]', el), wait, hm); countUp($('[data-v=ride]', el), ride, hm); countUp($('[data-v=fun]', el), fun, hm);
+    }
+  };
+  // Tooltip
+  const tip = $('#tip');
+  track.addEventListener('pointermove', e => {
+    const d = e.target.closest('.seg');
+    if (!d) { tip.classList.remove('show'); return; }
+    const s = d._s, better = el.classList.contains('better');
+    tip.innerHTML = `<b>${better ? s.lb : s.lt}</b><span>${clock(s.a)} – ${clock(s.b)}</span>`;
+    tip.style.left = Math.min(innerWidth - 250, e.clientX + 12) + 'px';
+    tip.style.top = (e.clientY - 56) + 'px';
+    tip.classList.add('show');
+  });
+  track.addEventListener('pointerleave', () => tip.classList.remove('show'));
+  return api;
+}
+const day1 = makeDayBar($('#day1'));
+hooks['s-day'] = i => {
+  day1.fill(i >= 1);
+  if (i >= 1) day1.stats(360, 40, 0); else day1.stats(0, 0, 0);
+  day1.el.classList.toggle('emph', i >= 2);
+};
+const day2 = makeDayBar($('#day2'));
+day2.fill(true); day2.stats(360, 40, 0);
+hooks['s-dayback'] = i => {
+  day2.mode(i >= 1);
+  if (i >= 1) day2.stats(0, 40, 360); else day2.stats(360, 40, 0);
+};
+const day3 = makeDayBar($('#day3'));
+day3.mode(true); day3.fill(true);
+$$('.db-v', day3.el).forEach(v => v.textContent = '');
+$('.db-head', day3.el).style.display = 'none';
+$('.db-callout', day3.el).remove();
+
+/* ---------- Finale: many days ---------- */
+(() => {
+  const many = $('#many'); let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const kinds = ['play', 'rest', 'play', 'play', 'rest'];
+  let h = '';
+  for (let n = 0; n < 72; n++) {
+    let segs = '';
+    STARTS.forEach((r, k) => {
+      const off = (rnd() - .5) * 30, a = Math.max(0, r + off);
+      segs += `<i class="k-${kinds[Math.floor(rnd() * kinds.length)]}" style="left:${a / 7.2}%;width:calc(${45 / 7.2}% - 2px)"></i>`;
+      segs += `<i class="k-ride" style="left:calc(${(a + 45) / 7.2}% + 1px);width:max(2px,calc(${5 / 7.2}% - 1px))"></i>`;
+    });
+    segs += `<i class="k-food" style="left:${(180 + (rnd() - .5) * 40) / 7.2}%;width:${55 / 7.2}%"></i><i class="k-food" style="left:${(575 + (rnd() - .5) * 40) / 7.2}%;width:${55 / 7.2}%"></i>`;
+    h += `<div class="mini">${segs}</div>`;
+  }
+  many.innerHTML = h;
+})();
+
+/* ---------- Wait sign ---------- */
+hooks['s-sign'] = i => {
+  const n = $('#signNum');
+  if (i < 0) return;
+  countUp(n, i >= 1 ? 91 : 61, v => String(Math.round(v)), i >= 1 ? 800 : 1500);
+  $('#sign').classList.toggle('peaking', i >= 1);
+};
+
+/* ---------- Pictograms ---------- */
+$$('.people').forEach(p => {
+  const lit = +p.dataset.lit; let h = '';
+  for (let i = 0; i < 10; i++) h += `<svg class="person${i < lit ? ' lit' : ''}" style="--i:${i}" viewBox="0 0 20 44" fill="currentColor"><circle cx="10" cy="6" r="5.5"/><path d="M3 18a7 7 0 0 1 14 0v12h-3v13H6V30H3z"/></svg>`;
+  p.innerHTML = h;
+});
+
+/* ---------- Capacity simulation ---------- */
+(() => {
+  const canvas = $('#capCanvas'), ctx = canvas.getContext('2d'), lineEl = $('#capLine');
+  const N = 66, INTERVAL = 700;
+  let W = 0, H = 0, mode = 0, running = false, last = 0, acc = 0, turn = 0, railA = 1, visible = false;
+  let col = {};
+  const readCol = () => { const cs = getComputedStyle(document.documentElement); col = { ink2: cs.getPropertyValue('--ink2').trim(), ride: cs.getPropertyValue('--ride').trim(), axis: cs.getPropertyValue('--axis').trim(), muted: cs.getPropertyValue('--muted').trim(), track: cs.getPropertyValue('--track').trim() }; };
+  readCol(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readCol(); draw(); });
+  const gate = { x: 0, y: 0, w: 0, h: 0 };
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const sp = () => Math.max(10, Math.min(W * .045, H * .075));
+  const perRow = () => Math.max(5, Math.floor((gate.x - 40) / sp()));
+  function qPos(k) {
+    const s = sp(), L = perRow(), rows = Math.ceil(N / L), r = Math.floor(k / L), c = k % L;
+    const x = gate.x - 24 - (r % 2 === 0 ? c : L - 1 - c) * s;
+    const y = H / 2 - ((rows - 1) / 2) * s * 1.55 + r * s * 1.55;
+    return [x, y];
+  }
+  const home = () => [W * .05 + rnd() * (gate.x - W * .05 - 50), H * .1 + rnd() * H * .8];
+  const dots = [];
+  for (let k = 0; k < N; k++) dots.push({ x: 0, y: 0, tx: 0, ty: 0, st: 'q', q: k, a: 1, turn: k });
+  function retarget(snap) {
+    dots.forEach(d => {
+      if (d.st === 'q') [d.tx, d.ty] = qPos(d.q);
+      else if (d.st === 'idle' && d.hx == null) { [d.hx, d.hy] = home(); }
+      if (d.st === 'idle') { d.tx = d.hx; d.ty = d.hy; }
+      if (snap) { d.x = d.tx; d.y = d.ty; }
+    });
+  }
+  function resize() {
+    const r = canvas.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+    W = r.width; H = r.height; if (!W || !H) return;
+    canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    gate.w = Math.max(64, W * .13); gate.h = Math.max(70, H * .34); gate.x = W - gate.w - 6; gate.y = H / 2 - gate.h / 2;
+    dots.forEach(d => { d.hx = null; });
+    retarget(true); draw();
+  }
+  function setMode(m) {
+    if (m === mode) return; mode = m;
+    if (m === 1) dots.forEach(d => { if (d.st === 'q') { d.st = 'idle'; d.hx = null; } });
+    else {
+      let q = 0;
+      dots.filter(d => d.st === 'idle' || d.st === 'walk').sort((a, b) => b.x - a.x).forEach(d => { d.st = 'q'; d.q = q++; });
+    }
+    retarget(reduce); updateLine(); if (reduce) draw();
+  }
+  function board() {
+    if (mode === 0) {
+      const d = dots.find(d => d.st === 'q' && d.q === 0);
+      if (!d) return;
+      d.st = 'ride'; d.tx = gate.x + gate.w / 2; d.ty = H / 2;
+      dots.forEach(o => { if (o.st === 'q') { o.q--; } });
+      retarget(false);
+    } else {
+      const idle = dots.filter(d => d.st === 'idle').sort((a, b) => a.turn - b.turn)[0];
+      if (idle) { idle.st = 'walk'; idle.tx = gate.x - 4; idle.ty = H / 2; }
+    }
+  }
+  function respawn(d) {
+    d.a = 0;
+    if (mode === 0) { d.st = 'q'; d.q = dots.filter(o => o.st === 'q').length; [d.tx, d.ty] = qPos(d.q); d.x = d.tx - 30; d.y = d.ty; }
+    else { d.st = 'idle'; [d.hx, d.hy] = home(); d.tx = d.hx; d.ty = d.hy; d.x = gate.x + gate.w / 2; d.y = gate.y + gate.h + 6; d.turn = ++turn + N; }
+  }
+  function update(dt) {
+    acc += dt; while (acc >= INTERVAL) { acc -= INTERVAL; board(); }
+    const k = 1 - Math.exp(-dt / 220), speed = Math.max(W, 400) * .4 / 1000;
+    railA += ((mode === 0 ? 1 : 0) - railA) * (1 - Math.exp(-dt / 300));
+    dots.forEach(d => {
+      if (d.st === 'walk') {
+        const dx = d.tx - d.x, dy = d.ty - d.y, dist = Math.hypot(dx, dy);
+        if (dist < 4) { d.st = 'ride'; d.tx = gate.x + gate.w / 2; }
+        else { const m = Math.min(dist, speed * dt); d.x += dx / dist * m; d.y += dy / dist * m; }
+      } else { d.x += (d.tx - d.x) * k; d.y += (d.ty - d.y) * k; }
+      if (d.st === 'idle') { d.tx = d.hx + Math.sin((performance.now() / 900) + d.turn) * 4; }
+      if (d.st === 'ride') { d.a -= dt / 450; if (d.a <= 0) respawn(d); }
+      else if (d.a < 1) d.a = Math.min(1, d.a + dt / 400);
+    });
+  }
+  function rr(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, r) : ctx.rect(x, y, w, h); }
+  function draw() {
+    if (!W) return;
+    ctx.clearRect(0, 0, W, H);
+    const s = sp(), L = perRow(), rows = Math.ceil(N / L);
+    if (railA > .02) {
+      ctx.globalAlpha = railA * .8; ctx.strokeStyle = col.axis; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      for (let r = 0; r <= rows; r++) {
+        const y = H / 2 - ((rows - 1) / 2) * s * 1.55 + (r - .5) * s * 1.55;
+        const xl = gate.x - 24 - (L - 1) * s - s * .7, xr = gate.x - 24 + s * .7;
+        ctx.beginPath(); ctx.moveTo(r % 2 === 1 ? xl + s : xl, y); ctx.lineTo(r % 2 === 0 && r > 0 ? xr - s : xr, y); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (railA < .98) {
+      ctx.globalAlpha = 1 - railA; ctx.fillStyle = col.muted; ctx.font = '600 12px -apple-system, system-ui, sans-serif';
+      ctx.fillText('THE PARK', W * .05, H * .07); ctx.globalAlpha = 1;
+    }
+    rr(gate.x, gate.y, gate.w, gate.h, 14); ctx.fillStyle = col.ride; ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.font = '700 15px -apple-system, system-ui, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('RIDE', gate.x + gate.w / 2, H / 2 + 5); ctx.textAlign = 'left';
+    const rad = Math.max(3.2, s * .3);
+    dots.forEach(d => {
+      ctx.globalAlpha = Math.max(0, d.a);
+      ctx.fillStyle = d.st === 'walk' || d.st === 'ride' ? col.ride : col.ink2;
+      ctx.beginPath(); ctx.arc(d.x, d.y, rad, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+  function updateLine() {
+    const n = mode === 0 ? dots.filter(d => d.st === 'q').length : 0;
+    lineEl.textContent = mode === 0 ? `${n} guests` : '0 guests';
+    lineEl.classList.toggle('zero', mode === 1);
+  }
+  function loop(t) {
+    if (!running) return;
+    const dt = Math.min(64, t - (last || t)); last = t;
+    update(dt); draw(); if (mode === 0) updateLine();
+    requestAnimationFrame(loop);
+  }
+  function start() { if (running || reduce) return; running = true; last = 0; requestAnimationFrame(loop); }
+  new ResizeObserver(resize).observe(canvas);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : (running = false); }).observe(canvas);
+  hooks['s-cap'] = i => { setMode(i >= 1 ? 1 : 0); };
+  updateLine();
+})();
+
+/* ---------- Receipts ---------- */
+hooks['s-receipt'] = i => {
+  const no = i >= 2;
+  $$('#s-receipt [data-total]').forEach(e => e.textContent = no ? '$100' : '$180');
+  $$('#s-receipt [data-rides]').forEach(e => e.textContent = no ? '8' : '12');
+};
+
+/* ---------- Castle crowd ---------- */
+(() => {
+  let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  $$('.crowd').forEach(c => {
+    let h = '';
+    for (let i = 0; i < 16; i++) h += `<i style="--i:${i};left:${(rnd() * 92).toFixed(1)}%;top:${(20 + rnd() * 75).toFixed(1)}%"></i>`;
+    c.innerHTML = h;
+  });
+})();
+
+/* ---------- Churro ---------- */
+(() => {
+  const root = $('#churro'); const N = 24; let h = '';
+  for (let i = 0; i < N; i++) h += `<span class="cd" style="--i:${i}"></span>`;
+  root.insertAdjacentHTML('beforeend', h);
+  const cds = $$('.cd', root);
+  const A = i => { const r = Math.floor(i / 8), c = i % 8, col = r % 2 === 0 ? c : 7 - c; return [6 + col * 5.9, 30 + r * 19.5]; };
+  let seed = 9; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const Bpts = cds.map((_, i) => { const ang = Math.PI * (.55 + rnd() * .9), rad = 14 + rnd() * 16; return [80 + Math.cos(ang) * rad * .9, 62 + Math.sin(ang) * rad * -.05 + (rnd() * 22)]; });
+  const place = spend => cds.forEach((d, i) => { const [x, y] = spend ? Bpts[i] : A(i); d.style.left = x + '%'; d.style.top = y + '%'; });
+  place(false);
+  hooks['s-churro'] = i => { root.classList.toggle('spend', i >= 2); place(i >= 2); };
+})();
+
+/* ---------- Ship ---------- */
+(() => {
+  const svg = $('#ship');
+  const rows = [
+    [['Jogging track', 'b', 150], ['Waterslides', 'g', 130], ['Pool', 'b', 110], ['Loungers', 'b', 120], ['Mini golf', 'b', 110], ['Sports court', 'b', 100]],
+    [['Surf simulator', 'g', 120], ['Hot tubs', 'b', 90], ['Pool bar', 'b', 90], ['Arcade', 'b', 100], ['Buffet', 'b', 130], ['Spa', 'b', 100], ['Library', 'b', 90]],
+    [['Theater', 'g', 190], ['Promenade', 'b', 150], ['Café', 'b', 90], ['Trivia lounge', 'b', 120], ['Bar', 'b', 80], ['Kids club', 'b', 110]],
+  ];
+  let h = `<path class="stack" d="M480 18h46l8 36h-62z"/><path class="hull" d="M20 214H780L748 300Q740 314 724 314H96Q80 314 72 300Z"/><path class="hull2" d="M60 270H760" stroke="var(--surface)" stroke-width="3"/>`;
+  let idx = 0, gx = 0;
+  rows.forEach((row, r) => {
+    const total = row.reduce((s, c) => s + c[2], 0), x0 = 60 + r * -20, width = 680 + r * 40, y = 58 + r * 52;
+    let x = x0;
+    row.forEach(([name, k, w]) => {
+      const ww = w / total * width;
+      h += `<g><title>${name}${k === 'g' ? ' — capacity-limited, reserve in app' : ' — open to everyone'}</title><rect class="deck ${k}" data-on="${k === 'g' ? 1 : 2}" style="--i:${idx++}" x="${x.toFixed(1)}" y="${y}" width="${ww.toFixed(1)}" height="48" rx="6"/>`;
+      h += `<text class="dl ${k}${k === 'g' ? ' keep' : ''}" data-on="${k === 'g' ? 1 : 2}" x="${(x + ww / 2).toFixed(1)}" y="${y + 29}" text-anchor="middle">${name}</text></g>`;
+      if (name === 'Waterslides') gx = x + ww / 2;
+      x += ww;
+    });
+  });
+  h += `<g class="waitsign" data-on="3" transform="translate(${gx - 46} 8)"><rect width="92" height="38" rx="9" fill="var(--sign)"/><text x="46" y="26" text-anchor="middle" fill="var(--led)" style="font:700 18px var(--mono)">45 MIN</text></g>`;
+  svg.innerHTML = h;
+})();
+
+/* ---------- Flip cards ---------- */
+$$('.flip').forEach(b => b.addEventListener('click', e => {
+  if (e.target.closest('a')) return;
+  b.classList.toggle('flipped'); b.setAttribute('aria-pressed', b.classList.contains('flipped'));
+}));
+})();
+</script>
+</body>
+</html>
