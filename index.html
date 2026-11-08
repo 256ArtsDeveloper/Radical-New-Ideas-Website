@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Radical New Ideas</title>
-<meta name="description" content="Visual essays on how everyday things could work better.">
+<meta name="description" content="Visual essays on how our current complex systems could be redesigned.">
 <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" sizes="any">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
@@ -45,7 +45,6 @@ a { color: inherit; text-decoration: none; }
 
 .list-h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid var(--hair); margin-bottom: 28px; }
 .list-h h2 { font-size: 15px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-.list-h span { font-size: 14px; color: var(--muted); }
 
 .articles { display: grid; gap: 24px; padding-bottom: 120px; }
 .article { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: clamp(24px, 4vw, 56px); padding: clamp(20px, 3vw, 32px); border-radius: 28px; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 10px 40px rgba(0,0,0,.05); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
@@ -66,8 +65,8 @@ a { color: inherit; text-decoration: none; }
 .article:hover .mods, .article:focus-visible .mods { gap: 8px; overflow: visible; }
 .article:hover .mods i, .article:focus-visible .mods i { border-radius: 10px; background: var(--c); box-shadow: none; }
 .article:hover .mods i:nth-child(odd), .article:focus-visible .mods i:nth-child(odd) { transform: translateY(-4px); }
-.meta { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--ride); }
-.article h3 { margin-top: 12px; font-size: clamp(30px, 4.4vw, 52px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+.meta { display: block; font-size: clamp(22px, 3vw, 32px); font-weight: 750; letter-spacing: -.02em; color: var(--ride); }
+.article h3 { margin-top: 10px; font-size: clamp(26px, 3.4vw, 40px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
 .article p { margin-top: 14px; font-size: clamp(17px, 1.7vw, 20px); color: var(--ink2); line-height: 1.45; max-width: 36ch; }
 .foot { margin-top: 22px; display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--muted); }
 .foot .go { margin-left: auto; color: var(--ride); font-weight: 650; }
@@ -86,26 +85,26 @@ footer { border-top: 1px solid var(--hair); padding: 28px 16px 48px; text-align:
 <main class="wrap">
   <section class="intro">
     <h1>Radical New Ideas</h1>
-    <p>Visual essays on how everyday things could work better.</p>
+    <p>Visual essays on how our current complex systems could be redesigned.</p>
   </section>
 
-  <div class="list-h"><h2>Articles</h2><span id="count"></span></div>
+  <div class="list-h"><h2>Topics</h2></div>
 
   <div class="articles" id="articles">
     <a class="article" href="articles/modular-society/">
       <div>
-        <span class="meta">Society · November 2026</span>
-        <h3>Modular Society</h3>
-        <p>Every healthy system needs a pressure valve. What if leaving your government were as easy as switching banks?</p>
+        <span class="meta">Societal Structure</span>
+        <h3>Panarchy - A modular society</h3>
+        <p>What if anyone could switch governments at any time just like a cell provider.</p>
         <div class="foot"><span class="go">Read →</span></div>
       </div>
       <div class="art mod" aria-hidden="true"><div class="mods"><i style="--d:0;--c:var(--ride)"></i><i style="--d:1;--c:var(--play)"></i><i style="--d:2;--c:var(--food)"></i><i style="--d:3;--c:var(--rest)"></i><i style="--d:4;--c:var(--rest)"></i><i style="--d:5;--c:var(--ride)"></i><i style="--d:6;--c:var(--play)"></i><i style="--d:7;--c:var(--food)"></i></div></div>
     </a>
     <a class="article" href="articles/theme-park-design-is-outdated/">
       <div>
-        <span class="meta">Theme parks · November 2026</span>
+        <span class="meta">Theme Parks</span>
         <h3>Theme Park Design Is Outdated</h3>
-        <p>We've spent seventy years perfecting the line. With reservations, nobody needs to stand in one, and the business model doesn't even need to change.</p>
+        <p>It's time for hour long lines to end.</p>
         <div class="foot"><span class="go">Read →</span></div>
       </div>
       <div class="art" aria-hidden="true" data-art="daybars"></div>
@@ -132,8 +131,6 @@ document.querySelectorAll('[data-art="daybars"]').forEach(art => {
   }
   art.innerHTML = html;
 });
-const n = document.querySelectorAll('#articles .article').length;
-document.getElementById('count').textContent = `${n} ${n === 1 ? 'essay' : 'essays'}`;
 </script>
 </body>
 </html>
