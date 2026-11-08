@@ -190,7 +190,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .pill.s { font-size: clamp(12px, 1.1vw, 14px); color: var(--ink2); }
 .pill.shady { background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border: 1.5px dashed color-mix(in srgb, var(--bad) 55%, transparent); }
 .scrolly[data-step="2"] .pill.ok { opacity: .3; }
-.quad { display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr auto; gap: 10px; width: 100%; max-width: 720px; }
+.quad { transition: transform .7s cubic-bezier(.2,.7,.2,1); display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr auto; gap: 10px; width: 100%; max-width: 720px; }
 .qh { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; align-self: end; }
 .qs { writing-mode: vertical-rl; transform: rotate(180deg); align-self: center; justify-self: center; }
 .qc { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; padding: 16px 12px; border-radius: 22px; background: var(--surface); border: 1px solid var(--ring); }
@@ -1124,6 +1124,14 @@ hooks['s-pressure'] = (i, sc) => {
 })();
 
 /* ---------- Voice / exit ---------- */
+hooks['s-valves'] = (i, sc) => {
+  // Desktop: slide the chart so the unofficial row sits level with the step text.
+  const q = $('.quad', sc), row = q.lastElementChild, viz = q.parentElement;
+  const go = i >= 1 && !matchMedia('(max-width: 899px)').matches;
+  // offsetTop ignores transforms, so this is stable mid-animation.
+  const mid = viz.getBoundingClientRect().top + row.offsetTop + row.offsetHeight / 2;
+  q.style.transform = go ? `translateY(${innerHeight / 2 - mid}px)` : '';
+};
 hooks['s-voice'] = i => $('#vx').classList.toggle('exit', i >= 1);
 
 /* ---------- Bundle ---------- */
