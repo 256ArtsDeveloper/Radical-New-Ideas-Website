@@ -828,7 +828,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="scrolly" id="s-power">
   <div class="stage"><div class="viz">
     <div class="pw-wrap">
-      <canvas class="pw" id="power" role="img" aria-label="A 3D landscape of power, where height is power and overlapping bases mean people answer to both. Today: one giant, wide cone, the government, covers everyone. A ring of big company cones overlaps it, and a ring of smaller company cones overlaps those. In a modular society: many overlapping hills of every size, some still large, ranging from sharp cones to round domes. The sharper the peak, the more top-down the organization; the rounder, the more member-run."></canvas>
+      <canvas class="pw" id="power" role="img" aria-label="A 3D landscape of power, where height is power and overlapping bases mean people answer to both. Today: one wide cone, the government, covers everyone. A ring of big company cones, almost as tall, overlaps it, and a ring of smaller company cones overlaps those. In a modular society: many overlapping hills of every size, some still large, ranging from sharp cones to round domes. The sharper the peak, the more top-down the organization; the rounder, the more member-run."></canvas>
       <div class="pw-seg" role="group" aria-label="Show power">
         <button type="button" data-v="0" aria-pressed="true">Today</button>
         <button type="button" data-v="1" aria-pressed="false">Modular</button>
@@ -841,7 +841,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Today, power is a pyramid.</p><p>One government towers in the middle. Big companies cluster around it: smaller, but just as steep. Smaller companies crowd around them.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Today, power is a pyramid.</p><p>One government sits in the middle. Big companies cluster around it, almost as tall and just as steep. Smaller companies crowd around them.</p></div></div>
     <div class="step"><div class="card"><p class="big">And it stacks.</p><p>Where the bases overlap, the same people answer to a government <em>and</em> the companies they can't do without. Pressure from both, valves for neither.</p></div></div>
     <div class="step"><div class="card"><p class="big">A modular society is a range of hills.</p><p>Power spreads across many groups. Some are run from the top. Some are run by their members. Most land somewhere in between. Some are still big.</p><p>They overlap too, but every overlap is one you chose. None grows taller than its members let it.</p></div></div>
   </div>
@@ -1143,17 +1143,17 @@ hooks['s-bundle'] = i => {
   const solids = [];
   // Today: a government cone wide enough to cover everyone, overlapped by a ring of big
   // companies, overlapped in turn by a ring of smaller ones.
-  solids.push({ x: 0, z: 0, r: 6.2, h: 7.6, p: 1, c: '--ride', set: 0, gov: true });
+  solids.push({ x: 0, z: 0, r: 6.2, h: 5.4, p: 1, c: '--ride', set: 0, gov: true });
   for (let k = 0; k < 7; k++) {
     const a = k / 7 * Math.PI * 2 + .3, d = 5.4 + rnd() * .8;
-    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: 1.7 + rnd() * .6, h: 2.6 + rnd() * 1.8, p: .8 + rnd() * .2, c: PAL[1 + k % 4], set: 0 });
+    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: 1.7 + rnd() * .6, h: 3.6 + rnd() * 1.2, p: 1, c: PAL[1 + k % 4], set: 0 });
   }
   for (let k = 0; k < 14; k++) {
     const a = (k + .5) / 14 * Math.PI * 2 + .3, d = 7.6 + rnd() * .9;
-    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: .7 + rnd() * .45, h: 1 + rnd() * 1.1, p: .7 + rnd() * .3, c: PAL[1 + (k + 2) % 4], set: 0 });
+    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: .7 + rnd() * .45, h: 1.4 + rnd() * 1.2, p: 1, c: PAL[1 + (k + 2) % 4], set: 0 });
   }
   // Modular: overlapping hills of every size and every shade of top-down vs member-run. A few are still as big as today's giants.
-  const pts = [{ x: -2.6, z: 1.2, r: 3.4, p: .95, h: 6.4 }, { x: 3.4, z: -2.2, r: 3.2, p: 0, h: 2.9 }];
+  const pts = [{ x: -2.6, z: 1.2, r: 3.4, p: 1, h: 5.4 }, { x: 3.4, z: -2.2, r: 3.2, p: 0, h: 2.9 }];
   for (let tries = 0; pts.length < 30 && tries < 4000; tries++) {
     const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * (R - 1.4), x = Math.cos(a) * d, z = Math.sin(a) * d, r = .6 + Math.pow(rnd(), 2) * 1.9;
     // Overlap is allowed; just keep centres apart so every group stays visible.
@@ -1181,7 +1181,7 @@ hooks['s-bundle'] = i => {
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    const k = Math.min(w / (2 * R + 1.5), h / (2 * R * SE + 8.6 * CE + .8)), cx = w / 2, cy = h - (R * SE + .5) * k;
+    const k = Math.min(w / (2 * R + 1.5), h / (2 * R * SE + 6.8 * CE + .8)), cx = w / 2, cy = h - (R * SE + .5) * k;
     const ca = Math.cos(az), sa = Math.sin(az);
     const black = [0, 0, 0], white = [255, 255, 255];
     // Ground
@@ -1203,9 +1203,9 @@ hooks['s-bundle'] = i => {
       const s = ease(o.v), a = o.r * k * (.35 + .65 * s), b = a * SE, H = o.h * s * k * CE, base = col[o.c];
       ctx.globalAlpha = Math.min(1, o.v * 2.5) * .82;
       ctx.beginPath();
-      // Profile of revolution y = H·(1 − uⁿ)^(1/n): n = 2 is a dome, n = 1 a cone, below 1 a spire.
+      // Profile of revolution y = H·(1 − uⁿ)^(1/n): n = 2 is a dome, n = 1 a cone.
       // Silhouette = upper envelope of every projected ring, closed by the front of the base.
-      const n = 2 - 1.25 * o.p, X = 32, U = 24;
+      const n = 2 - o.p, X = 32, U = 24;
       for (let i = 0; i <= X; i++) {
         // Samples bunch up near the peak so sharp tips stay crisp.
         const t = i / X * 2 - 1, xf = Math.sign(t) * Math.abs(t) ** 1.6, ax = Math.abs(xf);
@@ -1224,11 +1224,12 @@ hooks['s-bundle'] = i => {
       ctx.fillStyle = g;
       ctx.fill();
       ctx.globalAlpha = 1;
-      if (o.gov && o.v > .5) {
-        ctx.font = `700 ${Math.max(11, Math.min(15, k * .9))}px ${getComputedStyle(cv).fontFamily}`;
-        ctx.textAlign = 'center'; ctx.fillStyle = mix(col['--ink'], col['--bg'], 1 - Math.min(1, (o.v - .5) * 2));
-        ctx.fillText('GOVERNMENT', sx, sy - H - 10);
-      }
+    }
+    // Label last so neighbouring peaks behind the government never cover it.
+    for (const { o, sx, sy } of list) if (o.gov && o.v > .5) {
+      ctx.font = `700 ${Math.max(11, Math.min(15, k * .9))}px ${getComputedStyle(cv).fontFamily}`;
+      ctx.textAlign = 'center'; ctx.fillStyle = mix(col['--ink'], col['--bg'], 1 - Math.min(1, (o.v - .5) * 2));
+      ctx.fillText('GOVERNMENT', sx, sy - o.h * ease(o.v) * k * CE - 10);
     }
   }
   const ease = t => 1 - Math.pow(1 - t, 3);
