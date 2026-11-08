@@ -203,7 +203,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .rules th { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 0 12px 12px; }
 .rules td { padding: 13px 12px; border-top: 1px solid var(--hair); color: var(--ink2); }
 .rules td:first-child { color: var(--ink); font-weight: 650; }
-.rules tr.sh td:first-child { color: var(--bad); }
 .rules tbody tr { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; transition-delay: calc(var(--i) * 70ms); }
 .in .rules tbody tr { opacity: 1; transform: none; }
 @media (max-width: 600px) { .rules td, .rules th { padding-left: 6px; padding-right: 6px; } .rules td { font-size: 13px; } }
@@ -559,8 +558,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <tr style="--i:5"><td>Downgrading</td><td>Next billing cycle</td></tr>
       <tr style="--i:6"><td>Leaving a review</td><td>Anytime</td></tr>
       <tr style="--i:7"><td>Telling friends</td><td>Anytime</td></tr>
-      <tr style="--i:8" class="sh"><td>Breaking company policy</td><td>Until your boss notices</td></tr>
-      <tr style="--i:9" class="sh"><td>Pirating</td><td>Until you get caught</td></tr>
+      <tr style="--i:8"><td>Breaking company policy</td><td>Until your boss notices</td></tr>
+      <tr style="--i:9"><td>Pirating</td><td>Until you get caught</td></tr>
       <tr style="--i:10"><td>Moving countries</td><td>If you get a visa</td></tr>
     </tbody>
   </table>
@@ -570,11 +569,11 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- Backwards -->
 <section class="scrolly" id="s-switch">
   <div class="stage"><div class="viz">
-    <svg class="swc" id="swc" viewBox="0 0 520 440" role="img" aria-label="Rough time it takes to leave: a streaming app in a few minutes, a phone plan in a day, a bank in a week; a new job takes months of searching, your kid's school means moving house, laws and taxes wait for the next election, and a country takes years and a visa."></svg>
+    <svg class="swc" id="swc" viewBox="0 0 520 332" role="img" aria-label="Rough time it takes to leave: a streaming app in a few minutes, a phone plan in a day, a bank in a week; laws and taxes wait for the next election, and a country takes years and a visa."></svg>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p>The smallest things in your life are the easiest to leave. You can cancel a streaming app in a few minutes, and switch banks in a week.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Changing jobs takes months of searching. Your laws, taxes and police take years to change, or a visa to escape.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Your laws, taxes and police take years to change, or a visa to escape.</p></div></div>
     <div class="step"><div class="card"><p class="big">Big bundles are rigid.</p><p>When everything comes in one package, nothing can change without changing it all. So it falls behind what people need.</p><p class="fine">Switching times are rough, illustrative estimates.</p></div></div>
   </div>
 </section>
@@ -720,8 +719,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p>Leaving is the floor. Every group has to offer it, and it works the same way in all of them.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Groups add their own valves on top.</p></div></div>
-    <div class="step"><div class="card"><p>A group can run itself like a democracy, a co-op or a company. Only the floor is fixed.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Groups add their own internal valves on top.</p></div></div>
+    <div class="step"><div class="card"><p>A group can run itself like a democracy, a co-op, a monarchy or a company. Only the floor is fixed.</p></div></div>
   </div>
 </section>
 
@@ -1070,8 +1069,6 @@ hooks['s-pressure'] = (i, sc) => {
     ['Streaming app', 'A few minutes', 300, 'sm'],
     ['Phone plan', 'About a day', 86400, 'sm'],
     ['Bank', 'About a week', 604800, 'sm'],
-    ['Switching jobs', 'Months of job hunting', 7889400, 'bg'],
-    ["Your kid's school", 'Move house', 15778800, 'bg'],
     ['Laws & taxes', 'Wait for the next election', 126230400, 'bg', true],
     ['Your country', 'Years, if you get a visa', 157788000, 'bg']
   ];
