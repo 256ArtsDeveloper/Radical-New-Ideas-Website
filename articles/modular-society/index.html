@@ -314,7 +314,11 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .pw-key { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 13px; font-weight: 600; color: var(--ink2); }
 .pw-key span { display: inline-flex; align-items: center; gap: 7px; }
 .pw-key svg { width: 18px; height: 16px; fill: var(--muted); }
-@media (max-width: 899px) { .pw-wrap { gap: 6px; } .pw-key { font-size: 11px; gap: 4px 12px; } }
+.pw-seg { display: inline-flex; padding: 3px; border-radius: 99px; background: var(--track); box-shadow: inset 0 0 0 1px var(--ring); }
+.pw-seg button { font: 600 13px var(--font); color: var(--ink2); background: none; border: 0; border-radius: 99px; padding: 6px 16px; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
+.pw-seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 3px 10px rgba(0,0,0,.06); }
+.pw-seg button:focus-visible { outline: 2px solid var(--ride); outline-offset: 2px; }
+@media (max-width: 899px) { .pw-wrap { gap: 6px; } .pw-key { font-size: 11px; gap: 4px 12px; } .pw-seg button { font-size: 12px; padding: 4px 12px; } }
 
 /* ---------- Street ---------- */
 .street { width: 100%; max-width: 680px; }
@@ -489,7 +493,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- Valves, lots of them -->
 <section class="scrolly" id="s-valves">
   <div class="stage"><div class="viz">
-    <div class="quad" role="img" aria-label="A two-by-two chart of pressure valves. Official political valves: voting, protesting, calling your representative, campaigning, moving away. Official non-political valves: quitting your job, switching companies, striking, joining a union, leaving a review and more. Unofficial political valves: dodging taxes, leaking damaging information, abusing legal loopholes. Unofficial non-political valves: pirating, stealing, scamming, breaking company policy and more.">
+    <div class="quad" role="img" aria-label="A two-by-two chart of pressure valves. Official political valves: voting, protesting, calling your representative, campaigning, moving away. Official non-political valves: quitting your job, switching companies, striking, joining a union, leaving a review and more. Unofficial political valves: dodging taxes, rioting, campaign contributions, obstructing political processes, abusing legal loopholes. Unofficial non-political valves: pirating, stealing, scamming, breaking company policy and more.">
       <span></span><b class="qh">Political</b><b class="qh">Non-political</b>
       <b class="qh qs">Official valves</b>
       <div class="qc">
@@ -514,16 +518,17 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <b class="qh qs">Unofficial valves</b>
       <div class="qc">
         <span class="pill l shady fx" data-on="1" style="--i:0">Dodging taxes</span>
-        <span class="pill m shady fx" data-on="1" style="--i:2">Leaking damaging information</span>
-        <span class="pill m shady fx" data-on="1" style="--i:4">Abusing legal loopholes</span>
+        <span class="pill l shady fx" data-on="1" style="--i:2">Rioting</span>
+        <span class="pill m shady fx" data-on="1" style="--i:4">Campaign contributions</span>
+        <span class="pill m shady fx" data-on="1" style="--i:6">Obstructing political processes</span>
+        <span class="pill m shady fx" data-on="1" style="--i:8">Abusing legal loopholes</span>
       </div>
       <div class="qc">
         <span class="pill l shady fx" data-on="1" style="--i:1">Pirating</span>
         <span class="pill m shady fx" data-on="1" style="--i:3">Stealing</span>
         <span class="pill l shady fx" data-on="1" style="--i:5">Breaking company policy</span>
-        <span class="pill m shady fx" data-on="1" style="--i:6">Breaking the law as a cost of doing business</span>
         <span class="pill m shady fx" data-on="1" style="--i:7">Intimidating people with legal threats</span>
-        <span class="pill m shady fx" data-on="1" style="--i:8">Scamming</span>
+        <span class="pill m shady fx" data-on="1" style="--i:9">Scamming</span>
       </div>
     </div>
   </div></div>
@@ -822,7 +827,11 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="scrolly" id="s-power">
   <div class="stage"><div class="viz">
     <div class="pw-wrap">
-      <canvas class="pw" id="power" role="img" aria-label="A 3D landscape of power, where height is power. Today: one giant cone, the government, in the middle, ringed by smaller cones, the big companies. In a modular society: many smaller cones and domes scattered evenly. Cones are top-down organizations, domes are member-run ones."></canvas>
+      <canvas class="pw" id="power" role="img" aria-label="A 3D landscape of power, where height is power and overlapping bases mean people answer to both. Today: one giant, wide cone, the government, covers everyone. A ring of big company cones overlaps it, and a ring of smaller company cones overlaps those. In a modular society: many overlapping cones and domes of every size, some still large. Cones are top-down organizations, domes are member-run ones."></canvas>
+      <div class="pw-seg" role="group" aria-label="Show power">
+        <button type="button" data-v="0" aria-pressed="true">Today</button>
+        <button type="button" data-v="1" aria-pressed="false">Modular</button>
+      </div>
       <div class="pw-key" aria-hidden="true">
         <span><svg viewBox="0 0 18 16"><path d="M9 1 17 13a8 3 0 0 1-16 0Z"/></svg>Top-down</span>
         <span><svg viewBox="0 0 18 16"><path d="M1 12a8 8 0 0 1 16 0a8 3 0 0 1-16 0Z"/></svg>Member-run</span>
@@ -831,8 +840,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Today, power is a pyramid.</p><p>One government towers in the middle. Big companies cluster around it: smaller, but just as steep.</p></div></div>
-    <div class="step"><div class="card"><p class="big">A modular society is a range of hills.</p><p>Power spreads across many smaller groups. Some are run from the top. Some are run by their members.</p><p>None grows taller than its members let it.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Today, power is a pyramid.</p><p>One government towers in the middle. Big companies cluster around it: smaller, but just as steep. Smaller companies crowd around them.</p></div></div>
+    <div class="step"><div class="card"><p class="big">And it stacks.</p><p>Where the bases overlap, the same people answer to a government <em>and</em> the companies they can't do without. Pressure from both, valves for neither.</p></div></div>
+    <div class="step"><div class="card"><p class="big">A modular society is a range of hills.</p><p>Power spreads across many groups. Some are run from the top. Some are run by their members. Some are still big.</p><p>They overlap too, but every overlap is one you chose. None grows taller than its members let it.</p></div></div>
   </div>
 </section>
 
@@ -1130,21 +1140,27 @@ hooks['s-bundle'] = i => {
   const PAL = ['--ride', '--good', '--warn', '--prog', '--cons'];
   let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const solids = [];
-  // Today: one giant government cone, a ring of company cones.
-  solids.push({ x: 0, z: 0, r: 3.1, h: 7.6, cone: true, c: '--ride', set: 0, gov: true });
-  for (let k = 0; k < 8; k++) {
-    const a = k / 8 * Math.PI * 2 + .3, d = 6 + rnd() * 1.6;
-    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: 1 + rnd() * .7, h: 2.2 + rnd() * 2, cone: true, c: PAL[1 + k % 4], set: 0 });
+  // Today: a government cone wide enough to cover everyone, overlapped by a ring of big
+  // companies, overlapped in turn by a ring of smaller ones.
+  solids.push({ x: 0, z: 0, r: 6.2, h: 7.6, cone: true, c: '--ride', set: 0, gov: true });
+  for (let k = 0; k < 7; k++) {
+    const a = k / 7 * Math.PI * 2 + .3, d = 5.4 + rnd() * .8;
+    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: 1.7 + rnd() * .6, h: 2.6 + rnd() * 1.8, cone: true, c: PAL[1 + k % 4], set: 0 });
   }
-  // Modular: an even scatter of smaller cones and domes.
-  const pts = [];
-  for (let tries = 0; pts.length < 28 && tries < 4000; tries++) {
-    const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * (R - 1.2), x = Math.cos(a) * d, z = Math.sin(a) * d, r = .55 + rnd() * .7;
-    if (pts.every(p => Math.hypot(p.x - x, p.z - z) > p.r + r + .6)) pts.push({ x, z, r });
+  for (let k = 0; k < 14; k++) {
+    const a = (k + .5) / 14 * Math.PI * 2 + .3, d = 7.6 + rnd() * .9;
+    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: .7 + rnd() * .45, h: 1 + rnd() * 1.1, cone: true, c: PAL[1 + (k + 2) % 4], set: 0 });
+  }
+  // Modular: overlapping cones and domes of every size. A few are still as big as today's giants.
+  const pts = [{ x: -2.6, z: 1.2, r: 3.4, cone: true, h: 6.4 }, { x: 3.4, z: -2.2, r: 3.2, cone: false, h: 2.9 }];
+  for (let tries = 0; pts.length < 30 && tries < 4000; tries++) {
+    const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * (R - 1.4), x = Math.cos(a) * d, z = Math.sin(a) * d, r = .6 + Math.pow(rnd(), 2) * 1.9;
+    // Overlap is allowed; just keep centres apart so every group stays visible.
+    if (pts.every(p => Math.hypot(p.x - x, p.z - z) > (p.r + r) * .55)) pts.push({ x, z, r });
   }
   pts.forEach(p => {
-    const cone = rnd() < .45;
-    solids.push({ ...p, h: cone ? p.r * (1.4 + rnd() * .9) : p.r * (.7 + rnd() * .3), cone, c: PAL[Math.floor(rnd() * PAL.length)], set: 1 });
+    const cone = p.cone ?? rnd() < .45;
+    solids.push({ x: p.x, z: p.z, r: p.r, h: p.h ?? (cone ? p.r * (1.4 + rnd() * .9) : p.r * (.7 + rnd() * .3)), cone, c: PAL[Math.floor(rnd() * PAL.length)], set: 1 });
   });
   solids.forEach(o => { o.v = o.set === 0 ? 1 : 0; o.t = o.v; o.at = 0; });
 
@@ -1184,7 +1200,7 @@ hooks['s-bundle'] = i => {
     }
     for (const { o, sx, sy } of list) {
       const s = ease(o.v), a = o.r * k * (.35 + .65 * s), b = a * SE, H = o.h * s * k * CE, base = col[o.c];
-      ctx.globalAlpha = Math.min(1, o.v * 2.5);
+      ctx.globalAlpha = Math.min(1, o.v * 2.5) * .82;
       ctx.beginPath();
       if (o.cone) {
         const top = Math.max(H, b * 1.02), t = -Math.asin(b / top);
@@ -1229,8 +1245,9 @@ hooks['s-bundle'] = i => {
   }
   const kick = () => { if (!raf) { last = 0; raf = requestAnimationFrame(tick); } };
 
-  hooks['s-power'] = i => {
-    const next = i >= 1 ? 1 : 0;
+  const seg = $$('.pw-seg button', sc);
+  function show(next) {
+    seg.forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === next));
     if (next === step) return;
     step = next;
     const now = performance.now();
@@ -1242,7 +1259,9 @@ hooks['s-bundle'] = i => {
       if (reduce) o.v = o.t;
     });
     kick();
-  };
+  }
+  hooks['s-power'] = i => show(i >= 2 ? 1 : 0);
+  seg.forEach(b => b.addEventListener('click', () => show(+b.dataset.v)));
 
   cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, az }; cv.setPointerCapture(e.pointerId); kick(); });
   cv.addEventListener('pointermove', e => { if (drag) { az = drag.az - (e.clientX - drag.x) / 160; kick(); } });
