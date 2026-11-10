@@ -235,50 +235,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .scrolly[data-step="2"] .noaddon { opacity: 1; }
 .rc-col { display: flex; flex-direction: column; align-items: stretch; flex: 1; max-width: 330px; }
 
-/* ---------- Phone ---------- */
-/* One step only, so the section is laid out side by side instead of pinned. */
-#s-phone { align-items: center; }
-#s-phone .stage { position: relative; height: min(84svh, 680px); }
-#s-phone .viz { inset: 0; }
-#s-phone .steps { align-self: center; padding: 0; }
-#s-phone .step { min-height: 0; }
-@media (max-width: 899px) {
-  #s-phone .stage { position: relative; top: 0; height: 60svh; }
-  #s-phone .stage::after { display: none; }
-  #s-phone .viz { inset: 16px 16px 8px; }
-  #s-phone .steps { padding: 24px 20px 8svh; }
-}
-.phone { height: min(100%, 580px); aspect-ratio: 9 / 19; border-radius: 13% / 6.2%; background: #0b0b0b; padding: 3.2%; box-shadow: 0 30px 80px rgba(0,0,0,.25), inset 0 0 0 2px #333; container-type: size; }
-.screen { position: relative; width: 100%; height: 100%; border-radius: 10.5% / 5%; overflow: hidden; background: var(--surface); font-size: 2.55cqh; }
-.island { position: absolute; top: 2.2%; left: 50%; width: 30%; height: 3.6%; background: #000; border-radius: 99px; transform: translateX(-50%); z-index: 3; }
-.scr { position: absolute; inset: 0; padding: 18% 7% 6%; opacity: 0; transform: translateY(3%); transition: opacity .45s ease, transform .45s ease; }
-.scr.on { opacity: 1; transform: none; }
-.scr h4 { font-size: 1.45em; letter-spacing: -.02em; margin-bottom: .2em; }
-.scr .sub { font-size: .8em; color: var(--ink2); margin-bottom: .9em; }
-.pick { list-style: none; }
-.pick li { display: flex; align-items: center; justify-content: space-between; padding: .55em 0; border-bottom: 1px solid var(--hair); font-size: .88em; }
-.check { width: 1.25em; height: 1.25em; border-radius: 50%; border: 1.5px solid var(--axis); display: grid; place-items: center; flex: none; }
-.check.y { background: var(--ride); border-color: var(--ride); }
-.check.y::after { content: ""; width: .32em; height: .6em; border: solid #fff; border-width: 0 .14em .14em 0; transform: translateY(-.06em) rotate(45deg); }
-.btn { margin-top: 1em; background: var(--ride); color: #fff; text-align: center; border-radius: .8em; padding: .7em; font-weight: 650; font-size: .9em; }
-.plan { list-style: none; }
-.plan li { display: grid; grid-template-columns: 5em 1fr; gap: .4em; align-items: center; padding: .5em 0; font-size: .86em; border-bottom: 1px solid var(--hair); }
-.plan .t { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .9em; }
-.plan .r { display: flex; align-items: center; gap: .45em; }
-.plan .r::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: var(--ride); flex: none; }
-.plan .r.f::before { background: var(--food); }
-.plan .r.p::before { background: var(--play); }
-.plan .moved { text-decoration: line-through; color: var(--muted); }
-.plan .new { color: var(--ride); font-weight: 650; }
-.lock { background: linear-gradient(160deg, #3a6fd8, #7a4cc9 60%, #d0607d); color: #fff; text-align: center; }
-.lock .clock { font-size: 3.4em; font-weight: 300; letter-spacing: -.03em; margin-top: .3em; }
-.lock .date { font-size: .85em; opacity: .85; }
-.notif { margin-top: 2.4em; background: rgba(255,255,255,.82); color: #111; border-radius: 1em; padding: .8em .9em; text-align: left; font-size: .82em; display: grid; grid-template-columns: 2.2em 1fr; gap: .6em; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.2); transform: translateY(-40%); opacity: 0; transition: transform .6s cubic-bezier(.2,.9,.3,1.2) .35s, opacity .4s ease .35s; }
-.scr.on .notif { transform: none; opacity: 1; }
-.notif .ic { width: 2.2em; height: 2.2em; border-radius: .55em; background: var(--ride); }
-.notif b { display: block; }
-.alert { background: color-mix(in srgb, var(--rest) 22%, transparent); border-radius: .7em; padding: .6em .7em; font-size: .78em; margin-bottom: .8em; }
-
 /* ---------- Cost / enjoyment chart ---------- */
 .ce { width: 100%; height: 100%; }
 .ce text { font-family: var(--font); }
@@ -309,13 +265,13 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 /* ---------- Churro ---------- */
 .churro { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 100%; }
 .churro .zone { position: absolute; font-size: 13px; font-weight: 650; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
-.churro .rails { position: absolute; left: 2%; top: 20%; width: 52%; height: 60%; overflow: visible; }
-.churro .cart { position: absolute; right: 2%; top: 12%; width: 34%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; box-shadow: 0 16px 40px rgba(0,0,0,.18); }
+.churro .rails { position: absolute; left: 2%; top: 30%; width: 52%; height: 52%; overflow: visible; }
+.churro .cart { position: absolute; right: 2%; top: 22%; width: 32%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; box-shadow: 0 16px 40px rgba(0,0,0,.18); }
 .cd { position: absolute; width: 2.1%; aspect-ratio: 1; border-radius: 50%; background: var(--ink2); transform: translate(-50%, -50%); transition: left 1.3s cubic-bezier(.4,0,.2,1), top 1.3s cubic-bezier(.4,0,.2,1), background-color .6s; transition-delay: calc(var(--i) * 35ms); box-shadow: 0 0 0 1.5px var(--surface); }
 .churro.spend .cd { background: var(--food); }
 .churro .rails { transition: opacity .6s; }
 .churro.spend .rails { opacity: .25; }
-.stats2 { position: absolute; left: 0; right: 0; top: 0; display: flex; gap: 28px; justify-content: center; }
+.stats2 { position: absolute; left: 2%; width: 52%; top: 2%; display: flex; gap: 28px; justify-content: center; }
 .stats2 div { text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .5s, transform .5s; }
 .stats2 div.on { opacity: 1; transform: none; }
 .stats2 b { display: block; font-size: clamp(28px, 4.4vw, 50px); letter-spacing: -.03em; line-height: 1; }
@@ -340,18 +296,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ic svg { width: 48%; height: 48%; }
 .ic span { font-size: 14px; color: var(--ink2); }
 
-/* ---------- Clocks ---------- */
-.clocks { display: flex; gap: clamp(24px, 8vw, 90px); justify-content: center; margin-top: 54px; flex-wrap: wrap; }
-.clk { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.clk svg { width: clamp(140px, 22vw, 220px); height: auto; }
-.clk .face { fill: var(--surface); stroke: var(--axis); stroke-width: 2; }
-.clk .tick { stroke: var(--axis); stroke-width: 2; stroke-linecap: round; }
-.clk .hand { stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; transform-box: view-box; transform-origin: 60px 60px; }
-.clk.slow .hand { animation: spin 40s linear infinite; }
-.clk.fast .hand { stroke: var(--play); animation: spin 3.5s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.clk b { font-size: 17px; } .clk span { font-size: 14px; color: var(--ink2); margin-top: -10px; }
-
 /* ---------- Cutaway ---------- */
 .cut { width: 100%; height: auto; max-height: 100%; }
 .cut .wall { fill: var(--surface); stroke: var(--axis); stroke-width: 2; }
@@ -370,16 +314,9 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 /* ---------- Finale ---------- */
 .finale-viz { width: 100%; position: relative; height: 100%; display: flex; align-items: center; }
 .finale-one { width: 100%; transition: opacity .6s ease, transform .9s cubic-bezier(.4,0,.2,1); }
-.scrolly[data-step="1"] .finale-one { opacity: 0; transform: scale(.3); }
-.many { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px 10px; align-content: center; opacity: 0; transform: scale(1.4); transition: opacity .7s ease .2s, transform 1s cubic-bezier(.2,.7,.2,1) .1s; pointer-events: none; }
-.scrolly[data-step="1"] .many { opacity: 1; transform: none; }
-.mini { position: relative; height: 16px; background: var(--track); border-radius: 4px; overflow: hidden; }
-.mini i { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
-.mini .k-ride { background: var(--ride); } .mini .k-food { background: var(--food); } .mini .k-play { background: var(--play); } .mini .k-rest { background: var(--rest); }
 
 /* ---------- Photos ---------- */
 .ph { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--track); }
-.picto-ph { width: auto; height: clamp(220px, 30vw, 340px); aspect-ratio: 463 / 662; border-radius: 18px; margin-bottom: 40px; box-shadow: 0 20px 50px rgba(0,0,0,.16); }
 .strip { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: clamp(10px, 1.8vw, 20px); width: 100%; max-width: 1080px; text-align: left; }
 .strip figure { display: flex; flex-direction: column; gap: 12px; }
 .strip img { aspect-ratio: var(--ar, 4 / 5); border-radius: 18px; }
@@ -492,7 +429,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <!-- ============ Beat 4 · What guests think ============ -->
 <section class="panel reveal" id="s-picto">
-  <img class="ph picto-ph" src="images/wait-sign.jxl" alt="A Seven Dwarfs Mine Train sign showing an estimated 80-minute wait" loading="lazy" decoding="async">
   <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">Ask guests what the worst part of a theme park is.</h2>
   <div class="picto" role="img" aria-label="5 in 10 Americans and 7 in 10 Brits say long queues are the worst part.">
     <div class="picto-row"><span class="lab">United States</span><div class="people" data-lit="5"></div><span class="pct">50%</span></div>
@@ -528,9 +464,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- ============ Beat 5b · The passes ============ -->
 <section class="panel" id="s-passes">
   <div class="strip">
-    <figure><img class="ph" src="images/fastpass.jxl" alt="A paper FastPass ticket for Star Tours with a one-hour return window" loading="lazy" decoding="async"><figcaption><b>Paper FastPass</b>Free. Come back between 7:25 and 8:25.</figcaption></figure>
-    <figure><img class="ph" src="images/volcano-bay.jxl" alt="Guests playing in the water at Universal's Volcano Bay" loading="lazy" decoding="async"><figcaption><b>Volcano Bay</b>Free. Your wristband buzzes when it's your turn.</figcaption></figure>
-    <figure><img class="ph" src="images/lightning-lane.jxl" alt="The Disney app selling Lightning Lane passes for $12 to $29 per guest" style="object-position:top" loading="lazy" decoding="async"><figcaption><b>Lightning Lane</b>Now $12 to $29 per guest.</figcaption></figure>
+    <figure><img class="ph" src="images/fastpass.jxl" alt="A paper FastPass ticket for Star Tours with a one-hour return window" loading="lazy" decoding="async"><figcaption><b>Paper FastPass</b></figcaption></figure>
+    <figure><img class="ph" src="images/volcano-bay.jxl" alt="Guests playing in the water at Universal's Volcano Bay" loading="lazy" decoding="async"><figcaption><b>Volcano Bay</b></figcaption></figure>
+    <figure><img class="ph" src="images/lightning-lane.jxl" alt="The Disney app selling Lightning Lane passes for $12 to $29 per guest" style="object-position:top" loading="lazy" decoding="async"><figcaption><b>Lightning Lane</b></figcaption></figure>
   </div>
 </section>
 
@@ -599,28 +535,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 </section>
 
 <!-- ============ Beat 10 · How it works ============ -->
-<section class="scrolly" id="s-phone">
-  <div class="stage"><div class="viz">
-    <div class="phone" aria-hidden="true"><div class="screen">
-      <div class="island"></div>
-      <div class="scr" data-only="0,-1">
-        <h4>Your day</h4><p class="sub">Pick the rides you want. Order doesn't matter.</p>
-        <ul class="pick">
-          <li>Space Mountain<span class="check y"></span></li>
-          <li>Indiana Jones Adventure<span class="check y"></span></li>
-          <li>Matterhorn Bobsleds<span class="check y"></span></li>
-          <li>Rise of the Resistance<span class="check y"></span></li>
-          <li>Haunted Mansion<span class="check y"></span></li>
-          <li>Jungle Cruise<span class="check"></span></li>
-          <li>Big Thunder Mountain<span class="check y"></span></li>
-        </ul>
-        <div class="btn">Plan my day</div>
-      </div>
-    </div></div>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p class="big">Tell the park what you want to ride. It works out when.</p></div></div>
-  </div>
+<section class="panel reveal" id="s-plan">
+  <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:16ch">Tell the park what you want to ride. It works out when.</h2>
 </section>
 
 <!-- ============ Chapter 4 ============ -->
@@ -689,7 +605,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <svg class="rails" viewBox="0 0 300 150" preserveAspectRatio="none"><path d="M10 0H290V100M10 50H250M50 100H290M10 50V150H290" stroke="var(--axis)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
       <span class="zone" style="left:2%;top:88%">Ride queue</span>
       <img class="cart" src="images/churro-cart.jxl" alt="" loading="lazy" decoding="async">
-      <span class="zone" style="right:8%;top:88%">Churro cart</span>
     </div>
   </div></div>
   <div class="steps">
@@ -752,17 +667,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <p class="lede">They cost far less than a ride, they have no hard capacity limit, and you can theme them as lavishly as anything else in the park.</p>
 </section>
 
-<!-- ============ Beat 18 · Clocks ============ -->
-<section class="panel reveal" id="s-clocks">
-  <h2 style="font-size:clamp(30px,4.6vw,56px);max-width:20ch">"Occupied time feels shorter than unoccupied time."</h2>
-  <p class="lede" style="margin-top:12px">David Maister's first law of waiting lines, 1985.<sup><a href="#src-13">13</a></sup></p>
-  <div class="clocks" aria-hidden="true">
-    <div class="clk slow"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--ink)"/></svg><b>Empty time</b><span>drags</span></div>
-    <div class="clk fast"><svg viewBox="0 0 120 120"><circle class="face" cx="60" cy="60" r="54"/><g class="tick"><path d="M60 12v8M60 100v8M12 60h8M100 60h8"/></g><line class="hand" x1="60" y1="60" x2="60" y2="20"/><circle cx="60" cy="60" r="4" fill="var(--play)"/></svg><b>Busy time</b><span>races</span></div>
-  </div>
-  <p class="lede">Time with a known end feels shorter too. A reservation gives you both: something to do, and a moment when it ends.</p>
-</section>
-
 <!-- ============ Beat 19 · Cutaway ============ -->
 <section class="scrolly" id="s-cut">
   <div class="stage"><div class="viz">
@@ -807,7 +711,6 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="stage"><div class="viz">
     <div class="finale-viz" aria-hidden="true">
       <div class="finale-one"><div class="daybar" id="day3"></div></div>
-      <div class="many" id="many"></div>
     </div>
   </div></div>
   <div class="steps">
@@ -998,28 +901,12 @@ hooks['s-dayback'] = i => {
   if (i >= 1) day2.stats(0, 40, 360); else day2.stats(360, 40, 0);
 };
 const day3 = makeDayBar($('#day3'));
-day3.mode(true); day3.fill(true);
+day3.fill(true);
+hooks['s-finale'] = i => day3.mode(i >= 1);
 $$('.db-v', day3.el).forEach(v => v.textContent = '');
 $('.db-head', day3.el).style.display = 'none';
 $('.db-callout', day3.el).remove();
 
-/* ---------- Finale: many days ---------- */
-(() => {
-  const many = $('#many'); let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const kinds = ['play', 'rest', 'play', 'play', 'rest'];
-  let h = '';
-  for (let n = 0; n < 72; n++) {
-    let segs = '';
-    STARTS.forEach((r, k) => {
-      const off = (rnd() - .5) * 30, a = Math.max(0, r + off);
-      segs += `<i class="k-${kinds[Math.floor(rnd() * kinds.length)]}" style="left:${a / 7.2}%;width:calc(${45 / 7.2}% - 2px)"></i>`;
-      segs += `<i class="k-ride" style="left:calc(${(a + 45) / 7.2}% + 1px);width:max(2px,calc(${5 / 7.2}% - 1px))"></i>`;
-    });
-    segs += `<i class="k-food" style="left:${(180 + (rnd() - .5) * 40) / 7.2}%;width:${55 / 7.2}%"></i><i class="k-food" style="left:${(575 + (rnd() - .5) * 40) / 7.2}%;width:${55 / 7.2}%"></i>`;
-    h += `<div class="mini">${segs}</div>`;
-  }
-  many.innerHTML = h;
-})();
 
 /* ---------- Wait sign ---------- */
 hooks['s-sign'] = i => {
@@ -1189,9 +1076,9 @@ hooks['s-receipt'] = i => {
   for (let i = 0; i < N; i++) h += `<span class="cd" style="--i:${i}"></span>`;
   root.insertAdjacentHTML('beforeend', h);
   const cds = $$('.cd', root);
-  const A = i => { const r = Math.floor(i / 8), c = i % 8, col = r % 2 === 0 ? c : 7 - c; return [7 + col * 5.9, 30 + r * 20]; };
+  const A = i => { const r = Math.floor(i / 8), c = i % 8, col = r % 2 === 0 ? c : 7 - c; return [7 + col * 5.9, 39.5 + r * 17.3]; };
   let seed = 9; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const Bpts = cds.map((_, i) => { const ang = Math.PI * (.55 + rnd() * .9), rad = 14 + rnd() * 16; return [80 + Math.cos(ang) * rad * .9, 62 + Math.sin(ang) * rad * -.05 + (rnd() * 22)]; });
+  const Bpts = cds.map(() => [70 + rnd() * 26, 80 + rnd() * 12]);
   const place = spend => cds.forEach((d, i) => { const [x, y] = spend ? Bpts[i] : A(i); d.style.left = x + '%'; d.style.top = y + '%'; });
   place(false);
   hooks['s-churro'] = i => { root.classList.toggle('spend', i >= 2); place(i >= 2); };

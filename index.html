@@ -50,21 +50,9 @@ a { color: inherit; text-decoration: none; }
 .article { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: clamp(24px, 4vw, 56px); padding: clamp(20px, 3vw, 32px); border-radius: 28px; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 10px 40px rgba(0,0,0,.05); transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
 .article:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0,0,0,.09); }
 .article:focus-visible { outline: 3px solid var(--ride); outline-offset: 4px; }
-.art { aspect-ratio: 16 / 10; border-radius: 18px; background: var(--track); display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 12% 8%; overflow: hidden; }
-.bar { position: relative; flex: 1; min-height: 14px; border-radius: 6px; background: color-mix(in srgb, var(--bg) 60%, var(--track)); overflow: hidden; }
-.bar i { position: absolute; top: 0; bottom: 0; border-radius: 3px; transition: background-color .6s ease; transition-delay: calc(var(--d) * 40ms); }
-.bar .w { background: var(--wait); }
-.bar .r { background: var(--ride); }
-.bar .f { background: var(--food); }
-.article:hover .bar .w.p, .article:focus-visible .bar .w.p { background: var(--play); }
-.article:hover .bar .w.s, .article:focus-visible .bar .w.s { background: var(--rest); }
-/* Card art for the modular society article: one fused block that splits into separate services on hover. */
-.art.mod { padding: 10%; }
-.mods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-radius: 14px; overflow: hidden; transition: gap .6s cubic-bezier(.2,.7,.2,1); }
-.mods i { aspect-ratio: 1; background: var(--wait); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--track) 60%, transparent); transition: background-color .6s ease, border-radius .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s; transition-delay: calc(var(--d) * 40ms); }
-.article:hover .mods, .article:focus-visible .mods { gap: 8px; overflow: visible; }
-.article:hover .mods i, .article:focus-visible .mods i { border-radius: 10px; background: var(--c); box-shadow: none; }
-.article:hover .mods i:nth-child(odd), .article:focus-visible .mods i:nth-child(odd) { transform: translateY(-4px); }
+.art { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 18px; background: var(--track); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.article { overflow: hidden; }
+.article:hover .art, .article:focus-visible .art { transform: scale(1.02); }
 .meta { display: block; font-size: clamp(22px, 3vw, 32px); font-weight: 750; letter-spacing: -.02em; color: var(--ride); }
 .article h3 { margin-top: 10px; font-size: clamp(26px, 3.4vw, 40px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
 .article p { margin-top: 14px; font-size: clamp(17px, 1.7vw, 20px); color: var(--ink2); line-height: 1.45; max-width: 36ch; }
@@ -98,7 +86,7 @@ footer { border-top: 1px solid var(--hair); padding: 28px 16px 48px; text-align:
         <p>Choose your government services the way you choose your bank, insurance or cell carrier.</p>
         <div class="foot"><span class="go">Read →</span></div>
       </div>
-      <div class="art mod" aria-hidden="true"><div class="mods"><i style="--d:0;--c:var(--ride)"></i><i style="--d:1;--c:var(--play)"></i><i style="--d:2;--c:var(--food)"></i><i style="--d:3;--c:var(--rest)"></i><i style="--d:4;--c:var(--rest)"></i><i style="--d:5;--c:var(--ride)"></i><i style="--d:6;--c:var(--play)"></i><i style="--d:7;--c:var(--food)"></i></div></div>
+      <img class="art" src="articles/modular-society/images/protest.jxl" alt="">
     </a>
     <a class="article" href="articles/theme-park-design-is-outdated/">
       <div>
@@ -107,30 +95,12 @@ footer { border-top: 1px solid var(--hair); padding: 28px 16px 48px; text-align:
         <p>We've spent seventy years perfecting the line. It's time to end them.</p>
         <div class="foot"><span class="go">Read →</span></div>
       </div>
-      <div class="art" aria-hidden="true" data-art="daybars"></div>
+      <img class="art" src="articles/theme-park-design-is-outdated/images/hero-queue.jxl" alt="">
     </a>
   </div>
 </main>
 
 <footer>Radical New Ideas</footer>
 
-<script>
-// Card art for the theme park article: a few "day bars" whose waiting blocks turn into play and rest on hover.
-document.querySelectorAll('[data-art="daybars"]').forEach(art => {
-  const starts = [0, 60, 120, 240, 300, 360, 450, 510], pct = m => m / 7.2;
-  let html = '';
-  for (let row = 0; row < 4; row++) {
-    let segs = '';
-    starts.forEach((s, k) => {
-      const a = s + ((row * 13 + k * 7) % 24) - 12, kind = (k + row) % 3 === 0 ? 's' : 'p';
-      segs += `<i class="w ${kind}" style="--d:${k + row};left:${pct(a)}%;width:calc(${pct(45)}% - 2px)"></i>`;
-      segs += `<i class="r" style="left:calc(${pct(a + 45)}% + 1px);width:max(2px,calc(${pct(5)}% - 1px))"></i>`;
-    });
-    segs += `<i class="f" style="left:${pct(185 + row * 6)}%;width:${pct(50)}%"></i>`;
-    html += `<div class="bar">${segs}</div>`;
-  }
-  art.innerHTML = html;
-});
-</script>
 </body>
 </html>
