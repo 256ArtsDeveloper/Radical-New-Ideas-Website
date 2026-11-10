@@ -238,7 +238,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .gv-i { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; transform: scale(.94); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
 .gv-i.on { opacity: 1; transform: none; }
 .chip { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; color: #fff; background: var(--c); }
-.gv-year { font-size: clamp(90px, 16vw, 200px); font-weight: 800; letter-spacing: -.05em; line-height: .95; margin-top: 16px; color: var(--ink); }
+.gv-year { font-size: clamp(56px, 9vw, 120px); font-weight: 800; letter-spacing: -.05em; line-height: .95; margin-top: 10px; color: var(--ink); }
 .gv-name { font-size: clamp(20px, 2.4vw, 28px); font-weight: 650; color: var(--ink2); margin-top: 8px; }
 .gv-all { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: min(100%, 560px); }
 .gv-all > div { background: var(--surface); border: 1px solid var(--ring); border-radius: 18px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -389,6 +389,30 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ask h3:nth-child(2) { transition-delay: .35s; } .ask h3:nth-child(3) { transition-delay: .7s; }
 .ask h3 span { color: var(--ride); }
 
+/* ---------- Photos ---------- */
+.ph { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--track); }
+.ckx { position: relative; width: 100%; height: 100%; }
+.ckx > * { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+.ckx > .on { opacity: 1; }
+.ck-ph { display: grid; place-items: center; }
+.ck-ph img { width: 100%; height: auto; max-height: 100%; aspect-ratio: 980 / 520; border-radius: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.14); }
+.strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.8vw, 20px); width: 100%; max-width: 1080px; text-align: left; }
+.strip figure { display: flex; flex-direction: column; gap: 12px; }
+.strip img { aspect-ratio: 4 / 5; border-radius: 18px; }
+.strip figcaption { font-size: 17px; font-weight: 650; color: var(--ink); }
+@media (max-width: 700px) { .strip { gap: 8px; } .strip img { border-radius: 12px; } .strip figcaption { font-size: 13px; } }
+.pl { overflow: hidden; }
+.pl-ph { display: block; width: calc(100% + 40px); margin: -22px -20px 16px; aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 600px) { .pl-ph { width: calc(100% + 24px); margin: -14px -12px 10px; } }
+.gv-ph { width: min(100%, 560px); aspect-ratio: 3 / 2; min-height: 0; flex: 0 1 auto; object-fit: cover; border-radius: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.18); margin-bottom: 22px; }
+.gv-all img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; margin-bottom: 4px; }
+@media (max-width: 899px) { .gv-ph { max-height: 52%; width: auto; max-width: 100%; margin-bottom: 12px; } }
+.byline { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; }
+.byline img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 25%; }
+.fig { width: min(100%, 560px); margin: 40px auto 0; text-align: left; }
+.fig img { aspect-ratio: 3 / 2; border-radius: 22px; }
+.fig figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); line-height: 1.45; }
+
 /* ---------- Sources ---------- */
 .sources { max-width: 760px; margin: 0 auto; padding: 40px 16px 120px; }
 .sources details { border-top: 1px solid var(--hair); padding-top: 18px; }
@@ -481,11 +505,22 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- Every pressure cooker has a valve -->
 <section class="scrolly" id="s-cooker">
   <div class="stage"><div class="viz">
-    <div class="ck-wrap"><div data-cooker id="ck1"></div><div class="ck-state" id="ck1State"></div></div>
+    <div class="ckx">
+      <figure class="ck-ph" data-only="-1,0"><img class="ph" src="images/pressure-cooker.jxl" alt="Steam rising from the valve on a pressure cooker's lid" loading="lazy" decoding="async"></figure>
+      <div class="ck-wrap" data-on="1"><div data-cooker id="ck1"></div><div class="ck-state" id="ck1State"></div></div>
+    </div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Every pressure cooker has a valve.</p><p>Heat builds pressure inside.</p></div></div>
     <div class="step"><div class="card"><p>The valve lets a little out, all the time, so the pot never explodes.</p></div></div>
+  </div>
+</section>
+
+<section class="panel" id="s-official">
+  <div class="strip">
+    <figure><img class="ph" src="images/voting.jxl" alt="A hand dropping a ballot into a ballot box" loading="lazy" decoding="async"><figcaption>Voting</figcaption></figure>
+    <figure><img class="ph" src="images/protest.jxl" alt="A crowd marching down a city street with signs" loading="lazy" decoding="async"><figcaption>Protesting</figcaption></figure>
+    <figure><img class="ph" src="images/strike.jxl" alt="UAW workers on a picket line holding On Strike signs" loading="lazy" decoding="async"><figcaption>Going on strike</figcaption></figure>
   </div>
 </section>
 
@@ -600,7 +635,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="stage"><div class="viz">
     <div class="plugged" aria-hidden="true">
       <div class="pl fx" data-on="0" style="--c:var(--bad)">
-        <span class="tag">Authoritarians</span><h3>plug political valves</h3>
+        <img class="pl-ph" src="images/berlin-wall.jxl" alt="The Berlin Wall's death strip, with tank traps and a guard tower" loading="lazy" decoding="async"><span class="tag">Authoritarians</span><h3>plug political valves</h3>
         <ul>
           <li><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="4" fill="var(--bad)"/></svg>Cancel elections, or fake them.</li>
           <li><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="4" fill="var(--bad)"/></svg>Jail critics and ban protests.</li>
@@ -608,7 +643,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
         </ul>
       </div>
       <div class="pl fx" data-on="1" style="--c:var(--cons)">
-        <span class="tag">Monopolists</span><h3>plug market valves</h3>
+        <img class="pl-ph" src="images/standard-oil-octopus.jxl" alt="The 1904 cartoon of Standard Oil as an octopus strangling the Capitol and industry" loading="lazy" decoding="async"><span class="tag">Monopolists</span><h3>plug market valves</h3>
         <ul>
           <li><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="4" fill="var(--cons)"/></svg>Buy up every competitor.</li>
           <li><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="4" fill="var(--cons)"/></svg>Lock you into their ecosystem.</li>
@@ -639,19 +674,19 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="scrolly" id="s-gives">
   <div class="stage"><div class="viz">
     <div class="gv" aria-hidden="true">
-      <div class="gv-i" data-only="0,1"><span class="chip" style="--c:var(--bad)">Collapse</span><div class="gv-year">1991</div><div class="gv-name">The Soviet Union</div></div>
-      <div class="gv-i" data-only="2"><span class="chip" style="--c:var(--bad)">War</span><div class="gv-year">1939</div><div class="gv-name">Germany</div></div>
-      <div class="gv-i" data-only="3"><span class="chip" style="--c:var(--bad)">Revolution</span><div class="gv-year">1776</div><div class="gv-name">The American colonies</div></div>
-      <div class="gv-i" data-only="4"><span class="chip" style="--c:var(--cons)">Cut the cord</span><div class="gv-year">2010s</div><div class="gv-name">Cable TV</div></div>
-      <div class="gv-i" data-only="5"><span class="chip" style="--c:var(--cons)">Crushed</span><div class="gv-year">2010s</div><div class="gv-name">Taxis</div></div>
-      <div class="gv-i" data-only="6"><span class="chip" style="--c:var(--cons)">Piracy</span><div class="gv-year">2000s</div><div class="gv-name">The music industry</div></div>
+      <div class="gv-i" data-only="0,1"><img class="gv-ph" src="images/moscow-1991.jxl" alt="Muscovites on a tank during the August 1991 coup" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Collapse</span><div class="gv-year">1991</div><div class="gv-name">The Soviet Union</div></div>
+      <div class="gv-i" data-only="2"><img class="gv-ph" src="images/weimar-1923.jxl" alt="A man wheeling a barrow piled with banknotes in 1923" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">War</span><div class="gv-year">1939</div><div class="gv-name">Germany</div></div>
+      <div class="gv-i" data-only="3"><img class="gv-ph" src="images/boston-tea-party.jxl" alt="Colonists dumping tea into Boston Harbor, 1773" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Revolution</span><div class="gv-year">1776</div><div class="gv-name">The American colonies</div></div>
+      <div class="gv-i" data-only="4"><img class="gv-ph" src="images/cable-box.jxl" alt="A cable TV box and remote" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Cut the cord</span><div class="gv-year">2010s</div><div class="gv-name">Cable TV</div></div>
+      <div class="gv-i" data-only="5"><img class="gv-ph" src="images/taxi-protest.jxl" alt="Taxi drivers protesting in New York" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Crushed</span><div class="gv-year">2010s</div><div class="gv-name">Taxis</div></div>
+      <div class="gv-i" data-only="6"><img class="gv-ph" src="images/tower-records.jxl" alt="A Tower Records store with a Going Out of Business banner" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Piracy</span><div class="gv-year">2000s</div><div class="gv-name">The music industry</div></div>
       <div class="gv-i" data-only="7"><div class="gv-all">
-        <div><span class="chip" style="--c:var(--bad)">Collapse</span><b>1991</b><span>Soviet Union</span></div>
-        <div><span class="chip" style="--c:var(--bad)">War</span><b>1939</b><span>Germany</span></div>
-        <div><span class="chip" style="--c:var(--bad)">Revolution</span><b>1776</b><span>American colonies</span></div>
-        <div><span class="chip" style="--c:var(--cons)">Cut the cord</span><b>2010s</b><span>Cable TV</span></div>
-        <div><span class="chip" style="--c:var(--cons)">Crushed</span><b>2010s</b><span>Taxis</span></div>
-        <div><span class="chip" style="--c:var(--cons)">Piracy</span><b>2000s</b><span>Music industry</span></div>
+        <div><img src="images/moscow-1991.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Collapse</span><b>1991</b><span>Soviet Union</span></div>
+        <div><img src="images/weimar-1923.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">War</span><b>1939</b><span>Germany</span></div>
+        <div><img src="images/boston-tea-party.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Revolution</span><b>1776</b><span>American colonies</span></div>
+        <div><img src="images/cable-box.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Cut the cord</span><b>2010s</b><span>Cable TV</span></div>
+        <div><img src="images/taxi-protest.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Crushed</span><b>2010s</b><span>Taxis</span></div>
+        <div><img src="images/tower-records.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Piracy</span><b>2000s</b><span>Music industry</span></div>
       </div></div>
     </div>
   </div></div>
@@ -740,7 +775,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Leaving makes the other valves work.</p><p>It's always on: it works today, not at the next election. And it's personal: you don't have to convince millions of people.</p><p>When members can't leave, a complaint is easy to ignore.</p></div></div>
-    <div class="step"><div class="card"><p>When they can, leaders listen. Leaving gives voice teeth.</p><p class="fine">Economist Albert Hirschman called these "voice" and "exit" in 1970. Exit is what makes leaders take voice seriously.<sup><a href="#src-1">1</a></sup></p></div></div>
+    <div class="step"><div class="card"><p>When they can, leaders listen. Leaving gives voice teeth.</p><p class="fine byline"><img src="images/hirschman.jxl" alt="Albert O. Hirschman" loading="lazy" decoding="async"><span>Economist Albert Hirschman called these "voice" and "exit" in 1970. Exit is what makes leaders take voice seriously.<sup><a href="#src-1">1</a></sup></span></p></div></div>
   </div>
 </section>
 
@@ -955,6 +990,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     <div class="tile" style="--i:1;--c:var(--cons)"><span class="tag">A new giant?</span><h3>Big is fine. Trapping isn't.</h3><p>The danger is a group strong enough to end the right to leave. Medieval Iceland shows it can happen.<sup><a href="#src-9">9</a></sup></p></div>
     <div class="tile" style="--i:2;--c:var(--ride)"><span class="tag">Shared air &amp; oceans?</span><h3>The weakest point.</h3><p>Nobody owns the climate. It depends on treaties between organizations. Still an open question.</p></div>
   </div>
+  <figure class="fig"><img class="ph" src="images/thingvellir.jxl" alt="The plains of Þingvellir, Iceland" loading="lazy" decoding="async"><figcaption>Þingvellir, where Iceland's Commonwealth held its assembly from 930. By 1262 a few chieftains had grown strong enough to hand the island to Norway.</figcaption></figure>
 </section>
 
 <!-- Finale -->
