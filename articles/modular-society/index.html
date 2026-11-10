@@ -394,8 +394,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ckx { position: relative; width: 100%; height: 100%; }
 .ckx > * { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
 .ckx > .on { opacity: 1; }
-.ck-ph { display: grid; place-items: center; }
-.ck-ph img { width: 100%; height: auto; max-height: 100%; aspect-ratio: 980 / 520; border-radius: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.14); }
 .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.8vw, 20px); width: 100%; max-width: 1080px; text-align: left; }
 .strip figure { display: flex; flex-direction: column; gap: 12px; }
 .strip img { aspect-ratio: 4 / 5; border-radius: 18px; }
@@ -506,8 +504,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="scrolly" id="s-cooker">
   <div class="stage"><div class="viz">
     <div class="ckx">
-      <figure class="ck-ph" data-only="-1,0"><img class="ph" src="images/pressure-cooker.jxl" alt="Steam rising from the valve on a pressure cooker's lid" loading="lazy" decoding="async"></figure>
-      <div class="ck-wrap" data-on="1"><div data-cooker id="ck1"></div><div class="ck-state" id="ck1State"></div></div>
+      <div class="ck-wrap" data-on="-1"><div data-cooker id="ck1"></div><div class="ck-state" id="ck1State"></div></div>
     </div>
   </div></div>
   <div class="steps">
