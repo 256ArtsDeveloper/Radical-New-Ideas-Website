@@ -360,16 +360,21 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ask h3:nth-child(2) { transition-delay: .35s; } .ask h3:nth-child(3) { transition-delay: .7s; }
 .ask h3 span { color: var(--ride); }
 
+/* ---------- Valve word cloud ---------- */
+.valve-cloud { list-style: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; width: 100%; max-width: 1040px; margin: 40px auto 0; padding: 12px 0; color: var(--ink2); }
+.valve-cloud li { max-width: 100%; font-size: clamp(17px, 2.1vw, 26px); font-weight: 550; letter-spacing: -.025em; line-height: 1.2; text-wrap: balance; }
+.valve-cloud .l { font-size: clamp(30px, 4.6vw, 58px); font-weight: 750; letter-spacing: -.04em; color: var(--ink); }
+.valve-cloud .s { font-size: clamp(15px, 1.7vw, 20px); font-weight: 450; letter-spacing: -.01em; }
+.valve-cloud .unofficial { color: var(--bad); }
+.valve-key { margin-top: 32px; font-size: 14px; color: var(--ink2); }
+.valve-key b { color: var(--bad); }
+@media (max-width: 600px) { .valve-cloud { gap: 14px 18px; margin-top: 28px; } }
+
 /* ---------- Photos ---------- */
 .ph { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--track); }
 .ckx { position: relative; width: 100%; height: 100%; }
 .ckx > * { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
 .ckx > .on { opacity: 1; }
-.strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.8vw, 20px); width: 100%; max-width: 1080px; text-align: left; }
-.strip figure { display: flex; flex-direction: column; gap: 12px; }
-.strip img { aspect-ratio: 4 / 5; border-radius: 18px; }
-.strip figcaption { font-size: 17px; font-weight: 650; color: var(--ink); }
-@media (max-width: 700px) { .strip { gap: 8px; } .strip img { border-radius: 12px; } .strip figcaption { font-size: 13px; } }
 .pl { overflow: hidden; }
 .pl-ph { display: block; width: calc(100% + 40px); margin: -22px -20px 16px; aspect-ratio: 16 / 10; object-fit: cover; }
 @media (max-width: 600px) { .pl-ph { width: calc(100% + 24px); margin: -14px -12px 10px; } }
@@ -484,12 +489,38 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div>
 </section>
 
-<section class="panel" id="s-official">
-  <div class="strip">
-    <figure><img class="ph" src="images/voting.jxl" alt="A hand dropping a ballot into a ballot box" loading="lazy" decoding="async"><figcaption>Voting</figcaption></figure>
-    <figure><img class="ph" src="images/protest.jxl" alt="A crowd marching down a city street with signs" loading="lazy" decoding="async"><figcaption>Protesting</figcaption></figure>
-    <figure><img class="ph" src="images/strike.jxl" alt="UAW workers on a picket line holding On Strike signs" loading="lazy" decoding="async"><figcaption>Going on strike</figcaption></figure>
-  </div>
+<section class="panel" id="s-official" aria-labelledby="valve-title">
+  <h2 class="title" id="valve-title">We have lots of ways to push back.</h2>
+  <p class="lede">Some are official. Others are ways people let the pressure out when the usual routes fail.</p>
+  <ul class="valve-cloud reveal" aria-label="Examples of official and unofficial pressure valves">
+    <li class="l">Voting</li>
+    <li class="l">Protesting</li>
+    <li class="l unofficial">Dodging taxes</li>
+    <li class="m">Calling your representative</li>
+    <li class="m">Campaigning for a candidate</li>
+    <li class="l unofficial">Rioting</li>
+    <li class="m">Campaign contributions</li>
+    <li class="l">Moving away</li>
+    <li class="m unofficial">Buying political influence</li>
+    <li class="l">Quitting your job</li>
+    <li class="m">Going on strike</li>
+    <li class="m unofficial">Obstructing political processes</li>
+    <li class="s">Downgrading your plan</li>
+    <li class="m">Joining a union</li>
+    <li class="m unofficial">Abusing legal loopholes</li>
+    <li class="l">Switching companies</li>
+    <li class="s">Holding off on a purchase</li>
+    <li class="l unofficial">Pirating</li>
+    <li class="m">Leaving a review</li>
+    <li class="s">Going public with a dispute</li>
+    <li class="m unofficial">Stealing</li>
+    <li class="m">Telling your friends</li>
+    <li class="s">Changing churches</li>
+    <li class="l unofficial">Breaking company policy</li>
+    <li class="m unofficial">Intimidating people with legal threats</li>
+    <li class="m unofficial">Scamming</li>
+  </ul>
+  <p class="valve-key">Neutral: official valves. <b>Red: unofficial valves.</b></p>
 </section>
 
 <!-- Backwards -->
