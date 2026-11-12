@@ -11,8 +11,8 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Modular Society</title>
-<meta name="description" content="Every healthy system needs a pressure valve. What if leaving your government were as easy as switching banks?">
+<title>Switch Governments Without Moving</title>
+<meta name="description" content="Your schools, police and laws come as one bundle you can't leave. Break it into services you choose, the way you choose a bank or a phone plan.">
 <link rel="icon" href="../../favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="../../assets/icon.svg" type="image/svg+xml" sizes="any">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png" sizes="180x180">
@@ -80,7 +80,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .hero-scrim { position: absolute; inset: 0; background: radial-gradient(ellipse 66% 60% at 50% 50%, var(--bg) 48%, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 100%); }
 .hero-copy { position: relative; text-align: center; padding: 0 16px; max-width: 980px; }
 .eyebrow { font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.hero h1 { font-size: clamp(46px, 9vw, 116px); margin: 14px 0 20px; }
+.hero h1 { font-size: clamp(40px, 7.4vw, 92px); margin: 14px 0 20px; text-wrap: balance; }
 .dek { font-size: clamp(20px, 2.4vw, 28px); color: var(--ink2); max-width: 680px; margin: 0 auto; line-height: 1.35; }
 
 /* ---------- Scrolly ---------- */
@@ -147,11 +147,13 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .grp-tag { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .bub { align-self: flex-start; max-width: 86%; background: var(--surface); border: 1px solid var(--ring); border-radius: 20px 20px 20px 6px; padding: 10px 15px; font-size: clamp(14px, 1.35vw, 18px); line-height: 1.35; box-shadow: 0 6px 18px rgba(0,0,0,.05); }
 .bub.r { align-self: flex-end; border-radius: 20px 20px 6px 20px; }
+.bub.fix { background: color-mix(in srgb, var(--good) 14%, var(--surface)); border-color: color-mix(in srgb, var(--good) 35%, transparent); font-weight: 600; }
+.chat.fixed { margin-top: 44px; gap: 26px; text-align: left; }
 .meter { margin-top: 8px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; font-size: 13px; font-weight: 650; color: var(--ink2); }
 .meter-track { height: 12px; border-radius: 99px; background: var(--track); overflow: hidden; }
 .meter-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--good), var(--warn) 55%, var(--bad)); background-size: 540px 100%; transition: width 1s cubic-bezier(.2,.7,.2,1); }
 @media (max-width: 899px) {
-  .grp:not(.cur) { display: none; }
+  .stage .grp:not(.cur) { display: none; }
   .bub { font-size: 15px; }
 }
 
@@ -191,30 +193,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ck-state { font-size: 14px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); min-height: 1.4em; transition: color .4s; }
 .ck-state.bad { color: var(--bad); } .ck-state.good { color: var(--good); }
 
-/* ---------- Valve pills ---------- */
-.pill { display: inline-flex; align-items: center; justify-content: center; text-align: center; border-radius: 999px; padding: .42em .95em; font-weight: 650; letter-spacing: -.01em; line-height: 1.2; white-space: nowrap; background: color-mix(in srgb, var(--ride) 11%, var(--surface)); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ride) 22%, transparent); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1), filter .5s; transition-delay: calc(var(--i, 0) * 40ms); }
-.pill.l { font-size: clamp(17px, 2.1vw, 26px); }
-.pill.m { font-size: clamp(14px, 1.45vw, 18px); }
-.pill.s { font-size: clamp(12px, 1.1vw, 14px); color: var(--ink2); }
-.pill.shady { background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border: 1.5px dashed color-mix(in srgb, var(--bad) 55%, transparent); }
-.scrolly[data-step="2"] .pill.ok { opacity: .3; }
-.quad { display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr auto; gap: 10px; width: 100%; max-width: 720px; }
-.qh { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; align-self: end; }
-.qs { writing-mode: vertical-rl; transform: rotate(180deg); align-self: center; justify-self: center; }
-.qc { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; padding: 16px 12px; border-radius: 22px; background: var(--surface); border: 1px solid var(--ring); }
-.qc .pill { white-space: normal; }
-.qc .pill.l { font-size: clamp(15px, 1.5vw, 19px); } .qc .pill.m { font-size: clamp(13px, 1.2vw, 15px); } .qc .pill.s { font-size: clamp(11px, 1vw, 13px); }
-@media (max-width: 899px) { .quad { gap: 5px; } .qh { font-size: 9.5px; letter-spacing: .05em; } .qc { gap: 3px; padding: 6px 4px; border-radius: 14px; } .qc .pill { padding: .3em .6em; } .qc .pill.l { font-size: 11px; } .qc .pill.m { font-size: 10px; } .qc .pill.s { font-size: 9px; } }
-
-/* ---------- Rules table ---------- */
-.rules { width: 100%; max-width: 900px; margin-top: 44px; border-collapse: collapse; text-align: left; font-size: clamp(14px, 1.5vw, 18px); }
-.rules th { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 0 12px 12px; }
-.rules td { padding: 13px 12px; border-top: 1px solid var(--hair); color: var(--ink2); }
-.rules td:first-child { color: var(--ink); font-weight: 650; }
-.rules tbody tr { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; transition-delay: calc(var(--i) * 70ms); }
-.in .rules tbody tr { opacity: 1; transform: none; }
-@media (max-width: 600px) { .rules td, .rules th { padding-left: 6px; padding-right: 6px; } .rules td { font-size: 13px; } }
-
 /* ---------- Switching chart ---------- */
 .swc { width: 100%; max-width: 580px; height: auto; max-height: 100%; }
 .swc text { font-family: var(--font); }
@@ -248,7 +226,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .chip { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; color: #fff; background: var(--c); }
 .gv-year { font-size: clamp(56px, 9vw, 120px); font-weight: 800; letter-spacing: -.05em; line-height: .95; margin-top: 10px; color: var(--ink); }
 .gv-name { font-size: clamp(20px, 2.4vw, 28px); font-weight: 650; color: var(--ink2); margin-top: 8px; }
-.gv-all { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: min(100%, 560px); }
+.gv-all { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: min(100%, 440px); }
 .gv-all > div { background: var(--surface); border: 1px solid var(--ring); border-radius: 18px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .gv-all b { font-size: clamp(24px, 3.4vw, 40px); letter-spacing: -.04em; line-height: 1; }
 .gv-all span { font-size: 13px; color: var(--ink2); line-height: 1.25; }
@@ -314,19 +292,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .bundle-label { font-size: 14px; font-weight: 650; color: var(--muted); text-align: center; min-height: 1.4em; }
 @media (max-width: 600px) { .bundle.split { gap: 8px; } }
 
-/* ---------- Power skyline (3D) ---------- */
-.pw-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; height: 100%; }
-.pw { flex: 1; width: 100%; min-height: 0; touch-action: pan-y; cursor: grab; }
-.pw:active { cursor: grabbing; }
-.pw-key { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 13px; font-weight: 600; color: var(--ink2); }
-.pw-key span { display: inline-flex; align-items: center; gap: 7px; }
-.pw-key svg { width: 18px; height: 16px; fill: var(--muted); }
-.pw-seg { display: inline-flex; padding: 3px; border-radius: 99px; background: var(--track); box-shadow: inset 0 0 0 1px var(--ring); }
-.pw-seg button { font: 600 13px var(--font); color: var(--ink2); background: none; border: 0; border-radius: 99px; padding: 6px 16px; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
-.pw-seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 3px 10px rgba(0,0,0,.06); }
-.pw-seg button:focus-visible { outline: 2px solid var(--ride); outline-offset: 2px; }
-@media (max-width: 899px) { .pw-wrap { gap: 6px; } .pw-key { font-size: 11px; gap: 4px 12px; } .pw-seg button { font-size: 12px; padding: 4px 12px; } }
-
 /* ---------- Street ---------- */
 .street { width: 100%; max-width: 680px; }
 .houses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -336,6 +301,11 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .house .tags { display: flex; flex-direction: column; gap: 5px; width: 100%; margin-top: 4px; }
 .mt { font-size: 12px; font-weight: 650; line-height: 1.25; border-radius: 10px; padding: 6px 8px; text-align: center; background: color-mix(in srgb, var(--c) 14%, var(--surface)); color: var(--ink); border-left: 3px solid var(--c); }
 .mt small { display: block; font-weight: 500; color: var(--ink2); font-size: 11px; }
+.house.sel { box-shadow: 0 0 0 2px var(--good), 0 8px 22px rgba(0,0,0,.05); }
+.disp { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 12px; align-items: center; width: 100%; max-width: 600px; }
+.disp-mid { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.disp-deal { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 10px; border-radius: 16px; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 8px 22px rgba(0,0,0,.05); font-size: clamp(12px, 1.2vw, 15px); font-weight: 650; line-height: 1.25; color: var(--ink2); }
+.disp-deal svg { width: 26px; height: 26px; color: var(--ride); }
 .road { margin-top: 14px; height: 18px; border-radius: 9px; background: var(--track); position: relative; overflow: hidden; }
 .road::after { content: ""; position: absolute; left: 12px; right: 12px; top: 8px; height: 2px; background: repeating-linear-gradient(90deg, var(--axis) 0 18px, transparent 18px 32px); }
 .street-key { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 14px; font-size: 13px; color: var(--ink2); }
@@ -350,13 +320,6 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
   .mt { font-size: 11px; padding: 3px 6px; } .mt small { font-size: 10px; display: inline; }
   .road, .street-key { display: none; }
 }
-
-/* ---------- Three ideas ---------- */
-.ideas { position: relative; width: 100%; height: 100%; }
-.idea { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(.4em); transition: opacity .55s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
-.idea.on { opacity: 1; transform: none; }
-.idea b { font-size: clamp(120px, 22vw, 280px); font-weight: 800; letter-spacing: -.06em; line-height: .9; color: var(--c); }
-.idea span { font-size: clamp(30px, 4.4vw, 56px); font-weight: 700; letter-spacing: -.03em; margin-top: 10px; }
 
 /* ---------- Only rule ---------- */
 .rule h2 { font-size: clamp(44px, 8.4vw, 112px); max-width: 12ch; letter-spacing: -.04em; line-height: 1; }
@@ -411,8 +374,8 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .pl-ph { display: block; width: calc(100% + 40px); margin: -22px -20px 16px; aspect-ratio: 16 / 10; object-fit: cover; }
 @media (max-width: 600px) { .pl-ph { width: calc(100% + 24px); margin: -14px -12px 10px; } }
 .gv-ph { width: min(100%, 560px); aspect-ratio: 3 / 2; min-height: 0; flex: 0 1 auto; object-fit: cover; border-radius: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.18); margin-bottom: 22px; }
-.gv-all img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; margin-bottom: 4px; }
-@media (max-width: 899px) { .gv-ph { max-height: 52%; width: auto; max-width: 100%; margin-bottom: 12px; } }
+.gv-all img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 10px; margin-bottom: 4px; }
+@media (max-width: 899px) { .gv-all img { display: none; } .gv-ph { max-height: 52%; width: auto; max-width: 100%; margin-bottom: 12px; } }
 .byline { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; }
 .byline img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: center 25%; }
 .fig { width: min(100%, 560px); margin: 40px auto 0; text-align: left; }
@@ -453,11 +416,10 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 </header>
 
 <nav class="toc" id="toc" aria-label="Chapters">
-  <a href="#ch-1"><span>1</span>Pressure</a>
-  <a href="#ch-2"><span>2</span>Every valve is different</a>
-  <a href="#ch-3"><span>3</span>Plugged valves</a>
-  <a href="#ch-4"><span>4</span>A valve that always works</a>
-  <a href="#ch-5"><span>5</span>A modular society</a>
+  <a href="#ch-1"><span>1</span>Stuck</a>
+  <a href="#ch-2"><span>2</span>Plugged valves</a>
+  <a href="#ch-3"><span>3</span>A valve that always works</a>
+  <a href="#ch-4"><span>4</span>A modular society</a>
 </nav>
 
 <main>
@@ -469,8 +431,8 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     <div class="hero-scrim"></div>
     <div class="hero-copy">
       <p class="eyebrow">Radical New Ideas</p>
-      <h1>Modular Society</h1>
-      <p class="dek">Choose your government services the way you choose your bank, insurance or cell carrier.</p>
+      <h1>Switch governments without moving</h1>
+      <p class="dek">Your schools, police and laws come as one bundle you can't leave. Break it into services you choose, the way you choose a bank or a phone plan.</p>
     </div>
   </div>
 </section>
@@ -478,33 +440,33 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- ============ Chapter 1 ============ -->
 <section class="panel chapter reveal" id="ch-1">
   <p class="num">Chapter 1</p>
-  <h2>Pressure</h2>
+  <h2>Stuck</h2>
 </section>
 
-<!-- Life builds pressure -->
+<!-- The pain: things you can't switch -->
 <section class="scrolly" id="s-pressure">
   <div class="stage"><div class="viz">
-    <div class="chat" role="img" aria-label="Six frustrations people voice about money, work and justice, and a pressure meter rising as each one appears.">
-      <div class="grp fx" data-on="0"><span class="grp-tag">Financial</span>
-        <div class="bub">I can't afford to raise a child right now.</div>
-        <div class="bub r">I'll never be able to buy a home.</div>
+    <div class="chat" role="img" aria-label="Six frustrations people voice about a school, a permit office and a government they can't switch, and a pressure meter rising as each one appears.">
+      <div class="grp fx" data-on="0"><span class="grp-tag">Your school</span>
+        <div class="bub">My kid's school is failing. It's the one our address gets.</div>
+        <div class="bub r">The good one is three streets over. We can't afford to live there.</div>
       </div>
-      <div class="grp fx" data-on="1"><span class="grp-tag">Career</span>
-        <div class="bub">Playing office politics matters more to keeping my job than doing good work.</div>
-        <div class="bub r">I hate my job, but I can't afford to leave it.</div>
+      <div class="grp fx" data-on="1"><span class="grp-tag">Your city hall</span>
+        <div class="bub">Six months waiting on a building permit. There's no other office to try.</div>
+        <div class="bub r">I complained. I got a form letter back.</div>
       </div>
-      <div class="grp fx" data-on="2"><span class="grp-tag">Social justice</span>
-        <div class="bub">We need to move to renewable energy in the next ten years to fight climate change.</div>
-        <div class="bub r">People like me still get treated differently by the police.</div>
+      <div class="grp fx" data-on="2"><span class="grp-tag">Your government</span>
+        <div class="bub">My side lost. Now it's four years of rules I voted against.</div>
+        <div class="bub r">I could move abroad. And leave my job, my family and my language?</div>
       </div>
       <div class="meter"><span>Pressure</span><div class="meter-track"><div class="meter-fill" id="meterFill"></div></div></div>
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Life builds pressure.</p><p>It starts with money.</p></div></div>
-    <div class="step"><div class="card"><p>Then work.</p></div></div>
-    <div class="step"><div class="card"><p>Then the bigger things: how fairly we're treated, and the world we're leaving behind.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Frustration is pressure, and pressure means something is broken.</p><p>A healthy society lets it out, listens, and fixes the cause.</p></div></div>
+    <div class="step"><div class="card"><p class="big">You can't switch the things that matter most.</p><p>Your kid's school comes with your address.</p></div></div>
+    <div class="step"><div class="card"><p>The permit office is the only one there is, so it never has to hurry.</p></div></div>
+    <div class="step"><div class="card"><p>And your government comes with your birthplace. In 2024, 75 million Americans voted for the side that lost.<sup><a href="#src-1">1</a></sup> They got the winner's government anyway.</p><p>Leaving is rarely a real option. Fewer than 4 in 100 people live outside the country they were born in.<sup><a href="#src-2">2</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Frustration is pressure.</p><p>And when you can't leave, nobody has to listen. In October 2026, 14% of Americans approved of Congress. Yet in every election since 1964, at least 85% of House members who ran again have won.<sup><a href="#src-3">3</a></sup></p></div></div>
   </div>
 </section>
 
@@ -518,6 +480,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Every pressure cooker has a valve.</p><p>Heat builds pressure inside.</p></div></div>
     <div class="step"><div class="card"><p>The valve lets a little out, all the time, so the pot never explodes.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Societies have valves too.</p><p>Voting, protesting and striking let you push back. Quitting, cancelling and switching let you walk away.</p></div></div>
   </div>
 </section>
 
@@ -529,109 +492,21 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div>
 </section>
 
-<!-- Valves, lots of them -->
-<section class="scrolly" id="s-valves">
+<!-- Backwards -->
+<section class="scrolly" id="s-switch">
   <div class="stage"><div class="viz">
-    <div class="quad" role="img" aria-label="A two-by-two chart of pressure valves. Official political valves: voting, protesting, calling your representative, campaigning, campaign contributions, moving away. Official non-political valves: quitting your job, switching companies, striking, joining a union, leaving a review and more. Unofficial political valves: dodging taxes, rioting, buying political influence, obstructing political processes, abusing legal loopholes. Unofficial non-political valves: pirating, stealing, scamming, breaking company policy and more.">
-      <span></span><b class="qh">Political</b><b class="qh">Non-political</b>
-      <b class="qh qs">Official valves</b>
-      <div class="qc">
-        <span class="pill l ok fx" data-on="0" style="--i:0">Voting</span>
-        <span class="pill l ok fx" data-on="0" style="--i:2">Protesting</span>
-        <span class="pill m ok fx" data-on="0" style="--i:4">Calling your representative</span>
-        <span class="pill m ok fx" data-on="0" style="--i:6">Campaigning for a candidate</span>
-        <span class="pill m ok fx" data-on="0" style="--i:8">Campaign contributions</span>
-        <span class="pill l ok fx" data-on="0" style="--i:10">Moving away</span>
-      </div>
-      <div class="qc">
-        <span class="pill l ok fx" data-on="0" style="--i:1">Quitting your job</span>
-        <span class="pill m ok fx" data-on="0" style="--i:3">Going on strike</span>
-        <span class="pill s ok fx" data-on="0" style="--i:5">Downgrading your plan</span>
-        <span class="pill m ok fx" data-on="0" style="--i:7">Joining a union</span>
-        <span class="pill l ok fx" data-on="0" style="--i:9">Switching companies</span>
-        <span class="pill s ok fx" data-on="0" style="--i:10">Holding off on a purchase</span>
-        <span class="pill m ok fx" data-on="0" style="--i:11">Leaving a review</span>
-        <span class="pill s ok fx" data-on="0" style="--i:12">Going public with a dispute</span>
-        <span class="pill m ok fx" data-on="0" style="--i:13">Telling your friends</span>
-        <span class="pill s ok fx" data-on="0" style="--i:14">Changing churches</span>
-      </div>
-      <b class="qh qs">Unofficial valves</b>
-      <div class="qc">
-        <span class="pill l shady fx" data-on="1" style="--i:0">Dodging taxes</span>
-        <span class="pill l shady fx" data-on="1" style="--i:2">Rioting</span>
-        <span class="pill m shady fx" data-on="1" style="--i:4">Buying political influence</span>
-        <span class="pill m shady fx" data-on="1" style="--i:6">Obstructing political processes</span>
-        <span class="pill m shady fx" data-on="1" style="--i:8">Abusing legal loopholes</span>
-      </div>
-      <div class="qc">
-        <span class="pill l shady fx" data-on="1" style="--i:1">Pirating</span>
-        <span class="pill m shady fx" data-on="1" style="--i:3">Stealing</span>
-        <span class="pill l shady fx" data-on="1" style="--i:5">Breaking company policy</span>
-        <span class="pill m shady fx" data-on="1" style="--i:7">Intimidating people with legal threats</span>
-        <span class="pill m shady fx" data-on="1" style="--i:9">Scamming</span>
-      </div>
-    </div>
+    <svg class="swc" id="swc" viewBox="0 0 520 332" role="img" aria-label="Time it takes to leave: a streaming app in a few minutes, a phone carrier in one business day, a bank in seven working days; laws and taxes wait up to four years for the next election, and a new country takes five years or more and a visa."></svg>
   </div></div>
   <div class="steps">
-    <div class="step" style="padding-top:14svh"><div class="card"><p class="big">So we built valves. Lots of them.</p><p>Every one does the same job: turn frustration into something you can <em>do</em>.</p></div></div>
-    <div class="step"><div class="card"><p class="big">And some unofficial ones.</p><p>When the front-door valves are hard to use, people make their own valves to let the pressure out.</p></div></div>
+    <div class="step"><div class="card"><p>The small things in your life are easy to leave. Cancel a streaming app in minutes. Move your phone number to a new carrier in one business day.<sup><a href="#src-4">4</a></sup> In Britain, switch banks in seven working days, guaranteed.<sup><a href="#src-5">5</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Your laws, taxes and police change at the next election, up to four years away. Or you leave the country: get a visa, then live there five years to become a US citizen.<sup><a href="#src-6">6</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Big bundles are rigid.</p><p>Courts, police, schools and roads come as one package. You can't leave one without leaving them all.</p><p><b>That's the whole argument.</b> You can't leave your government because it's a bundle. Break the bundle, and you can.</p></div></div>
   </div>
 </section>
 
 <!-- ============ Chapter 2 ============ -->
 <section class="panel chapter reveal" id="ch-2">
   <p class="num">Chapter 2</p>
-  <h2>Every valve is different</h2>
-</section>
-
-<!-- Arbitrary rules -->
-<section class="panel reveal" id="s-rules">
-  <h2 class="title">Every valve has its own rules.</h2>
-  <table class="rules">
-    <thead><tr><th>Valve</th><th>When you can use it</th></tr></thead>
-    <tbody>
-      <tr style="--i:0"><td>Voting</td><td>Once every few years</td></tr>
-      <tr style="--i:1"><td>Campaigning</td><td>Election season</td></tr>
-      <tr style="--i:2"><td>Protesting</td><td>With a permit, in some places</td></tr>
-      <tr style="--i:3"><td>Quitting your job</td><td>After two weeks' notice</td></tr>
-      <tr style="--i:4"><td>Cancelling a service</td><td>Anytime, or when the contract ends</td></tr>
-      <tr style="--i:5"><td>Downgrading</td><td>Next billing cycle</td></tr>
-      <tr style="--i:6"><td>Leaving a review</td><td>Anytime</td></tr>
-      <tr style="--i:7"><td>Telling friends</td><td>Anytime</td></tr>
-      <tr style="--i:8"><td>Breaking company policy</td><td>Until your boss notices</td></tr>
-      <tr style="--i:9"><td>Pirating</td><td>Until you get caught</td></tr>
-      <tr style="--i:10"><td>Moving countries</td><td>If you get a visa</td></tr>
-    </tbody>
-  </table>
-  <p class="lede">Deadlines, forms, gatekeepers. Most people never learn them all, so some pressure never gets out.</p>
-</section>
-
-<!-- Backwards -->
-<section class="scrolly" id="s-switch">
-  <div class="stage"><div class="viz">
-    <svg class="swc" id="swc" viewBox="0 0 520 332" role="img" aria-label="Rough time it takes to leave: a streaming app in a few minutes, a phone plan in a day, a bank in a week; laws and taxes wait for the next election, and a country takes years and a visa."></svg>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p>The smallest things in your life are the easiest to leave. You can cancel a streaming app in a few minutes, and switch banks in a week.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The biggest things get the stiffest valves.</p><p>Your laws, taxes and police take years to change, or a visa to escape.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Big bundles are rigid.</p><p>When everything comes in one package, nothing can change without changing it all. So it falls behind what people need.</p><p class="fine">Switching times are rough, illustrative estimates.</p></div></div>
-  </div>
-</section>
-
-<!-- Somewhere to switch to -->
-<section class="panel reveal" id="s-one">
-  <h2 class="title">Switching only works if there's somewhere to switch to.</h2>
-  <div class="tiles">
-    <div class="tile" style="--i:0;--c:var(--cons)"><div class="one">1</div><h3>internet provider on your street</h3></div>
-    <div class="tile" style="--i:1;--c:var(--cons)"><div class="one">1</div><h3>airline at your airport</h3></div>
-    <div class="tile" style="--i:2;--c:var(--cons)"><div class="one">1</div><h3>app all your friends are on</h3></div>
-  </div>
-  <p class="lede">A valve with nowhere to vent isn't a valve at all.</p>
-</section>
-
-<!-- ============ Chapter 3 ============ -->
-<section class="panel chapter reveal" id="ch-3">
-  <p class="num">Chapter 3</p>
   <h2>Plugged valves</h2>
 </section>
 
@@ -680,29 +555,23 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="stage"><div class="viz">
     <div class="gv" aria-hidden="true">
       <div class="gv-i" data-only="0,1"><img class="gv-ph" src="images/moscow-1991.jxl" alt="Muscovites on a tank during the August 1991 coup" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Collapse</span><div class="gv-year">1991</div><div class="gv-name">The Soviet Union</div></div>
-      <div class="gv-i" data-only="2"><img class="gv-ph" src="images/weimar-1923.jxl" alt="A man wheeling a barrow piled with banknotes in 1923" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">War</span><div class="gv-year">1939</div><div class="gv-name">Germany</div></div>
-      <div class="gv-i" data-only="3"><img class="gv-ph" src="images/boston-tea-party.jxl" alt="Colonists dumping tea into Boston Harbor, 1773" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Revolution</span><div class="gv-year">1776</div><div class="gv-name">The American colonies</div></div>
-      <div class="gv-i" data-only="4"><img class="gv-ph" src="images/cable-box.jxl" alt="A cable TV box and remote" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Cut the cord</span><div class="gv-year">2010s</div><div class="gv-name">Cable TV</div></div>
-      <div class="gv-i" data-only="5"><img class="gv-ph" src="images/taxi-protest.jxl" alt="Taxi drivers protesting in New York" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Crushed</span><div class="gv-year">2010s</div><div class="gv-name">Taxis</div></div>
-      <div class="gv-i" data-only="6"><img class="gv-ph" src="images/tower-records.jxl" alt="A Tower Records store with a Going Out of Business banner" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Piracy</span><div class="gv-year">2000s</div><div class="gv-name">The music industry</div></div>
-      <div class="gv-i" data-only="7"><div class="gv-all">
+      <div class="gv-i" data-only="2"><img class="gv-ph" src="images/boston-tea-party.jxl" alt="Colonists dumping tea into Boston Harbor, 1773" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Revolution</span><div class="gv-year">1776</div><div class="gv-name">The American colonies</div></div>
+      <div class="gv-i" data-only="3"><img class="gv-ph" src="images/cable-box.jxl" alt="A cable TV box and remote" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Cut the cord</span><div class="gv-year">2010s</div><div class="gv-name">Cable TV</div></div>
+      <div class="gv-i" data-only="4"><img class="gv-ph" src="images/tower-records.jxl" alt="A Tower Records store with a Going Out of Business banner" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Piracy</span><div class="gv-year">2000s</div><div class="gv-name">The music industry</div></div>
+      <div class="gv-i" data-only="5"><div class="gv-all">
         <div><img src="images/moscow-1991.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Collapse</span><b>1991</b><span>Soviet Union</span></div>
-        <div><img src="images/weimar-1923.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">War</span><b>1939</b><span>Germany</span></div>
         <div><img src="images/boston-tea-party.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--bad)">Revolution</span><b>1776</b><span>American colonies</span></div>
         <div><img src="images/cable-box.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Cut the cord</span><b>2010s</b><span>Cable TV</span></div>
-        <div><img src="images/taxi-protest.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Crushed</span><b>2010s</b><span>Taxis</span></div>
         <div><img src="images/tower-records.jxl" alt="" loading="lazy" decoding="async"><span class="chip" style="--c:var(--cons)">Piracy</span><b>2000s</b><span>Music industry</span></div>
       </div></div>
     </div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Eventually, something gives.</p></div></div>
-    <div class="step"><div class="card"><p><b>Plugged:</b> no free elections, no free market, no leaving.</p><p><b>Gave:</b> decades of black markets, then the whole union dissolved in months.<sup><a href="#src-3">3</a></sup></p></div></div>
-    <div class="step"><div class="card"><p><b>Plugged:</b> the Treaty of Versailles loaded Germany with war debt it had no say in.</p><p><b>Gave:</b> hyperinflation and depression. Voters turned to Hitler, who promised to tear it up. Then World War II.<sup><a href="#src-4">4</a></sup></p></div></div>
-    <div class="step"><div class="card"><p><b>Plugged:</b> taxed by a Parliament they had no seats in.</p><p><b>Gave:</b> petitions were ignored, so the colonies fought and left. Britain lost them for good.<sup><a href="#src-5">5</a></sup></p></div></div>
-    <div class="step"><div class="card"><p>It happens to companies too.</p><p><b>Plugged:</b> one provider per street, and 200 channels to get the 5 you wanted.</p><p><b>Gave:</b> once streaming arrived, tens of millions of homes left.<sup><a href="#src-6">6</a></sup></p></div></div>
-    <div class="step"><div class="card"><p><b>Plugged:</b> cities capped licences, so service never had to improve.</p><p><b>Gave:</b> Uber arrived. A New York medallion fell from $1.3M to under $200K.<sup><a href="#src-7">7</a></sup></p></div></div>
-    <div class="step"><div class="card"><p><b>Plugged:</b> $18 CDs to get the one song you wanted, and lawsuits against fans.</p><p><b>Gave:</b> Napster and mass piracy. US music sales fell by more than half.<sup><a href="#src-8">8</a></sup></p></div></div>
+    <div class="step"><div class="card"><p><b>Plugged:</b> no free elections, no free market, no leaving.</p><p><b>Gave:</b> decades of black markets, then the whole union dissolved in months.<sup><a href="#src-7">7</a></sup></p></div></div>
+    <div class="step"><div class="card"><p><b>Plugged:</b> taxed by a Parliament they had no seats in.</p><p><b>Gave:</b> petitions were ignored, so the colonies fought and left. Britain lost them for good.<sup><a href="#src-8">8</a></sup></p></div></div>
+    <div class="step"><div class="card"><p>It happens to companies too.</p><p><b>Plugged:</b> one provider per street, and 200 channels to get the 5 you wanted.</p><p><b>Gave:</b> once streaming arrived, tens of millions of homes left.<sup><a href="#src-9">9</a></sup></p></div></div>
+    <div class="step"><div class="card"><p><b>Plugged:</b> $18 CDs to get the one song you wanted, and lawsuits against fans.</p><p><b>Gave:</b> Napster and mass piracy. US music sales fell by more than half.<sup><a href="#src-10">10</a></sup></p></div></div>
     <div class="step"><div class="card"><p class="big">Countries and companies alike.</p><p>Plug the valve, and the pressure finds another way out.</p></div></div>
   </div>
 </section>
@@ -726,9 +595,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <p class="lede">They're what keeps the whole thing standing. A society that lets pressure out is <b>more</b> stable, not less.</p>
 </section>
 
-<!-- ============ Chapter 4 ============ -->
-<section class="panel chapter reveal" id="ch-4">
-  <p class="num">Chapter 4</p>
+<!-- ============ Chapter 3 ============ -->
+<section class="panel chapter reveal" id="ch-3">
+  <p class="num">Chapter 3</p>
   <h2>A valve that always works</h2>
 </section>
 
@@ -780,7 +649,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Leaving makes the other valves work.</p><p>It's always on: it works today, not at the next election. And it's personal: you don't have to convince millions of people.</p><p>When members can't leave, a complaint is easy to ignore.</p></div></div>
-    <div class="step"><div class="card"><p>When they can, leaders listen. Leaving gives voice teeth.</p><p class="fine byline"><img src="images/hirschman.jxl" alt="Albert O. Hirschman" loading="lazy" decoding="async"><span>Economist Albert Hirschman called these "voice" and "exit" in 1970. Exit is what makes leaders take voice seriously.<sup><a href="#src-1">1</a></sup></span></p></div></div>
+    <div class="step"><div class="card"><p>When they can, leaders listen. Leaving gives voice teeth.</p><p class="fine byline"><img src="images/hirschman.jxl" alt="Albert O. Hirschman" loading="lazy" decoding="async"><span>Economist Albert Hirschman called these "voice" and "exit" in 1970. Exit is what makes leaders take voice seriously.<sup><a href="#src-11">11</a></sup></span></p></div></div>
   </div>
 </section>
 
@@ -808,87 +677,83 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div>
 </section>
 
-<!-- ============ Chapter 5 ============ -->
-<section class="panel chapter reveal" id="ch-5">
-  <p class="num">Chapter 5</p>
+<!-- ============ Chapter 4 ============ -->
+<section class="panel chapter reveal" id="ch-4">
+  <p class="num">Chapter 4</p>
   <h2>A Modular Society</h2>
 </section>
 
 <section class="panel reveal" id="s-old">
   <p class="kicker">An old idea</p>
   <h2 class="title">Choose your government the way you choose an insurer, <span class="hl">without moving.</span></h2>
-  <p class="lede">First proposed by Belgian writer Paul Émile de Puydt in 1860. He called it <em>panarchy</em>.<sup><a href="#src-2">2</a></sup></p>
+  <p class="lede">First proposed by Belgian writer Paul Émile de Puydt in 1860. He called it <em>panarchy</em>.<sup><a href="#src-12">12</a></sup></p>
 </section>
 
 <!-- Same street -->
 <section class="scrolly" id="s-street">
   <div class="stage"><div class="viz">
-    <div class="street" role="img" aria-label="Four neighbours on one street. Alex and Riley belong to a progressive government that pays for their healthcare with provider A; Riley also tops up with provider B. Sam and Jordan belong to a conservative government with no healthcare; Sam joins provider A directly and Jordan joins provider B.">
+    <div class="street" role="img" aria-label="Four neighbours on one street. Alex and Riley belong to a progressive government that pays for their kids' school, School A. Sam and Jordan belong to a conservative government and pay for school themselves; Sam uses School A and Jordan uses School B. When School A gets worse, Riley switches to School B without moving or changing government.">
       <div class="houses">
         <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Alex</b>
-          <div class="tags"><span class="mt fx" data-on="1" style="--c:var(--prog)">Progressive government</span><span class="mt fx" data-on="1" style="--c:var(--ride);--i:2">Healthcare A <small>paid by government</small></span></div></div>
+          <div class="tags"><span class="mt fx" data-on="1" style="--c:var(--prog)">Progressive government</span><span class="mt fx" data-on="1" style="--c:var(--ride);--i:2">School A <small>paid by government</small></span></div></div>
         <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Riley</b>
-          <div class="tags"><span class="mt fx" data-on="1" style="--c:var(--prog);--i:1">Progressive government</span><span class="mt fx" data-on="1" style="--c:var(--ride);--i:3">Healthcare A <small>paid by government</small></span><span class="mt fx" data-on="1" style="--c:var(--good);--i:5">Healthcare B <small>tops up</small></span></div></div>
+          <div class="tags"><span class="mt fx" data-on="1" style="--c:var(--prog);--i:1">Progressive government</span><span class="mt fx" data-on="1" id="rileySchool" style="--c:var(--ride);--i:3">School A <small>paid by government</small></span></div></div>
         <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Sam</b>
-          <div class="tags"><span class="mt fx" data-on="2" style="--c:var(--cons)">Conservative government</span><span class="mt fx" data-on="2" style="--c:var(--ride);--i:2">Healthcare A <small>joins directly</small></span></div></div>
+          <div class="tags"><span class="mt fx" data-on="2" style="--c:var(--cons)">Conservative government</span><span class="mt fx" data-on="2" style="--c:var(--ride);--i:2">School A <small>pays directly</small></span></div></div>
         <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Jordan</b>
-          <div class="tags"><span class="mt fx" data-on="2" style="--c:var(--cons);--i:1">Conservative government</span><span class="mt fx" data-on="2" style="--c:var(--good);--i:3">Healthcare B <small>joins directly</small></span></div></div>
+          <div class="tags"><span class="mt fx" data-on="2" style="--c:var(--cons);--i:1">Conservative government</span><span class="mt fx" data-on="2" style="--c:var(--good);--i:3">School B <small>pays directly</small></span></div></div>
       </div>
       <div class="road"></div>
-      <div class="street-key"><span style="--c:var(--prog)"><i></i>Progressive: taxes pay for healthcare</span><span style="--c:var(--cons)"><i></i>Conservative: low taxes, no healthcare</span></div>
+      <div class="street-key"><span style="--c:var(--prog)"><i></i>Progressive: higher taxes, school included</span><span style="--c:var(--cons)"><i></i>Conservative: low taxes, buy your own</span></div>
     </div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p>Picture four neighbours on one street.</p></div></div>
-    <div class="step"><div class="card"><p>Alex and Riley join a progressive government. Its taxes pay for their healthcare with provider A.</p><p>Riley wants more, so tops up with provider B as well.</p></div></div>
-    <div class="step"><div class="card"><p>Sam and Jordan join a conservative government: low taxes, no healthcare.</p><p>Sam buys healthcare from provider A directly. Jordan picks B.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Same street. Four different setups. Nobody had to move.</p></div></div>
+    <div class="step"><div class="card"><p>Alex and Riley join a progressive government. Higher taxes, and it pays for their kids' school.</p></div></div>
+    <div class="step"><div class="card"><p>Sam and Jordan join a conservative one: low taxes, and they pay for school themselves.</p><p>Sam picks School A. Jordan picks School B.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Then School A gets worse.</p><p>Today, Riley would have to move house or wait for an election.</p><p>Here, Riley moves the kids to School B this month. Same house. Same government, which now pays School B instead.</p></div></div>
+    <div class="step"><div class="card"><p>School A feels it at once. Riley's money is gone, and Alex and Sam are watching.</p><p>It fixes the problem, or it shrinks. That's pressure coming out a little at a time.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Same street. Four setups. Nobody moved.</p><p>You belong because you joined, not because of where you were born.</p></div></div>
   </div>
 </section>
 
-<!-- Three ideas -->
-<section class="scrolly" id="s-ideas">
+<!-- When neighbours clash -->
+<section class="scrolly" id="s-dispute">
   <div class="stage"><div class="viz">
-    <div class="ideas" aria-hidden="true">
-      <div class="idea" data-only="0" style="--c:var(--ride)"><b>1</b><span>Symmetry</span></div>
-      <div class="idea" data-only="1" style="--c:var(--good)"><b>2</b><span>Choice</span></div>
-      <div class="idea" data-only="2" style="--c:var(--prog)"><b>3</b><span>Modularity</span></div>
+    <div class="disp" role="img" aria-label="Alex uses Court A and Sam uses Court B. A dispute between them is settled under rules the two courts agreed in advance.">
+      <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Alex</b><div class="tags"><span class="mt" style="--c:var(--prog)">Court A</span></div></div>
+      <div class="disp-mid">
+        <span class="chip fx" data-on="0" style="--c:var(--bad)">Dispute</span>
+        <div class="disp-deal fx" data-on="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></svg>Rules agreed in advance</div>
+        <span class="chip fx" data-on="2" style="--c:var(--good)">Settled</span>
+      </div>
+      <div class="house"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10H3z"/><path d="M10 21v-6h4v6"/></svg><b>Sam</b><div class="tags"><span class="mt" style="--c:var(--cons)">Court B</span></div></div>
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Every group is just an organization.</p><p>Government, company, church or co-op. None gets powers the others can't have.</p></div></div>
-    <div class="step"><div class="card"><p class="big">You belong because you joined.</p><p>Not because of where you happened to be born.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Services come apart.</p><p>One organization can sell firefighting or courts to members of many others.</p></div></div>
+    <div class="step"><div class="card"><p class="big">What happens when neighbours clash?</p><p>Sam's bike goes missing. It turns up in Alex's garage. They pay for different police and different courts.</p></div></div>
+    <div class="step"><div class="card"><p>Their providers saw this coming. They deal with each other every day, so they signed the rules in advance: who investigates, which court hears it, what the penalty is.</p></div></div>
+    <div class="step"><div class="card"><p class="big">You already live with this.</p><p>When two drivers crash, their insurers settle it between themselves, under rules agreed long before.<sup><a href="#src-13">13</a></sup> Most claims never reach a courtroom.</p></div></div>
+    <div class="step"><div class="card"><p>And a court that refuses to sign with the others? Its members can't settle anything with anyone. They leave for one that can.</p></div></div>
   </div>
 </section>
 
-<!-- Power skyline -->
-<section class="scrolly" id="s-power">
-  <div class="stage"><div class="viz">
-    <div class="pw-wrap">
-      <canvas class="pw" id="power" role="img" aria-label="A 3D landscape of power, where height is power and overlapping bases mean people answer to both. Today: one wide cone, the government, covers everyone. A ring of big company cones, almost as tall, overlaps it, and a ring of smaller company cones overlaps those. In a modular society: many overlapping hills of every size, some still large, ranging from sharp cones to round domes. The sharper the peak, the more top-down the organization; the rounder, the more member-run."></canvas>
-      <div class="pw-seg" role="group" aria-label="Show power">
-        <button type="button" data-v="0" aria-pressed="true">Today</button>
-        <button type="button" data-v="1" aria-pressed="false">Modular</button>
-      </div>
-      <div class="pw-key" aria-hidden="true">
-        <span><svg viewBox="0 0 18 16"><path d="M9 1 17 13a8 3 0 0 1-16 0Z"/></svg>Top-down</span>
-        <span><svg viewBox="0 0 18 16"><path d="M1 12a8 8 0 0 1 16 0a8 3 0 0 1-16 0Z"/></svg>Member-run</span>
-        <span>Height = power</span>
-      </div>
-    </div>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p class="big">Today, power is a pyramid.</p><p>One government sits in the middle. Big companies cluster around it, almost as tall and just as steep. Smaller companies crowd around them.</p></div></div>
-    <div class="step"><div class="card"><p class="big">And it stacks.</p><p>Where the bases overlap, the same people answer to a government <em>and</em> the companies they can't do without. Pressure from both, valves for neither.</p></div></div>
-    <div class="step"><div class="card"><p class="big">A modular society is a range of hills.</p><p>Power spreads across many groups. Some are run from the top. Some are run by their members. Most land somewhere in between. Some are still big.</p><p>They overlap too, but every overlap is one you chose. None grows taller than its members let it.</p></div></div>
+<!-- Proof -->
+<section class="panel reveal" id="s-proof">
+  <h2 class="title">Pieces of this already work.</h2>
+  <div class="tiles">
+    <div class="tile" style="--i:0;--c:var(--good)"><div class="one">93</div><h3>public health funds compete in Germany</h3><p>75 million people pick one, and can switch without moving.<sup><a href="#src-14">14</a></sup></p></div>
+    <div class="tile" style="--i:1;--c:var(--good)"><div class="one">7</div><h3>working days to switch banks in Britain</h3><p>Guaranteed, with your payments moved for you. Over 11 million switches since 2013.<sup><a href="#src-5">5</a></sup></p></div>
+    <div class="tile" style="--i:2;--c:var(--good)"><div class="one">172</div><h3>countries enforce private courts</h3><p>Two companies can name their own arbitrator in a contract. Courts in 172 countries will uphold the ruling.<sup><a href="#src-15">15</a></sup></p></div>
+    <div class="tile" style="--i:3;--c:var(--good)"><div class="one">332</div><h3>years Iceland ran on switchable chieftains</h3><p>From 930, a farmer chose his chieftain, and could switch to another without moving farm.<sup><a href="#src-16">16</a></sup></p></div>
   </div>
+  <p class="lede">None of these is a whole modular society. Each is one piece of government people already switch.</p>
 </section>
 
 <section class="panel rule reveal" id="s-rule">
   <p class="kicker">The only rule</p>
   <h2>Anyone may leave. <span>No one may be held.</span></h2>
-  <p class="lede">Everything else is a deal between people who chose to be there. One tiny rule is hard to twist, capture or bury in exceptions.</p>
+  <p class="lede">It binds governments, companies, churches and co-ops alike. None gets powers the others can't have. Everything else is a deal between people who chose to be there. One tiny rule is hard to twist, capture or bury in exceptions.</p>
 </section>
 
 <!-- Charging vs holding -->
@@ -911,7 +776,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
             <text x="48" y="23" text-anchor="middle" style="font:800 13px var(--font);letter-spacing:.06em" fill="#0b0b0b">EXIT FEE</text>
           </g>
         </g>
-        <g class="fx" data-on="2">
+        <g class="fx" data-on="3">
           <g transform="translate(176 240) rotate(-12)">
             <rect x="0" y="0" width="92" height="34" rx="8" fill="var(--bg)" fill-opacity=".85" stroke="var(--good)" stroke-width="3"/>
             <text x="46" y="23" text-anchor="middle" style="font:800 15px var(--font);letter-spacing:.06em" fill="var(--good)">PAID FOR</text>
@@ -928,8 +793,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Leaving can cost you.</p><p>Like breaking a phone contract early: you might owe a fee, and they can collect it like any debt.</p></div></div>
-    <div class="step"><div class="card"><p class="big">It can't be stopped.</p><p>Nobody can lock the door. Not with walls, not with guards, not with threats.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Leaving can cost you.</p><p>Only what you signed up for: unpaid bills, or an exit fee you agreed to when you joined. Like breaking a phone contract early.</p></div></div>
+    <div class="step"><div class="card"><p class="big">It can't be stopped.</p><p>You walk out first and settle up after. Nobody can lock the door until you pay. Not with walls, not with guards, not with threats.</p></div></div>
+    <div class="step"><div class="card"><p class="big">A fee can't become a wall.</p><p>Your new group's court collects it, under the same advance agreements that settled Sam's bike. A fee too big for any outside court to enforce is just a wall, and walls break the rule.</p></div></div>
     <div class="step"><div class="card"><p>Good organizations will even pay your exit fee to win you over, just like phone carriers do today.</p></div></div>
   </div>
 </section>
@@ -991,11 +857,11 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="panel reveal" id="s-hard">
   <h2 class="title">The hard questions</h2>
   <div class="tiles">
-    <div class="tile" style="--i:0;--c:var(--bad)"><span class="tag">War?</span><h3>Fighting is expensive.</h3><p>Most disputes would be negotiated, the way insurers settle claims. But history says this one needs proof.</p></div>
-    <div class="tile" style="--i:1;--c:var(--cons)"><span class="tag">A new giant?</span><h3>Big is fine. Trapping isn't.</h3><p>The danger is a group strong enough to end the right to leave. Medieval Iceland shows it can happen.<sup><a href="#src-9">9</a></sup></p></div>
-    <div class="tile" style="--i:2;--c:var(--ride)"><span class="tag">Shared air &amp; oceans?</span><h3>The weakest point.</h3><p>Nobody owns the climate. It depends on treaties between organizations. Still an open question.</p></div>
+    <div class="tile" style="--i:0;--c:var(--bad)"><span class="tag">War?</span><h3>Fighting is expensive.</h3><p>A group that starts a war pays for it, and its members can walk out. So most disputes get settled like insurance claims. That's no guarantee. Countries don't offer one either.</p></div>
+    <div class="tile" style="--i:1;--c:var(--cons)"><span class="tag">A new giant?</span><h3>Big is fine. Trapping isn't.</h3><p>A giant that locks its doors faces everyone else at once: asylum, boycott, coalition. Iceland's version held for 332 years before a few chieftains grew strong enough to end it.<sup><a href="#src-16">16</a></sup></p></div>
+    <div class="tile" style="--i:2;--c:var(--ride)"><span class="tag">Shared air &amp; oceans?</span><h3>Treaties, like today.</h3><p>Nobody owns the climate, here or now. Both systems depend on agreements between groups. It's the weakest point, and it's no weaker than what we have.</p></div>
   </div>
-  <figure class="fig"><img class="ph" src="images/thingvellir.jxl" alt="The plains of Þingvellir, Iceland" loading="lazy" decoding="async"><figcaption>Þingvellir, where Iceland's Commonwealth held its assembly from 930. By 1262 a few chieftains had grown strong enough to hand the island to Norway.</figcaption></figure>
+  <figure class="fig"><img class="ph" src="images/thingvellir.jxl" alt="The plains of Þingvellir, Iceland" loading="lazy" decoding="async"><figcaption>Þingvellir, where Iceland's Commonwealth met each summer from 930 to 1262. That's 332 years. The United States has had 250.</figcaption></figure>
 </section>
 
 <!-- Finale -->
@@ -1006,6 +872,25 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Pressure always finds a way out.</p></div></div>
     <div class="step"><div class="card"><p class="big">The only question is whether we build the valve, or wait for the blast.</p></div></div>
+  </div>
+</section>
+
+<!-- Back to the opening pains -->
+<section class="panel reveal" id="s-fixed">
+  <h2 class="title">Back to where we started.</h2>
+  <div class="chat fixed">
+    <div class="grp"><span class="grp-tag">Your school</span>
+      <div class="bub">My kid's school is failing. It's the one our address gets.</div>
+      <div class="bub r fix">Switch schools this month. Keep the house.</div>
+    </div>
+    <div class="grp"><span class="grp-tag">Your city hall</span>
+      <div class="bub">Six months waiting on a building permit. There's no other office to try.</div>
+      <div class="bub r fix">Take it to another office. The slow one loses your fee.</div>
+    </div>
+    <div class="grp"><span class="grp-tag">Your government</span>
+      <div class="bub">My side lost. Now it's four years of rules I voted against.</div>
+      <div class="bub r fix">Keep the government you chose. So does the other side.</div>
+    </div>
   </div>
 </section>
 
@@ -1034,17 +919,24 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <details>
     <summary>Sources</summary>
     <ol>
-      <li id="src-1">Albert O. Hirschman, <em>Exit, Voice, and Loyalty</em> (1970): <a href="https://en.wikipedia.org/wiki/Exit,_Voice,_and_Loyalty">Wikipedia</a></li>
-      <li id="src-2">Paul Émile de Puydt, "Panarchy" (1860): <a href="https://en.wikipedia.org/wiki/Panarchy">Wikipedia</a></li>
-      <li id="src-3">Dissolution of the Soviet Union: <a href="https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union">Wikipedia</a></li>
-      <li id="src-4">Treaty of Versailles and reparations: <a href="https://en.wikipedia.org/wiki/Treaty_of_Versailles">Wikipedia</a>; hyperinflation: <a href="https://en.wikipedia.org/wiki/Hyperinflation_in_the_Weimar_Republic">Wikipedia</a></li>
-      <li id="src-5">"No taxation without representation": <a href="https://en.wikipedia.org/wiki/No_taxation_without_representation">Wikipedia</a></li>
-      <li id="src-6">Cord-cutting: <a href="https://en.wikipedia.org/wiki/Cord-cutting">Wikipedia</a></li>
-      <li id="src-7">New York taxi medallion prices: <a href="https://www.nytimes.com/2019/05/19/nyregion/nyc-taxis-medallions-suicides.html">The New York Times</a></li>
-      <li id="src-8">US recorded music revenue by year: <a href="https://www.riaa.com/u-s-sales-database/">RIAA U.S. Sales Database</a>; Napster: <a href="https://en.wikipedia.org/wiki/Napster">Wikipedia</a></li>
-      <li id="src-9">The Icelandic Commonwealth and its end: <a href="https://en.wikipedia.org/wiki/Icelandic_Commonwealth">Wikipedia</a></li>
+      <li id="src-1">2024 presidential popular vote: <a href="https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/">Federal Election Commission</a></li>
+      <li id="src-2">304 million people, 3.7% of the world, lived outside their country of birth in 2024: <a href="https://www.un.org/development/desa/pd/content/international-migrant-stock">UN International Migrant Stock 2024</a></li>
+      <li id="src-3">Congress approval: <a href="https://news.gallup.com/poll/1600/congress-public.aspx">Gallup</a>; House re-election rates: <a href="https://www.opensecrets.org/elections-overview/reelection-rates">OpenSecrets</a></li>
+      <li id="src-4">One-business-day number porting: <a href="https://www.fcc.gov/consumers/guides/porting-keeping-your-phone-number-when-you-change-providers">FCC</a></li>
+      <li id="src-5">Seven-working-day guarantee and switching totals: <a href="https://www.currentaccountswitch.co.uk/">Current Account Switch Service</a></li>
+      <li id="src-6">Five years of permanent residence before naturalization: <a href="https://www.uscis.gov/citizenship/learn-about-citizenship/citizenship-and-naturalization">USCIS</a></li>
+      <li id="src-7">Dissolution of the Soviet Union: <a href="https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union">Wikipedia</a></li>
+      <li id="src-8">"No taxation without representation": <a href="https://en.wikipedia.org/wiki/No_taxation_without_representation">Wikipedia</a></li>
+      <li id="src-9">Cord-cutting: <a href="https://en.wikipedia.org/wiki/Cord-cutting">Wikipedia</a></li>
+      <li id="src-10">US recorded music revenue by year: <a href="https://www.riaa.com/u-s-sales-database/">RIAA U.S. Sales Database</a>; Napster: <a href="https://en.wikipedia.org/wiki/Napster">Wikipedia</a></li>
+      <li id="src-11">Albert O. Hirschman, <em>Exit, Voice, and Loyalty</em> (1970): <a href="https://en.wikipedia.org/wiki/Exit,_Voice,_and_Loyalty">Wikipedia</a></li>
+      <li id="src-12">Paul Émile de Puydt, "Panarchy" (1860): <a href="https://www.panarchy.org/depuydt/1860.eng.html">full text</a></li>
+      <li id="src-13">Insurers settling claims between themselves by prior agreement: <a href="https://home.arbfile.org/">Arbitration Forums</a></li>
+      <li id="src-14">93 statutory health funds on 1 January 2026, 75 million insured: <a href="https://www.gkv-spitzenverband.de/krankenversicherung/kv_grundprinzipien/alle_gesetzlichen_krankenkassen/alle_gesetzlichen_krankenkassen.jsp">GKV-Spitzenverband</a></li>
+      <li id="src-15">New York Convention on arbitral awards, 172 parties: <a href="https://www.newyorkconvention.org/countries">newyorkconvention.org</a></li>
+      <li id="src-16">The Icelandic Commonwealth, 930–1262: David Friedman, <a href="http://www.daviddfriedman.com/Academic/Iceland/Iceland.html">"Private Creation and Enforcement of Law"</a>; <a href="https://en.wikipedia.org/wiki/Icelandic_Commonwealth">Wikipedia</a></li>
     </ol>
-    <p class="note">Switching times and the four-neighbour street are illustrative examples, not published figures.</p>
+    <p class="note">The four-neighbour street and the missing bike are illustrative examples.</p>
   </details>
 </section>
 
@@ -1108,10 +1000,10 @@ hooks['s-pressure'] = (i, sc) => {
   const svg = $('#swc');
   const ROWS = [
     ['Streaming app', 'A few minutes', 300, 'sm'],
-    ['Phone plan', 'About a day', 86400, 'sm'],
-    ['Bank', 'About a week', 604800, 'sm'],
-    ['Laws & taxes', 'Wait for the next election', 126230400, 'bg', true],
-    ['Your country', 'Years, if you get a visa', 157788000, 'bg']
+    ['Phone carrier', '1 business day', 86400, 'sm'],
+    ['Bank', '7 working days', 777600, 'sm'],
+    ['Laws & taxes', 'Up to 4 years', 126230400, 'bg', true],
+    ['Your country', '5+ years and a visa', 157788000, 'bg']
   ];
   const X0 = 190, X1 = 510, MAX = Math.log10(315576000), y0 = 8, RH = 54;
   const x = s => X0 + Math.log10(Math.max(1, s)) / MAX * (X1 - X0);
@@ -1171,150 +1063,13 @@ hooks['s-bundle'] = i => {
   $('#bundleLabel').textContent = i >= 2 ? 'Switch one piece. Keep the rest.' : i >= 1 ? 'Eight separate services' : 'One government, one package';
 };
 
-/* ---------- Power skyline: height = power, pointiness p = how top-down (0 dome … 1 cone) ---------- */
-(() => {
-  const cv = $('#power'), ctx = cv.getContext('2d'), sc = cv.closest('.scrolly');
-  const E = 24 * Math.PI / 180, SE = Math.sin(E), CE = Math.cos(E), R = 10;
-  const PAL = ['--ride', '--good', '--warn', '--prog', '--cons'];
-  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const solids = [];
-  // Today: a government cone wide enough to cover everyone, overlapped by a ring of big
-  // companies, overlapped in turn by a ring of smaller ones.
-  solids.push({ x: 0, z: 0, r: 6.2, h: 5.4, p: 1, c: '--ride', set: 0, gov: true });
-  for (let k = 0; k < 7; k++) {
-    const a = k / 7 * Math.PI * 2 + .3, d = 5.4 + rnd() * .8;
-    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: 1.7 + rnd() * .6, h: 3.6 + rnd() * 1.2, p: 1, c: PAL[1 + k % 4], set: 0 });
-  }
-  for (let k = 0; k < 14; k++) {
-    const a = (k + .5) / 14 * Math.PI * 2 + .3, d = 7.6 + rnd() * .9;
-    solids.push({ x: Math.cos(a) * d, z: Math.sin(a) * d, r: .7 + rnd() * .45, h: 1.4 + rnd() * 1.2, p: 1, c: PAL[1 + (k + 2) % 4], set: 0 });
-  }
-  // Modular: overlapping hills of every size and every shade of top-down vs member-run. A few are still as big as today's giants.
-  const pts = [{ x: -2.6, z: 1.2, r: 3.4, p: 1, h: 5.4 }, { x: 3.4, z: -2.2, r: 3.2, p: 0, h: 2.9 }];
-  for (let tries = 0; pts.length < 30 && tries < 4000; tries++) {
-    const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * (R - 1.4), x = Math.cos(a) * d, z = Math.sin(a) * d, r = .6 + Math.pow(rnd(), 2) * 1.9;
-    // Overlap is allowed; just keep centres apart so every group stays visible.
-    if (pts.every(p => Math.hypot(p.x - x, p.z - z) > (p.r + r) * .55)) pts.push({ x, z, r });
-  }
-  pts.forEach(p => {
-    const q = p.p ?? rnd(), lerp = (a, b) => a + (b - a) * q;
-    solids.push({ x: p.x, z: p.z, r: p.r, h: p.h ?? p.r * (lerp(.7, 1.4) + rnd() * lerp(.3, .9)), p: q, c: PAL[Math.floor(rnd() * PAL.length)], set: 1 });
-  });
-  solids.forEach(o => { o.v = o.set === 0 ? 1 : 0; o.t = o.v; o.at = 0; });
-
-  let col = {}, az = .5, step = 0, w = 0, h = 0, dpr = 1, visible = false, last = 0, drag = null, raf = 0;
-  const hex = v => { v = v.trim(); if (v[0] === '#') { const n = parseInt(v.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; } return (v.match(/\d+/g) || [128, 128, 128]).slice(0, 3).map(Number); };
-  const mix = (a, b, t) => `rgb(${a.map((x, i) => Math.round(x + (b[i] - x) * t)).join(',')})`;
-  function readColors() {
-    const cs = getComputedStyle(document.documentElement);
-    ['--ride', '--good', '--warn', '--prog', '--cons', '--ink', '--ink2', '--track', '--hair', '--bg'].forEach(k => col[k] = hex(cs.getPropertyValue(k)));
-    col.dark = matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme !== 'light' || document.documentElement.dataset.theme === 'dark';
-  }
-  function size() {
-    dpr = devicePixelRatio || 1; w = cv.clientWidth; h = cv.clientHeight;
-    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-  }
-
-  function draw() {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    const k = Math.min(w / (2 * R + 1.5), h / (2 * R * SE + 6.8 * CE + .8)), cx = w / 2, cy = h - (R * SE + .5) * k;
-    const ca = Math.cos(az), sa = Math.sin(az);
-    const black = [0, 0, 0], white = [255, 255, 255];
-    // Ground
-    ctx.beginPath(); ctx.ellipse(cx, cy, R * k, R * k * SE, 0, 0, Math.PI * 2);
-    ctx.fillStyle = mix(col['--track'], col['--bg'], .2); ctx.fill();
-    ctx.lineWidth = 1; ctx.strokeStyle = mix(col['--hair'], col['--bg'], 0); ctx.stroke();
-    for (const rr of [R * .66, R * .33]) { ctx.beginPath(); ctx.ellipse(cx, cy, rr * k, rr * k * SE, 0, 0, Math.PI * 2); ctx.stroke(); }
-    const list = solids.filter(o => o.v > .003).map(o => {
-      const x = o.x * ca - o.z * sa, z = o.x * sa + o.z * ca;
-      return { o, sx: cx + x * k, sy: cy + z * k * SE, z };
-    }).sort((a, b) => a.z - b.z);
-    // Shadows first so they never sit on top of a neighbour.
-    for (const { o, sx, sy } of list) {
-      const s = ease(o.v), a = o.r * k * (.35 + .65 * s), b = a * SE;
-      ctx.beginPath(); ctx.ellipse(sx + a * .35, sy + b * .25, a * 1.15, b * 1.15, 0, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${(col.dark ? .35 : .08) * s})`; ctx.fill();
-    }
-    for (const { o, sx, sy } of list) {
-      const s = ease(o.v), a = o.r * k * (.35 + .65 * s), b = a * SE, H = o.h * s * k * CE, base = col[o.c];
-      ctx.globalAlpha = Math.min(1, o.v * 2.5) * .82;
-      ctx.beginPath();
-      // Profile of revolution y = H·(1 − uⁿ)^(1/n): n = 2 is a dome, n = 1 a cone.
-      // Silhouette = upper envelope of every projected ring, closed by the front of the base.
-      const n = 2 - o.p, X = 32, U = 24;
-      for (let i = 0; i <= X; i++) {
-        // Samples bunch up near the peak so sharp tips stay crisp.
-        const t = i / X * 2 - 1, xf = Math.sign(t) * Math.abs(t) ** 1.6, ax = Math.abs(xf);
-        let top = 0;
-        for (let j = 0; j <= U; j++) {
-          const u = ax + (1 - ax) * j / U;
-          const ring = H * Math.pow(Math.max(0, 1 - Math.pow(u, n)), 1 / n) + (u ? b * u * Math.sqrt(Math.max(0, 1 - (xf / u) ** 2)) : 0);
-          if (ring > top) top = ring;
-        }
-        i ? ctx.lineTo(sx + xf * a, sy - top) : ctx.moveTo(sx + xf * a, sy - top);
-      }
-      ctx.ellipse(sx, sy, a, b, 0, 0, Math.PI);
-      ctx.closePath();
-      const ry = Math.max(H, b), g = ctx.createRadialGradient(sx - a * .35, sy - ry * (.55 - .25 * o.p), a * .05, sx, sy - ry * .2, a * 1.25);
-      g.addColorStop(0, mix(base, white, .3)); g.addColorStop(.5, mix(base, white, .07)); g.addColorStop(1, mix(base, black, .31));
-      ctx.fillStyle = g;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-    // Label last so neighbouring peaks behind the government never cover it.
-    for (const { o, sx, sy } of list) if (o.gov && o.v > .5) {
-      ctx.font = `700 ${Math.max(11, Math.min(15, k * .9))}px ${getComputedStyle(cv).fontFamily}`;
-      ctx.textAlign = 'center'; ctx.fillStyle = mix(col['--ink'], col['--bg'], 1 - Math.min(1, (o.v - .5) * 2));
-      ctx.fillText('GOVERNMENT', sx, sy - o.h * ease(o.v) * k * CE - 10);
-    }
-  }
-  const ease = t => 1 - Math.pow(1 - t, 3);
-
-  function tick(now) {
-    raf = 0;
-    const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
-    if (!reduce && !drag) az += dt * .12;
-    let moving = false;
-    for (const o of solids) {
-      if (now < o.at) { moving = true; continue; }
-      const d = o.t - o.v;
-      if (Math.abs(d) > .002) { o.v += d * Math.min(1, dt * 5); moving = true; } else o.v = o.t;
-    }
-    draw();
-    if (visible && (!reduce || moving || drag)) raf = requestAnimationFrame(tick);
-  }
-  const kick = () => { if (!raf) { last = 0; raf = requestAnimationFrame(tick); } };
-
-  const seg = $$('.pw-seg button', sc);
-  function show(next) {
-    seg.forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === next));
-    if (next === step) return;
-    step = next;
-    const now = performance.now();
-    solids.forEach(o => {
-      o.t = o.set === step ? 1 : 0;
-      const d = Math.hypot(o.x, o.z) / R;
-      // Leaving: the edges fall first and the giant last. Arriving: groups rise from the centre outward.
-      o.at = now + (reduce ? 0 : o.t ? 350 + d * 650 : (1 - d) * 450);
-      if (reduce) o.v = o.t;
-    });
-    kick();
-  }
-  hooks['s-power'] = i => show(i >= 2 ? 1 : 0);
-  seg.forEach(b => b.addEventListener('click', () => show(+b.dataset.v)));
-
-  cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, az }; cv.setPointerCapture(e.pointerId); kick(); });
-  cv.addEventListener('pointermove', e => { if (drag) { az = drag.az - (e.clientX - drag.x) / 160; kick(); } });
-  const end = () => { drag = null; };
-  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
-
-  readColors(); size();
-  new ResizeObserver(() => { size(); draw(); }).observe(cv);
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColors(); draw(); });
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) kick(); }).observe(sc);
-  draw();
-})();
+/* ---------- Street: Riley switches schools ---------- */
+hooks['s-street'] = i => {
+  const t = $('#rileySchool'), sw = i >= 3;
+  t.style.setProperty('--c', sw ? 'var(--good)' : 'var(--ride)');
+  t.innerHTML = sw ? 'School B <small>switched this month</small>' : 'School A <small>paid by government</small>';
+  t.closest('.house').classList.toggle('sel', sw);
+};
 
 /* ---------- Scrolly step engine ---------- */
 function applyStep(sc, i) {
