@@ -17,4 +17,4 @@ Static site, no build step. Preview: `python3 -m http.server 8123` from the repo
 - Scrollytelling: each section is a scroll-driven scene with heavy graphics — animated SVG diagrams, charts, photos, reveals tied to scroll.
 - It must still read like an article: continuous prose carries the argument; visuals illustrate it, never replace it. Works top-to-bottom without interacting.
 - Text scrolls natively. Animations react to scroll position; they never control it — no scroll-jacking, snap/paging, hijacked wheel or touch, or locked scrolling.
-- Need a photo or image asset? Ask Jayden rather than using stock or generating one.
+- Need a photo or image asset? Ask the user rather than using stock or generating one.
