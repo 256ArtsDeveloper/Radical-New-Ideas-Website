@@ -158,7 +158,8 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .tile .one { font-size: clamp(72px, 8vw, 160px); font-weight: 800; letter-spacing: -.05em; line-height: .9; color: var(--c, var(--ride)); }
 
 /* Dark panel */
-.dark-panel { background: #0b0b0b; color: #f0efec; }
+/* Full-bleed color with content aligned to the narrower article layout. */
+.dark-panel { max-width: none; padding-inline: max(var(--gutter), calc((100% - var(--layout-width)) / 2 + var(--gutter))); background: #0b0b0b; color: #f0efec; }
 .dark-panel .lede { color: #c3c2b7; }
 .huge { font-size: clamp(96px, 20vw, 260px); font-weight: 800; letter-spacing: -.06em; line-height: .9; background: linear-gradient(180deg, #7ee2b8, #1baf7a); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .06em; }
 
