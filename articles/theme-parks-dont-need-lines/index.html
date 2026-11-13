@@ -383,31 +383,38 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 #s-xp { max-width: none; padding: clamp(48px, 5vw, 80px) 0; }
 #s-xp > h2, #s-xp > .lede { padding-inline: var(--gutter); }
 #s-xp > .lede { max-width: calc(28em + 2 * var(--gutter)); }
-.xp { display: grid; gap: 24px; width: 100%; margin: 24px 0 40px; text-align: left; }
-.xp-carousel { --slide-width: min(60vw, 960px); width: 100%; }
-.xp-track { display: flex; gap: 24px; padding-inline: calc((100% - var(--slide-width)) / 2); overflow-x: auto; scrollbar-width: none; outline-offset: 6px; }
-.xp-track::-webkit-scrollbar { display: none; }
-.xp figure { position: relative; flex: 0 0 var(--slide-width); min-width: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: var(--track); }
+.xp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; width: 100%; margin: 24px 0 40px; text-align: left; }
+/* Marquee: [clones][slides][clones], shifted so the first real slide starts centred, then translated by one set. Transform animation is composited and sub-pixel smooth. */
+.xp-carousel { --slide-width: min(60vw, 960px); --gap: 24px; --period: calc(var(--n, 9) * (var(--slide-width) + var(--gap))); width: 100%; }
+.xp-track { overflow: hidden; outline-offset: 6px; }
+.xp-strip { display: flex; width: max-content; margin-left: calc((100% - var(--slide-width)) / 2 - var(--period)); animation: xp-marquee var(--duration, 300s) linear infinite; }
+.xp-track:hover .xp-strip, .xp-track:focus-within .xp-strip { animation-play-state: paused; }
+@keyframes xp-marquee { to { transform: translateX(calc(-1 * var(--period))); } }
+@media (prefers-reduced-motion: reduce) {
+  .xp-track { overflow-x: auto; scrollbar-width: none; }
+  .xp-track::-webkit-scrollbar { display: none; }
+  .xp-strip { animation: none; margin-left: 0; padding-inline: calc((100cqw - var(--slide-width)) / 2); }
+  .xp-carousel { container-type: inline-size; }
+  .xp [data-clone] { display: none; }
+}
+.xp figure { position: relative; flex: 0 0 var(--slide-width); margin-inline-end: var(--gap); min-width: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: var(--track); }
 .xp img { width: 100%; height: 100%; object-fit: cover; }
 .xp figcaption { position: absolute; inset: auto 0 0; padding: 80px clamp(22px, 3vw, 48px) clamp(22px, 3vw, 48px); background: linear-gradient(transparent, var(--xp-scrim)); color: var(--xp-ink); font-size: clamp(16px, 1.5vw, 24px); line-height: 1.3; }
 .xp figcaption b { display: block; font-size: clamp(28px, 3.5vw, 54px); letter-spacing: -.025em; line-height: 1.05; margin-bottom: 6px; }
 .xp-track:focus-visible { outline: 2px solid var(--ride); outline-offset: 4px; }
 /* Half the height of the main carousel. */
-.xp-concepts { --slide-width: min(30vw, 480px); }
-.xp-concepts .xp-track { gap: 16px; }
+.xp-concepts { --slide-width: min(30vw, 480px); --gap: 16px; }
 .xp-concepts figure { border-radius: 12px; }
 .xp-concepts figcaption { padding: 48px clamp(14px, 1.5vw, 24px) clamp(14px, 1.5vw, 24px); font-size: clamp(12px, .9vw, 15px); }
 .xp-concepts figcaption b { font-size: clamp(18px, 1.8vw, 28px); margin-bottom: 3px; }
 @media (max-width: 899px) {
   .xp { gap: 12px; }
-  .xp-carousel { --slide-width: calc(100vw - 52px); }
-  .xp-track { gap: 12px; }
+  .xp-carousel { --slide-width: calc(100vw - 52px); --gap: 12px; }
   .xp-track figure { aspect-ratio: 4 / 3; border-radius: 14px; }
   .xp figcaption { padding: 60px 20px 20px; font-size: 16px; }
   .xp figcaption b { font-size: clamp(25px, 5vw, 38px); }
   /* 4:3 at half width ≈ half height. */
-  .xp-concepts { --slide-width: calc((100vw - 52px) / 2); }
-  .xp-concepts .xp-track { gap: 10px; }
+  .xp-concepts { --slide-width: calc((100vw - 52px) / 2); --gap: 10px; }
   .xp-concepts figure { border-radius: 10px; }
   .xp-concepts figcaption { padding: 32px 10px 10px; font-size: 11px; }
   .xp-concepts figcaption b { font-size: 16px; margin-bottom: 1px; }
@@ -796,7 +803,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <p class="lede">Rides and shows are only part of the toolbox. Meow Wolf makes walk-through art the main attraction; its guests stay for a median of two hours.<sup><a href="#src-16">16</a></sup> Pirate's Lair gives Disneyland guests caves and rope bridges to explore at their own pace. Build more places like these.</p>
   <div class="xp" role="region" aria-label="Places to play and explore">
     <div class="xp-carousel" aria-roledescription="carousel">
-      <div class="xp-track" tabindex="0" aria-label="Attraction photos">
+      <div class="xp-track" tabindex="0" aria-label="Attraction photos"><div class="xp-strip">
     <figure><img class="ph" src="images/meow-wolf.jxl" alt="An immersive art environment at Meow Wolf" loading="lazy" decoding="async"><figcaption><b>Walk-through art</b> at Meow Wolf</figcaption></figure>
     <figure><img class="ph" src="images/pirates-lair.jxl" alt="The themed island landscape of Pirate's Lair at Disneyland" loading="lazy" decoding="async"><figcaption><b>Caves and rope bridges</b> at Pirate's Lair</figcaption></figure>
     <figure><img class="ph" src="images/galactic-starcruiser-bridge.jxl" alt="Kids working control stations on the Galactic Starcruiser bridge" loading="lazy" decoding="async"><figcaption><b>Bridge stations</b> on the Galactic Starcruiser</figcaption></figure>
@@ -806,10 +813,10 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     <figure><img class="ph" src="images/incredi-games-obstacle-course.jxl" alt="A brightly themed inflatable obstacle course" loading="lazy" decoding="async"><figcaption><b>Obstacle course</b> in the Incredi-Games</figcaption></figure>
     <figure><img class="ph" src="images/interactive-floor-soccer.jxl" alt="Kids playing soccer on an interactive projected floor" style="object-position:center 70%" loading="lazy" decoding="async"><figcaption><b>Floor games</b> that react to every kick</figcaption></figure>
     <figure><img class="ph" src="images/park-lawn.jxl" alt="Crowds relaxing on a sloping grassy lawn" loading="lazy" decoding="async"><figcaption><b>A lawn</b> to rest on</figcaption></figure>
-      </div>
+      </div></div>
     </div>
-    <div class="xp-carousel xp-concepts" data-speed="24" aria-roledescription="carousel">
-      <div class="xp-track" tabindex="0" aria-label="Ideas for future attractions">
+    <div class="xp-carousel xp-concepts" data-speed="32" aria-roledescription="carousel">
+      <div class="xp-track" tabindex="0" aria-label="Ideas for future attractions"><div class="xp-strip">
     <figure><img class="ph" src="images/concept-castle-ballroom-bowling.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in the castle ballroom</figcaption></figure>
     <figure><img class="ph" src="images/concept-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's backyard</figcaption></figure>
     <figure><img class="ph" src="images/concept-san-fransokyo-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
@@ -819,7 +826,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     <figure><img class="ph" src="images/concept-castle-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in the castle garden</figcaption></figure>
     <figure><img class="ph" src="images/concept-starship-bridge-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
     <figure><img class="ph" src="images/concept-tron-racing-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
-      </div>
+      </div></div>
     </div>
   </div>
   <p class="lede">Build enough variety and space that a free hour feels like a choice. Theme these places as lavishly as the rides, and they become reasons to visit.</p>
@@ -917,69 +924,22 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const hooks = {};
 
-/* ---------- Continuous experience carousels ---------- */
-$$('.xp-carousel').forEach(root => {
-  const track = $('.xp-track', root);
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const speed = +(root.dataset.speed || 30); // CSS pixels per second, independent of the display's refresh rate.
-  let slides = [], start = 0, period = 0, offset = 0, written = 0;
-  let visible = false, dragging = false, resumeAt = 0, frame = 0, last = 0;
-  function position(slide) { return slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2; }
-  function write() {
-    // Duplicate neighbours make crossing either end visually seamless.
-    offset = start + ((offset - start) % period + period) % period;
-    track.scrollLeft = offset;
-    written = track.scrollLeft;
-  }
-  function measure() {
-    const progress = period ? (offset - start) / period : 0;
-    start = position(slides[0]);
-    period = position(track.querySelector('[data-after]')) - start;
-    offset = start + progress * period;
-    write();
-  }
-  function arrange() {
-    slides = $$('figure', track);
-    function clone(slide) {
-      const copy = slide.cloneNode(true);
-      copy.dataset.clone = '';
-      copy.setAttribute('aria-hidden', 'true');
-      copy.inert = true;
-      return copy;
-    }
-    // Enough clones to fill the viewport on either side of the small carousel.
-    const n = Math.min(slides.length, 4);
-    track.prepend(...slides.slice(-n).map(clone));
-    const after = slides.slice(0, n).map(clone);
-    after[0].dataset.after = '';
-    track.append(...after);
-    measure();
-  }
-  function tick(time) {
-    const elapsed = last ? Math.min(time - last, 64) : 0;
-    last = time;
-    // Keep fractional progress rather than accumulating rounded scrollLeft values.
-    if (Math.abs(track.scrollLeft - written) > 1) offset = track.scrollLeft;
-    if (!dragging && time >= resumeAt) { offset += speed * elapsed / 1000; write(); }
-    frame = requestAnimationFrame(tick);
-  }
-  function syncPlayback() {
-    cancelAnimationFrame(frame);
-    last = 0;
-    if (visible && !motion.matches && !document.hidden && !root.contains(document.activeElement)) frame = requestAnimationFrame(tick);
-  }
-  track.addEventListener('pointerdown', () => { dragging = true; });
-  function release() { dragging = false; resumeAt = performance.now() + 1200; }
-  addEventListener('pointerup', release);
-  addEventListener('pointercancel', release);
-  track.addEventListener('wheel', () => { resumeAt = performance.now() + 1200; }, {passive: true});
-  root.addEventListener('focusin', syncPlayback);
-  root.addEventListener('focusout', () => setTimeout(syncPlayback, 0));
-  document.addEventListener('visibilitychange', syncPlayback);
-  motion.addEventListener('change', syncPlayback);
-  arrange();
-  new ResizeObserver(measure).observe(track);
-  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; syncPlayback(); }, {threshold: .1}).observe(track);
+/* ---------- Experience carousels (CSS marquee; JS only adds clones) ---------- */
+$$('.xp-strip').forEach(strip => {
+  const slides = $$('figure', strip);
+  const clone = slide => {
+    const copy = slide.cloneNode(true);
+    copy.dataset.clone = '';
+    copy.setAttribute('aria-hidden', 'true');
+    copy.inert = true;
+    return copy;
+  };
+  strip.prepend(...slides.map(clone));
+  strip.append(...slides.map(clone));
+  const root = strip.closest('.xp-carousel');
+  const speed = +(root.dataset.speed || 40); // CSS px per second
+  root.style.setProperty('--n', slides.length);
+  new ResizeObserver(() => root.style.setProperty('--duration', strip.scrollWidth / 3 / speed + 's')).observe(strip);
 });
 
 /* ---------- Count up ---------- */
