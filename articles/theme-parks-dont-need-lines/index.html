@@ -379,42 +379,38 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .stats2 b { display: block; font-size: clamp(28px, 9cqw, 116px); letter-spacing: -.04em; line-height: 1; }
 .stats2 span { font-size: clamp(12px, 1.7cqw, 20px); color: var(--ink2); }
 
-/* ---------- Experience carousel and floating concepts ---------- */
+/* ---------- Experience carousels ---------- */
 #s-xp { max-width: none; padding: clamp(48px, 5vw, 80px) 0; }
 #s-xp > h2, #s-xp > .lede { padding-inline: var(--gutter); }
 #s-xp > .lede { max-width: calc(28em + 2 * var(--gutter)); }
-.xp { position: relative; width: 100%; margin: 24px 0 0; padding: 66px 0; text-align: left; isolation: isolate; }
-.xp-carousel { --slide-width: min(60vw, 960px); position: relative; z-index: 2; width: 100%; margin: auto; }
+.xp { display: grid; gap: 24px; width: 100%; margin: 24px 0 40px; text-align: left; }
+.xp-carousel { --slide-width: min(60vw, 960px); width: 100%; }
 .xp-track { display: flex; gap: 24px; padding-inline: calc((100% - var(--slide-width)) / 2); overflow-x: auto; scrollbar-width: none; outline-offset: 6px; }
 .xp-track::-webkit-scrollbar { display: none; }
 .xp figure { position: relative; flex: 0 0 var(--slide-width); min-width: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: var(--track); }
 .xp img { width: 100%; height: 100%; object-fit: cover; }
 .xp figcaption { position: absolute; inset: auto 0 0; padding: 80px clamp(22px, 3vw, 48px) clamp(22px, 3vw, 48px); background: linear-gradient(transparent, var(--xp-scrim)); color: var(--xp-ink); font-size: clamp(16px, 1.5vw, 24px); line-height: 1.3; }
 .xp figcaption b { display: block; font-size: clamp(28px, 3.5vw, 54px); letter-spacing: -.025em; line-height: 1.05; margin-bottom: 6px; }
-.xp .concept figcaption::after { content: "Concept"; display: block; margin-top: 8px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .xp-track:focus-visible { outline: 2px solid var(--ride); outline-offset: 4px; }
-.xp-concepts { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
-.xp-concepts figure { position: absolute; width: clamp(120px, 12vw, 200px); aspect-ratio: 16 / 9; border-radius: 8px; box-shadow: 0 8px 24px var(--ring); }
-.xp-concepts figure:nth-child(1) { left: 2%; top: 3%; width: clamp(120px, 15vw, 220px); }
-.xp-concepts figure:nth-child(2) { right: 1%; top: 0; width: clamp(120px, 13vw, 200px); }
-.xp-concepts figure:nth-child(3) { left: .5%; top: 31%; width: clamp(120px, 12vw, 180px); }
-.xp-concepts figure:nth-child(4) { right: 3%; top: 19%; width: clamp(120px, 15vw, 210px); }
-.xp-concepts figure:nth-child(5) { left: 1.5%; top: 52%; width: clamp(120px, 15vw, 220px); }
-.xp-concepts figure:nth-child(6) { right: .5%; top: 40%; width: clamp(120px, 11vw, 170px); }
-.xp-concepts figure:nth-child(7) { left: 1%; top: 78%; width: clamp(120px, 13vw, 190px); }
-.xp-concepts figure:nth-child(8) { right: 2%; top: 64%; width: clamp(120px, 16vw, 230px); }
-.xp-concepts figure:nth-child(9) { right: .5%; top: 84%; width: clamp(120px, 12vw, 180px); }
-.xp-concepts figcaption { padding: 12px 10px 8px; font-size: clamp(10px, .8vw, 13px); }
-.xp-concepts figcaption b { font-size: clamp(14px, 1.2vw, 20px); margin-bottom: 2px; }
-.xp-concepts .concept figcaption::after { margin-top: 3px; font-size: 8px; }
+/* Half the height of the main carousel. */
+.xp-concepts { --slide-width: min(30vw, 480px); }
+.xp-concepts .xp-track { gap: 16px; }
+.xp-concepts figure { border-radius: 12px; }
+.xp-concepts figcaption { padding: 48px clamp(14px, 1.5vw, 24px) clamp(14px, 1.5vw, 24px); font-size: clamp(12px, .9vw, 15px); }
+.xp-concepts figcaption b { font-size: clamp(18px, 1.8vw, 28px); margin-bottom: 3px; }
 @media (max-width: 899px) {
-  .xp { margin-top: 24px; padding: 0; }
+  .xp { gap: 12px; }
   .xp-carousel { --slide-width: calc(100vw - 52px); }
   .xp-track { gap: 12px; }
   .xp-track figure { aspect-ratio: 4 / 3; border-radius: 14px; }
   .xp figcaption { padding: 60px 20px 20px; font-size: 16px; }
   .xp figcaption b { font-size: clamp(25px, 5vw, 38px); }
-  .xp-concepts { display: none; }
+  /* 4:3 at half width ≈ half height. */
+  .xp-concepts { --slide-width: calc((100vw - 52px) / 2); }
+  .xp-concepts .xp-track { gap: 10px; }
+  .xp-concepts figure { border-radius: 10px; }
+  .xp-concepts figcaption { padding: 32px 10px 10px; font-size: 11px; }
+  .xp-concepts figcaption b { font-size: 16px; margin-bottom: 1px; }
 }
 
 /* ---------- Cutaway ---------- */
@@ -798,30 +794,33 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <section class="panel" id="s-xp">
   <h2>Reach outside the toolbox</h2>
   <p class="lede">Rides and shows are only part of the toolbox. Meow Wolf makes walk-through art the main attraction; its guests stay for a median of two hours.<sup><a href="#src-16">16</a></sup> Pirate's Lair gives Disneyland guests caves and rope bridges to explore at their own pace. Build more places like these.</p>
-  <div class="xp" role="region" aria-label="Places to play and explore" aria-roledescription="carousel">
-    <div class="xp-carousel">
+  <div class="xp" role="region" aria-label="Places to play and explore">
+    <div class="xp-carousel" aria-roledescription="carousel">
       <div class="xp-track" tabindex="0" aria-label="Attraction photos">
-    <figure><img class="ph" src="images/galactic-starcruiser-bridge.jxl" alt="Kids working control stations on the Galactic Starcruiser bridge" loading="lazy" decoding="async"><figcaption><b>Bridge stations</b> on the Galactic Starcruiser</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-castle-ballroom-bowling.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in a castle ballroom</figcaption></figure>
-    <figure><img class="ph" src="images/wizarding-world-wand-spot.jxl" alt="A guest casting a spell at a shop window with an interactive wand" loading="lazy" decoding="async"><figcaption><b>Interactive wands</b> in Wizarding World</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's room</figcaption></figure>
-    <figure><img class="ph" src="images/sorcerers-of-the-magic-kingdom.jxl" alt="A child in a sorcerer hat holding a spell card up to a magic portal" loading="lazy" decoding="async"><figcaption><b>Card game</b> in Sorcerers of the Magic Kingdom</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-san-fransokyo-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
-    <figure><img class="ph" src="images/interactive-floor-soccer.jxl" alt="Kids playing soccer on an interactive projected floor" style="object-position:center 70%" loading="lazy" decoding="async"><figcaption><b>Floor games</b> that react to every kick</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-star-destroyer-laser-tag.jxl" alt="Guests playing laser tag in a Star Destroyer-themed arena" loading="lazy" decoding="async"><figcaption><b>Laser tag</b> on a Star Destroyer</figcaption></figure>
-    <figure><img class="ph" src="images/incredi-games-obstacle-course.jxl" alt="A brightly themed inflatable obstacle course" loading="lazy" decoding="async"><figcaption><b>Obstacle course</b> in the Incredi-Games</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-monsters-inc-bowling.jxl" alt="A bowling alley themed to the Monsters, Inc. factory" loading="lazy" decoding="async"><figcaption><b>Bowling</b> on the scream floor</figcaption></figure>
-    <figure><img class="ph" src="images/moana-journey-of-water.jxl" alt="A Te Fiti topiary over the Journey of Water trail at EPCOT" loading="lazy" decoding="async"><figcaption><b>Water trail</b> at Journey of Water</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-pirate-ship-cannon-battle.jxl" alt="Guests firing cannons at a projected sea battle from a pirate ship deck" loading="lazy" decoding="async"><figcaption><b>Cannon battle</b> aboard a pirate ship</figcaption></figure>
-    <figure><img class="ph" src="images/park-lawn.jxl" alt="Crowds relaxing on a sloping grassy lawn" loading="lazy" decoding="async"><figcaption><b>A lawn</b> to rest on</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-castle-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> beside the castle</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-starship-bridge-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
-    <figure class="concept"><img class="ph" src="images/concept-tron-racing-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
     <figure><img class="ph" src="images/meow-wolf.jxl" alt="An immersive art environment at Meow Wolf" loading="lazy" decoding="async"><figcaption><b>Walk-through art</b> at Meow Wolf</figcaption></figure>
     <figure><img class="ph" src="images/pirates-lair.jxl" alt="The themed island landscape of Pirate's Lair at Disneyland" loading="lazy" decoding="async"><figcaption><b>Caves and rope bridges</b> at Pirate's Lair</figcaption></figure>
-        </div>
+    <figure><img class="ph" src="images/galactic-starcruiser-bridge.jxl" alt="Kids working control stations on the Galactic Starcruiser bridge" loading="lazy" decoding="async"><figcaption><b>Bridge stations</b> on the Galactic Starcruiser</figcaption></figure>
+    <figure><img class="ph" src="images/wizarding-world-wand-spot.jxl" alt="A guest casting a spell at a shop window with an interactive wand" loading="lazy" decoding="async"><figcaption><b>Interactive wands</b> in Wizarding World</figcaption></figure>
+    <figure><img class="ph" src="images/moana-journey-of-water.jxl" alt="A Te Fiti topiary over the Journey of Water trail at EPCOT" loading="lazy" decoding="async"><figcaption><b>Water trail</b> at Journey of Water</figcaption></figure>
+    <figure><img class="ph" src="images/sorcerers-of-the-magic-kingdom.jxl" alt="A child in a sorcerer hat holding a spell card up to a magic portal" loading="lazy" decoding="async"><figcaption><b>Card game</b> in Sorcerers of the Magic Kingdom</figcaption></figure>
+    <figure><img class="ph" src="images/incredi-games-obstacle-course.jxl" alt="A brightly themed inflatable obstacle course" loading="lazy" decoding="async"><figcaption><b>Obstacle course</b> in the Incredi-Games</figcaption></figure>
+    <figure><img class="ph" src="images/interactive-floor-soccer.jxl" alt="Kids playing soccer on an interactive projected floor" style="object-position:center 70%" loading="lazy" decoding="async"><figcaption><b>Floor games</b> that react to every kick</figcaption></figure>
+    <figure><img class="ph" src="images/park-lawn.jxl" alt="Crowds relaxing on a sloping grassy lawn" loading="lazy" decoding="async"><figcaption><b>A lawn</b> to rest on</figcaption></figure>
+      </div>
     </div>
-    <div class="xp-concepts" role="group" aria-label="Ideas for future attractions"></div>
+    <div class="xp-carousel xp-concepts" data-speed="24" aria-roledescription="carousel">
+      <div class="xp-track" tabindex="0" aria-label="Ideas for future attractions">
+    <figure><img class="ph" src="images/concept-castle-ballroom-bowling.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in the castle ballroom</figcaption></figure>
+    <figure><img class="ph" src="images/concept-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's backyard</figcaption></figure>
+    <figure><img class="ph" src="images/concept-san-fransokyo-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
+    <figure><img class="ph" src="images/concept-star-destroyer-laser-tag.jxl" alt="Guests playing laser tag in a Star Destroyer-themed arena" loading="lazy" decoding="async"><figcaption><b>Laser tag</b> on a Star Destroyer</figcaption></figure>
+    <figure><img class="ph" src="images/concept-monsters-inc-bowling.jxl" alt="A bowling alley themed to the Monsters, Inc. factory" loading="lazy" decoding="async"><figcaption><b>Bowling</b> on the scream floor</figcaption></figure>
+    <figure><img class="ph" src="images/concept-pirate-ship-cannon-battle.jxl" alt="Guests firing cannons at a projected sea battle from a pirate ship deck" loading="lazy" decoding="async"><figcaption><b>Cannon battle</b> aboard a pirate ship</figcaption></figure>
+    <figure><img class="ph" src="images/concept-castle-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in the castle garden</figcaption></figure>
+    <figure><img class="ph" src="images/concept-starship-bridge-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
+    <figure><img class="ph" src="images/concept-tron-racing-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
+      </div>
+    </div>
   </div>
   <p class="lede">Build enough variety and space that a free hour feels like a choice. Theme these places as lavishly as the rides, and they become reasons to visit.</p>
 </section>
@@ -918,12 +917,11 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const hooks = {};
 
-/* ---------- Continuous experience carousel ---------- */
-(() => {
-  const root = $('.xp'), track = $('.xp-track', root), concepts = $('.xp-concepts', root);
-  const figures = $$('figure', track), mobile = matchMedia('(max-width: 899px)');
+/* ---------- Continuous experience carousels ---------- */
+$$('.xp-carousel').forEach(root => {
+  const track = $('.xp-track', root);
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const speed = 30; // CSS pixels per second, independent of the display's refresh rate.
+  const speed = +(root.dataset.speed || 30); // CSS pixels per second, independent of the display's refresh rate.
   let slides = [], start = 0, period = 0, offset = 0, written = 0;
   let visible = false, dragging = false, resumeAt = 0, frame = 0, last = 0;
   function position(slide) { return slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2; }
@@ -941,8 +939,6 @@ const hooks = {};
     write();
   }
   function arrange() {
-    $$('[data-clone]', track).forEach(clone => clone.remove());
-    figures.forEach(figure => (mobile.matches || !figure.classList.contains('concept') ? track : concepts).append(figure));
     slides = $$('figure', track);
     function clone(slide) {
       const copy = slide.cloneNode(true);
@@ -951,11 +947,12 @@ const hooks = {};
       copy.inert = true;
       return copy;
     }
-    track.prepend(...slides.slice(-2).map(clone));
-    const after = slides.slice(0, 2).map(clone);
+    // Enough clones to fill the viewport on either side of the small carousel.
+    const n = Math.min(slides.length, 4);
+    track.prepend(...slides.slice(-n).map(clone));
+    const after = slides.slice(0, n).map(clone);
     after[0].dataset.after = '';
     track.append(...after);
-    period = 0;
     measure();
   }
   function tick(time) {
@@ -980,11 +977,10 @@ const hooks = {};
   root.addEventListener('focusout', () => setTimeout(syncPlayback, 0));
   document.addEventListener('visibilitychange', syncPlayback);
   motion.addEventListener('change', syncPlayback);
-  mobile.addEventListener('change', arrange);
   arrange();
   new ResizeObserver(measure).observe(track);
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; syncPlayback(); }, {threshold: .1}).observe(track);
-})();
+});
 
 /* ---------- Count up ---------- */
 function countUp(el, to, fmt = v => Math.round(v).toLocaleString('en-US'), dur = 1300) {
