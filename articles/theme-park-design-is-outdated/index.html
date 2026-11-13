@@ -305,14 +305,14 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 @media (max-width: 899px) { .ex-ph { max-height: 60%; width: auto; max-width: 100%; } .ex-stat { margin-top: 12px; } .ex-cap { margin-top: 4px; } .ex-all { width: min(100%, 300px); gap: 8px; } .ex-all img { width: calc((100% - 8px) / 2); border-radius: 14px; } }
 
 /* ---------- Experience grid ---------- */
-.xp { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.6vw, 18px); width: 100%; max-width: 1080px; margin-top: 54px; text-align: left; }
+.xp { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(8px, 1.6vw, 18px); width: 100%; max-width: 1080px; margin-top: 54px; text-align: left; }
 .xp figure { display: flex; flex-direction: column; gap: 8px; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(.9); opacity: 0; transition: transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .8s ease; transition-delay: calc(var(--i) * 70ms); }
 .in .xp figure { transform: none; opacity: 1; }
-.xp img { aspect-ratio: 16 / 9; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+.xp img { height: auto; aspect-ratio: 16 / 9; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
 .xp figcaption { font-size: 14px; color: var(--ink2); line-height: 1.3; }
 .xp figcaption b { color: var(--ink); font-weight: 600; }
-.xp-note { margin-top: 14px; font-size: 13px; color: var(--ink2); }
-@media (max-width: 700px) { .xp img { border-radius: 10px; } .xp figcaption { font-size: 11px; } }
+.xp .concept figcaption::after { content: "Concept"; margin-left: 6px; padding: 1px 6px; border-radius: 6px; font-size: .8em; color: var(--ink2); border: 1px solid var(--ring); }
+@media (max-width: 700px) { .xp { grid-template-columns: repeat(2, 1fr); } .xp img { border-radius: 10px; } .xp figcaption { font-size: 11px; } }
 @media (prefers-reduced-motion: reduce) { .xp figure { transform: none; transition: opacity .8s ease; } }
 
 /* ---------- Cutaway ---------- */
@@ -681,17 +681,23 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">Reach outside the toolbox</h2>
   <p class="lede">Theme parks keep reaching for the same two tools: the ride and the show. Other businesses already hold people happily for hours with far simpler ones.</p>
   <div class="xp">
-    <figure style="--i:0;--x:-60px;--y:40px;--r:-10deg"><img class="ph" src="images/ai-enchanted-castle-bowling-alley.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in a castle ballroom</figcaption></figure>
-    <figure style="--i:1;--x:30px;--y:-50px;--r:8deg"><img class="ph" src="images/ai-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's room</figcaption></figure>
-    <figure style="--i:2;--x:70px;--y:30px;--r:-6deg"><img class="ph" src="images/ai-big-hero-6-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
-    <figure style="--i:3;--x:-40px;--y:-40px;--r:10deg"><img class="ph" src="images/ai-first-order-laser-tag-arena.jxl" alt="Guests playing laser tag in a Star Destroyer-themed arena" loading="lazy" decoding="async"><figcaption><b>Laser tag</b> on a Star Destroyer</figcaption></figure>
-    <figure style="--i:4;--x:0px;--y:60px;--r:-8deg"><img class="ph" src="images/ai-monsters-inc-bowling-factory.jxl" alt="A bowling alley themed to the Monsters, Inc. factory" loading="lazy" decoding="async"><figcaption><b>Bowling</b> on the scream floor</figcaption></figure>
-    <figure style="--i:5;--x:60px;--y:20px;--r:6deg"><img class="ph" src="images/ai-neon-pirate-battle-arcade.jxl" alt="Guests firing cannons at a projected sea battle from a pirate ship deck" loading="lazy" decoding="async"><figcaption><b>Cannon battle</b> aboard a pirate ship</figcaption></figure>
-    <figure style="--i:6;--x:-70px;--y:20px;--r:8deg"><img class="ph" src="images/ai-disneyland-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> beside the castle</figcaption></figure>
-    <figure style="--i:7;--x:20px;--y:-60px;--r:-10deg"><img class="ph" src="images/ai-star-wars-command-bridge-arcade-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
-    <figure style="--i:8;--x:50px;--y:50px;--r:6deg"><img class="ph" src="images/ai-tron-arcade-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
+    <figure style="--i:0;--x:-60px;--y:40px;--r:-10deg"><img class="ph" src="images/galactic-starcruiser-bridge-wide.jxl" alt="Kids working control stations on the Galactic Starcruiser bridge" loading="lazy" decoding="async"><figcaption><b>Bridge stations</b> on the Galactic Starcruiser</figcaption></figure>
+    <figure class="concept" style="--i:1;--x:-60px;--y:40px;--r:-10deg"><img class="ph" src="images/ai-enchanted-castle-bowling-alley.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in a castle ballroom</figcaption></figure>
+    <figure style="--i:2;--x:30px;--y:-50px;--r:8deg"><img class="ph" src="images/wand-spot.jxl" alt="A guest casting a spell at a shop window with an interactive wand" loading="lazy" decoding="async"><figcaption><b>Interactive wands</b> in Wizarding World</figcaption></figure>
+    <figure class="concept" style="--i:3;--x:30px;--y:-50px;--r:8deg"><img class="ph" src="images/ai-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's room</figcaption></figure>
+    <figure style="--i:4;--x:70px;--y:30px;--r:-6deg"><img class="ph" src="images/sorcerers.jxl" alt="A child in a sorcerer hat holding a spell card up to a magic portal" loading="lazy" decoding="async"><figcaption><b>Card game</b> in Sorcerers of the Magic Kingdom</figcaption></figure>
+    <figure class="concept" style="--i:5;--x:70px;--y:30px;--r:-6deg"><img class="ph" src="images/ai-big-hero-6-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
+    <figure style="--i:6;--x:-40px;--y:-40px;--r:10deg"><img class="ph" src="images/augmented-soccer.jxl" alt="Kids playing soccer on an interactive projected floor" style="object-position:center 70%" loading="lazy" decoding="async"><figcaption><b>Floor games</b> that react to every kick</figcaption></figure>
+    <figure class="concept" style="--i:7;--x:-40px;--y:-40px;--r:10deg"><img class="ph" src="images/ai-first-order-laser-tag-arena.jxl" alt="Guests playing laser tag in a Star Destroyer-themed arena" loading="lazy" decoding="async"><figcaption><b>Laser tag</b> on a Star Destroyer</figcaption></figure>
+    <figure style="--i:8;--x:0px;--y:60px;--r:-8deg"><img class="ph" src="images/incredi-games-obstacle-course.jxl" alt="A brightly themed inflatable obstacle course" loading="lazy" decoding="async"><figcaption><b>Obstacle course</b> in the Incredi-Games</figcaption></figure>
+    <figure class="concept" style="--i:9;--x:0px;--y:60px;--r:-8deg"><img class="ph" src="images/ai-monsters-inc-bowling-factory.jxl" alt="A bowling alley themed to the Monsters, Inc. factory" loading="lazy" decoding="async"><figcaption><b>Bowling</b> on the scream floor</figcaption></figure>
+    <figure style="--i:10;--x:60px;--y:20px;--r:6deg"><img class="ph" src="images/moana-journey-of-water.jxl" alt="A Te Fiti topiary over the Journey of Water trail at EPCOT" loading="lazy" decoding="async"><figcaption><b>Water trail</b> at Journey of Water</figcaption></figure>
+    <figure class="concept" style="--i:11;--x:60px;--y:20px;--r:6deg"><img class="ph" src="images/ai-neon-pirate-battle-arcade.jxl" alt="Guests firing cannons at a projected sea battle from a pirate ship deck" loading="lazy" decoding="async"><figcaption><b>Cannon battle</b> aboard a pirate ship</figcaption></figure>
+    <figure style="--i:12;--x:-70px;--y:20px;--r:8deg"><img class="ph" src="images/park-lawn.jxl" alt="Crowds relaxing on a sloping grassy lawn" loading="lazy" decoding="async"><figcaption><b>A lawn</b> to rest on</figcaption></figure>
+    <figure class="concept" style="--i:13;--x:-70px;--y:20px;--r:8deg"><img class="ph" src="images/ai-disneyland-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> beside the castle</figcaption></figure>
+    <figure class="concept" style="--i:14;--x:20px;--y:-60px;--r:-10deg"><img class="ph" src="images/ai-star-wars-command-bridge-arcade-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
+    <figure class="concept" style="--i:15;--x:50px;--y:50px;--r:6deg"><img class="ph" src="images/ai-tron-arcade-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
   </div>
-  <p class="xp-note">Concept renders</p>
   <p class="lede">Each costs far less than a ride and has no hard capacity limit. Theme one as lavishly as a ride and it stops being a bowling alley. It becomes a reason to visit.</p>
 </section>
 
