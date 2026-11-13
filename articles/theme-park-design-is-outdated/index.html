@@ -304,13 +304,16 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .ex-all img { width: calc((100% - 12px) / 2); aspect-ratio: 1; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.14); }
 @media (max-width: 899px) { .ex-ph { max-height: 60%; width: auto; max-width: 100%; } .ex-stat { margin-top: 12px; } .ex-cap { margin-top: 4px; } .ex-all { width: min(100%, 300px); gap: 8px; } .ex-all img { width: calc((100% - 8px) / 2); border-radius: 14px; } }
 
-/* ---------- Icon grid ---------- */
-.icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 3vw, 34px); max-width: 720px; width: 100%; margin-top: 54px; }
-.ic { display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; transition: transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .8s ease; transition-delay: calc(var(--i) * 70ms); }
-.in .ic { transform: none; opacity: 1; }
-.ic .tile { width: clamp(64px, 12vw, 108px); aspect-ratio: 1; border-radius: 28%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--ring); box-shadow: 0 10px 30px rgba(0,0,0,.06); color: var(--c); }
-.ic svg { width: 48%; height: 48%; }
-.ic span { font-size: 14px; color: var(--ink2); }
+/* ---------- Experience grid ---------- */
+.xp { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.6vw, 18px); width: 100%; max-width: 1080px; margin-top: 54px; text-align: left; }
+.xp figure { display: flex; flex-direction: column; gap: 8px; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(.9); opacity: 0; transition: transform 1.1s cubic-bezier(.2,.8,.2,1), opacity .8s ease; transition-delay: calc(var(--i) * 70ms); }
+.in .xp figure { transform: none; opacity: 1; }
+.xp img { aspect-ratio: 16 / 9; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+.xp figcaption { font-size: 14px; color: var(--ink2); line-height: 1.3; }
+.xp figcaption b { color: var(--ink); font-weight: 600; }
+.xp-note { margin-top: 14px; font-size: 13px; color: var(--ink2); }
+@media (max-width: 700px) { .xp img { border-radius: 10px; } .xp figcaption { font-size: 11px; } }
+@media (prefers-reduced-motion: reduce) { .xp figure { transform: none; transition: opacity .8s ease; } }
 
 /* ---------- Cutaway ---------- */
 .cut { width: 100%; height: auto; max-height: 100%; }
@@ -674,19 +677,21 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 </section>
 
 <!-- ============ Beat 17 · What to build ============ -->
-<section class="panel reveal" id="s-icons">
+<section class="panel reveal" id="s-xp">
   <h2 style="font-size:clamp(34px,5.4vw,64px);max-width:18ch">Reach outside the toolbox</h2>
   <p class="lede">Theme parks keep reaching for the same two tools: the ride and the show. Other businesses already hold people happily for hours with far simpler ones.</p>
-  <div class="icons">
-    <div class="ic" style="--i:0;--x:-60px;--y:40px;--r:-14deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6c-3 0-4 4-3 8l-2 6c-2 6-1 14 1 22h8c2-8 3-16 1-22l-2-6c1-4 0-8-3-8z"/><path d="M14 16h8"/><circle cx="35" cy="34" r="8"/></svg></div><span>Bowling</span></div>
-    <div class="ic" style="--i:1;--x:30px;--y:-50px;--r:12deg;--c:var(--food)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="30" width="36" height="12" rx="4"/><path d="M24 30V16"/><circle cx="24" cy="11" r="5"/><circle cx="35" cy="36" r="1.5" fill="currentColor"/></svg></div><span>Arcade</span></div>
-    <div class="ic" style="--i:2;--x:70px;--y:30px;--r:-8deg;--c:var(--ink2)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="24" r="8"/><path d="M23 24h20M37 24v7M43 24v5"/></svg></div><span>Escape rooms</span></div>
-    <div class="ic" style="--i:3;--x:-40px;--y:-40px;--r:16deg;--c:var(--play)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42a18 18 0 0 1 36 0"/><path d="M24 24v18M14 28l4 14M34 28l-4 14M9 34h30"/></svg></div><span>Jungle gym</span></div>
-    <div class="ic" style="--i:4;--x:50px;--y:60px;--r:-12deg;--c:var(--rest)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42V18a12 12 0 0 1 24 0v24"/><path d="M6 42h36"/><circle cx="30" cy="30" r="1.5" fill="currentColor"/></svg></div><span>Walk-through</span></div>
-    <div class="ic" style="--i:5;--x:-70px;--y:20px;--r:10deg;--c:var(--free)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 38V6l14 6-14 6"/><ellipse cx="22" cy="40" rx="14" ry="4"/></svg></div><span>Mini golf</span></div>
-    <div class="ic" style="--i:6;--x:20px;--y:-70px;--r:-16deg;--c:var(--ride)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8c-5 7-8 11-8 15a8 8 0 0 0 16 0c0-4-3-8-8-15z"/><path d="M34 18c-4 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2-6-6-11z"/></svg></div><span>Splash pad</span></div>
-    <div class="ic" style="--i:7;--x:-20px;--y:50px;--r:8deg;--c:var(--leaf)"><div class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="33" cy="14" r="5"/><path d="M33 4v2M33 22v2M23 14h2M41 14h2"/><path d="M4 40h40"/><path d="M10 40q0-8-4-12M10 40q1-7 5-10M24 40q0-9-5-13M24 40q1-8 6-11M36 40q0-6-3-9M36 40q1-5 5-8"/></svg></div><span>Lawns</span></div>
+  <div class="xp">
+    <figure style="--i:0;--x:-60px;--y:40px;--r:-10deg"><img class="ph" src="images/ai-enchanted-castle-bowling-alley.jxl" alt="A bowling alley themed as a fairytale castle ballroom" loading="lazy" decoding="async"><figcaption><b>Bowling</b> in a castle ballroom</figcaption></figure>
+    <figure style="--i:1;--x:30px;--y:-50px;--r:8deg"><img class="ph" src="images/ai-toy-story-mini-golf.jxl" alt="A mini golf course among giant toys and alphabet blocks" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> in Andy's room</figcaption></figure>
+    <figure style="--i:2;--x:70px;--y:30px;--r:-6deg"><img class="ph" src="images/ai-big-hero-6-arcade.jxl" alt="A neon arcade themed to San Fransokyo" loading="lazy" decoding="async"><figcaption><b>Arcade</b> in San Fransokyo</figcaption></figure>
+    <figure style="--i:3;--x:-40px;--y:-40px;--r:10deg"><img class="ph" src="images/ai-first-order-laser-tag-arena.jxl" alt="Guests playing laser tag in a Star Destroyer-themed arena" loading="lazy" decoding="async"><figcaption><b>Laser tag</b> on a Star Destroyer</figcaption></figure>
+    <figure style="--i:4;--x:0px;--y:60px;--r:-8deg"><img class="ph" src="images/ai-monsters-inc-bowling-factory.jxl" alt="A bowling alley themed to the Monsters, Inc. factory" loading="lazy" decoding="async"><figcaption><b>Bowling</b> on the scream floor</figcaption></figure>
+    <figure style="--i:5;--x:60px;--y:20px;--r:6deg"><img class="ph" src="images/ai-neon-pirate-battle-arcade.jxl" alt="Guests firing cannons at a projected sea battle from a pirate ship deck" loading="lazy" decoding="async"><figcaption><b>Cannon battle</b> aboard a pirate ship</figcaption></figure>
+    <figure style="--i:6;--x:-70px;--y:20px;--r:8deg"><img class="ph" src="images/ai-disneyland-mini-golf.jxl" alt="A mini golf course with a castle and mountain backdrop" loading="lazy" decoding="async"><figcaption><b>Mini golf</b> beside the castle</figcaption></figure>
+    <figure style="--i:7;--x:20px;--y:-60px;--r:-10deg"><img class="ph" src="images/ai-star-wars-command-bridge-arcade-battle.jxl" alt="Guests at starship bridge stations facing a space battle" loading="lazy" decoding="async"><figcaption><b>Arcade battle</b> on a starship bridge</figcaption></figure>
+    <figure style="--i:8;--x:50px;--y:50px;--r:6deg"><img class="ph" src="images/ai-tron-arcade-game.jxl" alt="Guests riding light-cycle racing game stations on a glowing grid" loading="lazy" decoding="async"><figcaption><b>Racing game</b> on the Grid</figcaption></figure>
   </div>
+  <p class="xp-note">Concept renders</p>
   <p class="lede">Each costs far less than a ride and has no hard capacity limit. Theme one as lavishly as a ride and it stops being a bowling alley. It becomes a reason to visit.</p>
 </section>
 
