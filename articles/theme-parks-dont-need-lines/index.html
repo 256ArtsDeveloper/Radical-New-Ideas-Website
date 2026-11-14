@@ -147,7 +147,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 /* Chapter opener: a giant ghost numeral with the claim set large against it. */
 .chapter { position: relative; display: block; text-align: left; max-width: var(--layout-width); margin: 0 auto; padding: clamp(96px, 22svh, 260px) var(--gutter) clamp(8px, 2svh, 32px); overflow: hidden; }
 .chapter::before { content: attr(data-n); position: absolute; right: var(--gutter); bottom: -.16em; font-size: clamp(220px, 44vw, 860px); font-weight: 800; letter-spacing: -.06em; line-height: .8; color: var(--track); z-index: -1; }
-.chapter .num { display: flex; align-items: center; gap: 14px; font-size: clamp(13px, 1vw, 17px); font-weight: 650; letter-spacing: .1em; text-transform: uppercase; color: var(--ride); }
+.chapter .num { display: flex; align-items: center; gap: 14px; font-size: clamp(17px, 1.7vw, 28px); font-weight: 650; letter-spacing: -.01em; color: var(--ride); }
 .chapter .num::after { content: ""; flex: 0 0 clamp(40px, 8vw, 140px); height: 2px; background: currentColor; opacity: .4; }
 .chapter h2 { font-size: clamp(44px, 8.6vw, 112px); margin-top: .18em; max-width: 9.5em; line-height: .95; letter-spacing: -.04em; text-wrap: balance; }
 
@@ -251,8 +251,37 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .scrolly.gone .tl-i.free b { text-decoration: line-through; text-decoration-thickness: 2px; }
 .scrolly.gone .tl-i.free .c-free { display: none; }
 .scrolly.gone .tl-i.free .c-gone { display: inline-block; }
-.scrolly[data-step="2"] .tl-i:not(.fp), .scrolly[data-step="3"] .tl-i:not(.vb) { opacity: .2; }
-.scrolly[data-step="2"] .tl-i.fp, .scrolly[data-step="3"] .tl-i.vb { opacity: 1; }
+.scrolly[data-step="3"] .tl-i:not(.vb) { opacity: .2; }
+.scrolly[data-step="3"] .tl-i.vb { opacity: 1; }
+.tlwrap { transition: opacity .5s ease; }
+.scrolly:has(.merge.on) .tlwrap { opacity: 0; }
+/* Two lanes into one ride. A dot leaves each lane once per loop, so the loop lengths set the 4:1 boarding ratio. */
+.merge { position: absolute; inset: 0; padding: clamp(20px, 5cqmin, 72px); display: flex; flex-direction: column; justify-content: center; gap: 8cqh; font-size: clamp(13px, 2.3cqw, 26px); opacity: 0; pointer-events: none; transition: opacity .5s ease; }
+.merge.on { opacity: 1; }
+.mg-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.6cqw; }
+.mg-lanes { position: relative; display: grid; gap: 8cqh; }
+.mg-lane { --h: clamp(14px, 4.4cqw, 50px); transition: opacity .6s ease; }
+.mg-lane p { display: flex; justify-content: space-between; align-items: baseline; gap: 1em; margin-bottom: .55em; color: var(--ink2); }
+.mg-lane b { color: var(--ink); font-size: 1.3em; letter-spacing: -.015em; }
+.mg-lane span, .mg-seats span, .mg-seats em { white-space: nowrap; }
+.mg-lane i { display: block; height: calc(var(--h) * 1.5); border: calc(var(--h) * .25) solid var(--track); border-radius: 999px; background: radial-gradient(circle closest-side, var(--c) 90%, transparent) 0 0 / var(--s) 100% repeat-x var(--track); animation: flow var(--t) linear infinite; }
+@keyframes flow { to { background-position-x: var(--s); } }
+.mg-lane.fast { --c: var(--paid); --s: calc(var(--h) * 4); --t: 1s; }
+.mg-lane.slow { --c: var(--wait); --s: calc(var(--h) * 1.2); --t: 4s; }
+.mg-lane.all { --c: var(--ride); --s: calc(var(--h) * 3.2); --t: .8s; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); opacity: 0; }
+.mg-ride { display: flex; align-items: center; padding: 0 1.3em; border-radius: clamp(10px, 1.6cqw, 18px); background: var(--ride); color: #fff; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.mg-seats { display: flex; align-items: center; gap: clamp(4px, .8cqw, 10px); color: var(--ink2); }
+.mg-seats span { margin-right: .6em; }
+.mg-seats i { width: clamp(20px, 5.4cqw, 62px); aspect-ratio: 1; border-radius: 24%; background: var(--paid); transition: background-color .6s ease; }
+.mg-seats i:last-of-type { background: var(--wait); }
+.mg-seats em { font-style: normal; font-weight: 650; color: var(--ink); margin-left: .6em; }
+.mg-seats .e2 { display: none; }
+.scrolly[data-step="4"] .mg-lane.fast, .scrolly[data-step="5"] .mg-lane.slow { opacity: .3; }
+.scrolly[data-step="6"] .mg-lane.fast, .scrolly[data-step="6"] .mg-lane.slow { opacity: 0; }
+.scrolly[data-step="6"] .mg-lane.all { opacity: 1; }
+.scrolly[data-step="6"] .mg-seats i { background: var(--ride); }
+.scrolly[data-step="6"] .mg-seats .e1 { display: none; }
+.scrolly[data-step="6"] .mg-seats .e2 { display: inline; }
 /* The evidence, shown beside the list while it is being discussed (wide stages only). */
 .tl-ph { display: none; position: relative; height: min(84cqh, 62cqw); border-radius: clamp(14px, 2cqw, 26px); overflow: hidden; background: var(--track); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
 .tl-ph figure { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity .6s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
@@ -283,6 +312,8 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .cap-stats .k { font-size: clamp(13px, 1.6cqw, 19px); color: var(--ink2); }
 .cap-stats .v { font-size: clamp(24px, 6cqw, 76px); font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
 .cap-stats .v.zero { color: var(--ok); }
+.cap-stats .same { font-style: normal; font-size: clamp(11px, .3em, 20px); letter-spacing: 0; font-weight: 650; color: #fff; background: var(--ok); border-radius: 999px; padding: .3em .8em; margin-left: .6em; vertical-align: middle; opacity: 0; transition: opacity .4s ease; }
+.cap-stats .same.on { opacity: 1; }
 
 /* ---------- Receipts ---------- */
 .receipts { display: flex; gap: clamp(12px, 4cqw, 56px); align-items: flex-start; justify-content: center; width: 100%; }
@@ -311,7 +342,7 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .plan-h { flex: none; font-size: .8em; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2em; }
 .cal { position: relative; flex: 1; min-height: 0; margin-bottom: var(--bh); }
 .cal-h { position: absolute; left: 0; right: 0; top: calc(var(--m) / 600 * 100%); border-top: 1px solid var(--hair); font-size: .78em; color: var(--muted); line-height: 1; padding-top: .35em; font-variant-numeric: tabular-nums; transition: opacity .6s ease; }
-.scrolly:not([data-step="1"]):not([data-step="2"]):not([data-step="3"]) .cal-h { opacity: .25; }
+.scrolly[data-step="-1"] .cal-h, .scrolly[data-step="0"] .cal-h { opacity: .25; }
 .pl-r, .pl-g { position: absolute; left: 4.6em; right: 0; border-radius: calc(var(--bh) * .3); }
 .pl-r { top: calc(var(--k) * (var(--bh) + .5em)); height: var(--bh); display: flex; justify-content: space-between; align-items: center; gap: .8em; padding: 0 .5em 0 .9em; background: var(--ride); color: #fff; font-weight: 650; line-height: 1.1; box-shadow: 0 6px 18px rgba(0,0,0,.14); transition: top .9s cubic-bezier(.3,.9,.3,1), opacity .5s ease, background-color .4s ease; transition-delay: calc(var(--k) * 90ms), 0s, 0s; z-index: 1; }
 .pl-r.on { top: calc(var(--t) / 600 * 100%); }
@@ -323,9 +354,17 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .pl-r.moved { background: var(--rest); color: #0b0b0b; }
 .pl-r.moved .pl-t { color: #0b0b0b; }
 .pl-g { top: calc(var(--a) / 600 * 100% + var(--bh) + 4px); height: calc((var(--b) - var(--a)) / 600 * 100% - var(--bh) - 8px); display: flex; align-items: center; padding-left: .9em; font-size: .86em; font-weight: 650; color: var(--play); border: 1.5px dashed color-mix(in srgb, var(--play) 55%, transparent); opacity: 0; transition: opacity .5s ease, background-color .5s ease, top .9s cubic-bezier(.3,.9,.3,1), height .9s cubic-bezier(.3,.9,.3,1); overflow: hidden; }
-.scrolly[data-step="1"] .pl-g, .scrolly[data-step="2"] .pl-g { opacity: .5; }
-.scrolly[data-step="3"] .pl-g { opacity: 1; background: color-mix(in srgb, var(--play) 16%, transparent); }
-.scrolly[data-step="3"] .pl-r { opacity: .5; }
+.pl-g.after-l { top: calc(var(--a) / 600 * 100% + 4px); height: calc((var(--b) - var(--a)) / 600 * 100% - 8px); }
+.scrolly[data-step="1"] .pl-g, .scrolly[data-step="2"] .pl-g:not(#planG2), .scrolly[data-step="3"] .pl-g, .scrolly[data-step="4"] .pl-g { opacity: .5; }
+.scrolly[data-step="5"] .pl-g { opacity: 1; background: color-mix(in srgb, var(--play) 16%, transparent); }
+.scrolly[data-step="5"] .pl-r { opacity: .5; }
+/* Real life intrudes: lunch runs into the next ride. */
+.pl-l { position: absolute; left: 4.6em; right: 0; top: calc(var(--a) / 600 * 100%); height: calc((var(--b) - var(--a)) / 600 * 100%); border-radius: calc(var(--bh) * .3); padding: .7em .9em; background: var(--food); color: #fff; font-weight: 650; line-height: 1.1; white-space: nowrap; overflow: hidden; opacity: 0; transition: opacity .5s ease, height .9s cubic-bezier(.3,.9,.3,1) .35s; }
+.pl-l.on { opacity: 1; }
+.pl-r.clash { box-shadow: 0 0 0 3px var(--stage), 0 0 0 6px var(--food); }
+.pl-r.clash .pl-t { background: var(--food); color: #fff; }
+.pl-r.risk { background: repeating-linear-gradient(135deg, var(--ride) 0 10px, color-mix(in srgb, var(--ride) 76%, #fff) 10px 20px); }
+.pl-r.risk .pl-t { background: var(--rest); color: #0b0b0b; }
 
 /* ---------- Feature photo ---------- */
 .feature { max-width: var(--layout-width); margin: 0 auto; padding: clamp(56px, 9vw, 150px) clamp(20px, 2.5vw, 40px); text-align: center; }
@@ -438,9 +477,18 @@ h1, h2, h3 { letter-spacing: -.025em; line-height: 1.05; font-weight: 700; }
 .cut .car { fill: var(--ride); }
 
 /* ---------- Finale ---------- */
-.finale-viz { width: 100%; position: relative; height: 100%; display: flex; align-items: center; }
-.finale-one { width: 100%; transition: opacity .6s ease, transform .9s cubic-bezier(.4,0,.2,1); }
-.finale-one .db-track { height: clamp(90px, 58cqh, 560px); }
+.finale-viz { width: 100%; display: grid; gap: 4.5cqh; }
+.fin-row { display: grid; gap: 1.4cqh; transition: opacity .7s ease; }
+.fin-l { display: flex; align-items: baseline; justify-content: space-between; gap: 1em; font-size: clamp(13px, 1.8cqw, 21px); color: var(--ink2); }
+.fin-l b { font-size: clamp(20px, 4.4cqw, 54px); letter-spacing: -.03em; line-height: 1; color: var(--ink); }
+.fin-row .db-track { height: clamp(44px, 23cqh, 250px); }
+.fin-row .db-axis { display: none; }
+.fin-b, .fin-stats { opacity: 0; }
+.fin-b.on, .fin-stats.on { opacity: 1; }
+.fin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3cqw; padding-top: 3.5cqh; border-top: 1px solid var(--hair); transition: opacity .7s ease .9s; }
+.fin-stats b { display: block; font-size: clamp(22px, 6cqw, 76px); letter-spacing: -.03em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.fin-stats b.back { color: var(--play); }
+.fin-stats span { font-size: clamp(12px, 1.6cqw, 19px); color: var(--ink2); }
 
 /* ---------- Photos ---------- */
 .ph { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--track); }
@@ -491,9 +539,9 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <nav class="toc" id="toc" aria-label="Chapters">
     <a href="#ch-1"><span>1</span><em>Half your day is a line</em></a>
     <a href="#ch-2"><span>2</span><em>The line does nothing</em></a>
-    <a href="#ch-3"><span>3</span><em>Parks only half-fixed it</em></a>
-    <a href="#ch-4"><span>4</span><em>The park keeps its money</em></a>
-    <a href="#ch-5"><span>5</span><em>A plan built around you</em></a>
+    <a href="#ch-3"><span>3</span><em>A plan built around you</em></a>
+    <a href="#ch-4"><span>4</span><em>Parks only half-fixed it</em></a>
+    <a href="#ch-5"><span>5</span><em>The park keeps its money</em></a>
     <a href="#ch-6"><span>6</span><em>Give the line somewhere to go</em></a>
   </nav>
   <i class="progress" id="progress"></i>
@@ -514,7 +562,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <!-- ============ Chapter 1 ============ -->
 <section class="chapter reveal" id="ch-1" data-n="1">
-  <p class="num">Chapter 1</p>
+  <p class="num">How long do you really wait?</p>
   <h2>Half your day is a line</h2>
 </section>
 
@@ -524,7 +572,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   <div class="steps">
     <div class="step"><div class="card"><p>Take eight of Disneyland's most popular rides and add up their average waits.<sup><a href="#src-1">1</a></sup></p></div></div>
     <div class="step"><div class="card"><p>That's <b>five and a half hours standing in line</b> for <b>about forty minutes on rides</b>.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Nearly half your day goes to waiting.</p><p class="fine">Waits are all-time averages from Queue-Times. Ride time assumes about five minutes each.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Nearly half your day goes to waiting.</p><p>Picture a cinema that kept you in the lobby for 55 minutes of a two-hour film. You'd ask for your money back.</p><p class="fine">Waits are all-time averages from Queue-Times. Ride time assumes about five minutes each.</p></div></div>
   </div>
 </section>
 
@@ -575,36 +623,70 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 
 <!-- ============ Chapter 2 ============ -->
 <section class="chapter reveal" id="ch-2" data-n="2">
-  <p class="num">Chapter 2</p>
+  <p class="num">What is the line for?</p>
   <h2>The line does nothing</h2>
 </section>
 
 <!-- ============ Beat 8 · Capacity ============ -->
 <section class="scrolly" id="s-cap">
   <div class="stage"><div class="viz">
-    <div class="cap-wrap" role="img" aria-label="Animation: the same ride serves the same number of guests per hour whether they wait in a queue or arrive on schedule.">
+    <div class="cap-wrap" role="img" aria-label="Animation: the same ride serves the same number of guests per hour whether they wait in a queue or arrive on schedule from around the park.">
       <div class="cap-cmp" data-on="1">
         <div><span>Guests in Disneyland on an average day</span><b>47,000</b><i style="--w:1"></i></div>
         <div class="seats"><span>Seats on Rise of the Resistance in a day</span><b>20,000</b><i style="--w:.43"></i></div>
       </div>
       <canvas id="capCanvas"></canvas>
       <div class="cap-stats">
-        <div><span class="k">Riders per hour</span><span class="v">1,700</span></div>
+        <div><span class="k">Riders per hour</span><span class="v">1,700<em class="same" data-on="2">unchanged</em></span></div>
         <div style="text-align:right"><span class="k">Standing in line</span><span class="v" id="capLine">—</span></div>
       </div>
     </div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">A line doesn't make room.</p><p>Rise of the Resistance seats about 1,700 riders an hour at best.<sup><a href="#src-4">4</a></sup> Over a 12-hour day that's about 20,000 rides. The line outside doesn't add a single seat.</p></div></div>
-    <div class="step"><div class="card"><p>Disneyland gets about 47,000 guests on an average day.<sup><a href="#src-5">5</a></sup> Fewer than half of them can ride, however long the line gets.</p><p>So the line isn't there to move people. It's there to choose them: whoever is willing to stand longest.</p></div></div>
-    <div class="step"><div class="card"><p class="big">A schedule can make the same choice.</p><p>The ride stays just as full, and nobody has to stand anywhere.</p></div></div>
+    <div class="step"><div class="card"><p>Disneyland gets about 47,000 guests on an average day.<sup><a href="#src-5">5</a></sup> Fewer than half of them can ride, however long the line gets.</p><p>So the line isn't there to move people. <b>It's there to choose them: whoever is willing to stand longest.</b></p></div></div>
+    <div class="step"><div class="card"><p class="big">A schedule can make the same choice.</p><p>Restaurants do it every night: fifty tables, a booking list, and nobody standing at the door for an hour.</p><p>The ride stays just as full, and nobody has to stand anywhere.</p></div></div>
     <div class="step"><div class="card"><p>What if everyone wants the same ride? Then not everyone gets it, exactly as today.</p><p>The difference is that you find out in the morning, not after 64 minutes on your feet. And the park can share the seats fairly: everyone's first choice before anyone's second.</p></div></div>
   </div>
 </section>
 
 <!-- ============ Chapter 3 ============ -->
 <section class="chapter reveal" id="ch-3" data-n="3">
-  <p class="num">Chapter 3</p>
+  <p class="num">So what replaces it?</p>
+  <h2>A plan built around you</h2>
+</section>
+
+<!-- ============ Beat 10 · How it works ============ -->
+<section class="scrolly" id="s-plan">
+  <div class="stage"><div class="viz">
+    <div class="plan" role="img" aria-label="An example day plan: four ride reservations arranged around your preferences, with free time in between. When lunch runs long, a swap moves Rise of the Resistance from 2:20 PM to 3:40 PM.">
+      <div class="plan-h">Your day</div>
+      <div class="cal">
+        <div class="cal-h" style="--m:0">9 AM</div><div class="cal-h" style="--m:180">Noon</div><div class="cal-h" style="--m:360">3 PM</div><div class="cal-h" style="--m:540">6 PM</div>
+        <div class="pl-g" style="--a:70;--b:160">Free time</div>
+        <div class="pl-g" id="planG2" style="--a:160;--b:320">Free time</div>
+        <div class="pl-g" id="planG3" style="--a:320;--b:480">Free time</div>
+        <div class="pl-l" id="planLunch" data-on="2" style="--a:230;--b:290">Lunch runs long</div>
+        <div class="pl-r" data-on="1" style="--k:0;--t:70"><span>Space Mountain</span><span class="pl-t">10:10 AM</span></div>
+        <div class="pl-r" data-on="1" style="--k:1;--t:160"><span>Indiana Jones Adventure</span><span class="pl-t">11:40 AM</span></div>
+        <div class="pl-r" data-on="1" id="planLate" style="--k:2;--t:320"><span>Rise of the Resistance</span><span class="pl-t">2:20 PM</span></div>
+        <div class="pl-r" data-on="1" id="planRisk" style="--k:3;--t:480"><span>Matterhorn Bobsleds</span><span class="pl-t">5:00 PM</span></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="steps">
+    <div class="step"><div class="card"><p class="big">Tell the park what you want to ride, and when.</p><p>Rank your rides that morning, or weeks before. Add time preferences too: a later start, a lunch break, a favourite ride after dark. Or leave the timing to the park.</p></div></div>
+    <div class="step"><div class="card"><p class="big">It fits the pieces together.</p><p>The system matches every guest's preferences against the seats available. It builds the best plan it can, with time to walk between rides, and shows you which requests it couldn't fit.</p><p>Today's paid line-skipping passes can turn one person in every family into the "designated scroller."<sup><a href="#src-6">6</a></sup> Here, the system does the searching.</p></div></div>
+    <div class="step"><div class="card"><p class="big">You can change your mind.</p><p>Lunch runs long. You want another hour by the pool. You just feel like doing something else. Request a change whenever you like. The system can also automatically adjust your plan when a ride breaks down or it senses your current activity is running long.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The system looks for a swap.</p><p>It trades reservation times with guests whose preferences allow the move, or uses an open slot. Your 2:20 becomes a 3:40, and someone else gets the earlier time they wanted. Everyone keeps their rides.</p></div></div>
+    <div class="step"><div class="card"><p class="big">Some changes cost you a ride.</p><p>The more often you change the plan, the less likely it is that every reservation will still fit. The system tells you before you commit.</p><p>You can accept the trade-off or keep your existing plan.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The time between rides is yours.</p><p>Wander, eat, play. Keep any plans you made for that time. Go when your phone buzzes.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ Chapter 4 ============ -->
+<section class="chapter reveal" id="ch-4" data-n="4">
+  <p class="num">Hasn't this been tried?</p>
   <h2>Parks only half-fixed it</h2>
 </section>
 
@@ -621,18 +703,31 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <li class="tl-i free"><span class="tl-y">2023</span><span class="tl-n"><b>Tokyo Priority Pass</b>Free line-skipping returns</span><span><span class="chip c-free">Free</span><span class="chip c-gone">Ended</span></span></li>
     </ol>
     <div class="tl-ph" aria-hidden="true">
-      <figure data-only="-1,0,2"><img class="ph" src="images/fastpass.jxl" alt="" style="object-position:center 30%" loading="lazy" decoding="async"><figcaption>A paper FastPass, 2011</figcaption></figure>
-      <figure data-only="1"><img class="ph" src="images/lightning-lane.jxl" alt="" style="object-position:top" loading="lazy" decoding="async"><figcaption>Lightning Lane, $12 to $29 per guest</figcaption></figure>
-      <figure data-only="3,4"><img class="ph" src="images/volcano-bay.jxl" alt="" loading="lazy" decoding="async"><figcaption>Universal's Volcano Bay</figcaption></figure>
+      <figure data-only="-1,0"><img class="ph" src="images/fastpass.jxl" alt="" style="object-position:center 30%" loading="lazy" decoding="async"><figcaption>A paper FastPass, 2011</figcaption></figure>
+      <figure data-only="1,2"><img class="ph" src="images/lightning-lane.jxl" alt="" style="object-position:top" loading="lazy" decoding="async"><figcaption>Lightning Lane, $12 to $29 per guest</figcaption></figure>
+      <figure data-only="3,4,5,6"><img class="ph" src="images/volcano-bay.jxl" alt="" loading="lazy" decoding="async"><figcaption>Universal's Volcano Bay</figcaption></figure>
     </div>
+   </div>
+   <div class="merge" data-only="2,4,5,6" role="img" aria-label="Diagram: a priority lane takes four of every five seats while the standby line beside it crawls. With every guest on a plan there is one lane and every seat is shared.">
+    <div class="mg-body">
+      <div class="mg-lanes">
+        <div class="mg-lane fast"><p><b>Priority lane</b><span>4 of every 5 seats</span></p><i></i></div>
+        <div class="mg-lane slow"><p><b>Standby line</b><span>1 of every 5 seats</span></p><i></i></div>
+        <div class="mg-lane all"><p><b>Everyone, on a plan</b><span>5 of every 5 seats</span></p><i></i></div>
+      </div>
+      <div class="mg-ride">Ride</div>
+    </div>
+    <div class="mg-seats"><span>Each train</span><i></i><i></i><i></i><i></i><i></i><em class="e1">4 priority, 1 standby</em><em class="e2">shared by everyone</em></div>
    </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p>Parks have come close for decades. Disney handed out free FastPasses in 1999. In 2017 a water park in Orlando opened with no physical lines at all.<sup><a href="#src-6">6</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">Then, one by one, the free versions disappeared.<sup><a href="#src-7">7</a>,<a href="#src-8">8</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">FastPass was bolted onto the line.</p><p>Even when it was free, FastPass split boarding into two tiers: a priority lane and a standby line. FastPass riders took about four of every five seats, so the regular line beside it crawled.<sup><a href="#src-9">9</a></sup></p></div></div>
-    <div class="step"><div class="card"><p class="big">Volcano Bay hid the line instead of ending it.</p><p>Volcano Bay tried making virtual waits the default. But its implementation let you hold a place in only one virtual line at a time, and waits reached three hours.<sup><a href="#src-10">10</a></sup> Universal dropped the system in 2025 without giving a reason.</p></div></div>
-    <div class="step"><div class="card"><p class="big">A faster lane still needs a slow one.</p><p>As long as standby exists, the park has to be designed around the lowest common denominator: a guest who spends hours in line. The queues set the pace of the day.</p><p>That hurts FastPass guests too. They rush past the story and scenery meant to build anticipation for a ride.<sup><a href="#src-15">15</a></sup> They get through the attractions faster than the park was designed for, then can end up filling the extra time by joining queues anyway.</p><p>Put every guest on the reservation system and that constraint disappears. The park is free to design a better day for everyone, with time to enjoy the build-up to each ride and places worth spending the hours between them.</p></div></div>
+    <div class="step"><div class="card"><p>Parks have come close for decades. Disney handed out free FastPasses in 1999. In 2017 a water park in Orlando opened with no physical lines at all.<sup><a href="#src-7">7</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Then, one by one, the free versions disappeared.<sup><a href="#src-8">8</a>,<a href="#src-9">9</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">FastPass was bolted onto the line.</p><p>Even when it was free, FastPass split boarding into two lanes. Priority riders took about four of every five seats, so the standby line beside them crawled.<sup><a href="#src-10">10</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Volcano Bay hid the line instead of ending it.</p><p>Volcano Bay tried making virtual waits the default. But its implementation let you hold a place in only one virtual line at a time, and waits reached three hours.<sup><a href="#src-11">11</a></sup> Universal dropped the system in 2025 without giving a reason.</p></div></div>
+    <div class="step"><div class="card"><p class="big">A faster lane still needs a slow one.</p><p>As long as standby exists, the park has to be designed around a guest who spends hours in line. The queues set the pace of the day.</p></div></div>
+    <div class="step"><div class="card"><p>That hurts the guests who skip the line, too. They rush past the story and scenery meant to build anticipation for a ride.<sup><a href="#src-12">12</a></sup> They finish the park faster than it was designed for, then fill the spare time by joining queues anyway.</p></div></div>
+    <div class="step"><div class="card"><p class="big">So put every guest on a plan.</p><p>One lane, with every seat shared. With no standby line to design around, the park is free to build a better day: time to enjoy the build-up to each ride, and places worth spending the hours between them.</p></div></div>
   </div>
 </section>
 
@@ -645,16 +740,16 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
   </div>
 </section>
 
-<!-- ============ Chapter 4 ============ -->
-<section class="chapter reveal" id="ch-4" data-n="4">
-  <p class="num">Chapter 4</p>
+<!-- ============ Chapter 5 ============ -->
+<section class="chapter reveal" id="ch-5" data-n="5">
+  <p class="num">Won't parks lose money?</p>
   <h2>The park keeps its money</h2>
 </section>
 
 <!-- ============ Beat 6 · $724M ============ -->
 <section class="panel dark-panel" id="s-money">
   <div class="hero-num" id="moneyNum" aria-label="$724,000,000">$0</div>
-  <p class="lede reveal">That's what paid line-skipping made at Walt Disney World alone, in under three years, according to a leaked internal spreadsheet.<sup><a href="#src-11">11</a></sup> No park will give that up. It doesn't have to.</p>
+  <p class="lede reveal">That's what paid line-skipping made at Walt Disney World alone, in under three years, according to a leaked internal spreadsheet.<sup><a href="#src-13">13</a></sup> No park will give that up. It doesn't have to.</p>
 </section>
 
 <!-- ============ Beat 9 · Receipts ============ -->
@@ -703,47 +798,14 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p class="big">Lines cost parks money too.</p><p><b>75%</b> of US theme park guests say they sometimes skip food because of lines, and <b>65%</b> skip merchandise.<sup><a href="#src-12">12</a></sup></p></div></div>
+    <div class="step"><div class="card"><p class="big">Lines cost parks money too.</p><p><b>75%</b> of US theme park guests say they sometimes skip food because of lines, and <b>65%</b> skip merchandise.<sup><a href="#src-14">14</a></sup></p></div></div>
     <div class="step"><div class="card"><p class="big">A guest in line can't buy a churro.</p><p>Give them their time back and they'll spend it in the park.</p></div></div>
-  </div>
-</section>
-
-<!-- ============ Chapter 5 ============ -->
-<section class="chapter reveal" id="ch-5" data-n="5">
-  <p class="num">Chapter 5</p>
-  <h2>A plan built around you</h2>
-</section>
-
-<!-- ============ Beat 10 · How it works ============ -->
-<section class="scrolly" id="s-plan">
-  <div class="stage"><div class="viz">
-    <div class="plan" role="img" aria-label="An example day plan: four ride reservations arranged around your preferences, with free time in between. A successful swap moves Rise of the Resistance from 2:20 PM to 3:40 PM.">
-      <div class="plan-h">Your day</div>
-      <div class="cal">
-        <div class="cal-h" style="--m:0">9 AM</div><div class="cal-h" style="--m:180">Noon</div><div class="cal-h" style="--m:360">3 PM</div><div class="cal-h" style="--m:540">6 PM</div>
-        <div class="pl-g" style="--a:70;--b:160">Free time</div>
-        <div class="pl-g" id="planG2" style="--a:160;--b:320">Free time</div>
-        <div class="pl-g" id="planG3" style="--a:320;--b:480">Free time</div>
-        <div class="pl-r" data-on="1" style="--k:0;--t:70"><span>Space Mountain</span><span class="pl-t">10:10 AM</span></div>
-        <div class="pl-r" data-on="1" style="--k:1;--t:160"><span>Indiana Jones Adventure</span><span class="pl-t">11:40 AM</span></div>
-        <div class="pl-r" data-on="1" id="planLate" style="--k:2;--t:320"><span>Rise of the Resistance</span><span class="pl-t">2:20 PM</span></div>
-        <div class="pl-r" data-on="1" style="--k:3;--t:480"><span>Matterhorn Bobsleds</span><span class="pl-t">5:00 PM</span></div>
-      </div>
-    </div>
-  </div></div>
-  <div class="steps">
-    <div class="step"><div class="card"><p class="big">Tell the park what you want to ride, and when.</p><p>Rank your rides that morning, or weeks before. Add time preferences too: a later start, a lunch break, a favourite ride after dark. Or leave the timing to the park.</p></div></div>
-    <div class="step"><div class="card"><p class="big">It fits the pieces together.</p><p>The system matches every guest's preferences against the seats available. It builds the best plan it can, with time to walk between rides, and shows you which requests it couldn't fit.</p><p>Today's paid passes can turn one person in every family into the "designated scroller."<sup><a href="#src-13">13</a></sup> Here, the system does the searching.</p></div></div>
-    <div class="step"><div class="card"><p class="big">You can change your mind.</p><p>Lunch runs long. You want another hour by the pool. You just feel like doing something else. Request a change whenever you like. The system can also automatically adjust your plan when a ride breaks down or it senses your current activity is running long.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The system looks for a swap.</p><p>It tries to trade reservation times with other guests whose preferences allow the move, or use an open slot. Your later ride could give someone else the earlier time they wanted. The aim is to keep everyone's rides while making the new plans fit.</p></div></div>
-    <div class="step"><div class="card"><p class="big">Some changes cost you a ride.</p><p>The more often you change the plan, the less likely it is that every reservation will still fit.</p><p>You can accept the trade-off or keep your existing plan.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The time between rides is yours.</p><p>Wander, eat, play. Keep any plans you made for that time. Go when your phone buzzes.</p></div></div>
   </div>
 </section>
 
 <!-- ============ Chapter 6 ============ -->
 <section class="chapter reveal" id="ch-6" data-n="6">
-  <p class="num">Chapter 6</p>
+  <p class="num">Where does everyone go?</p>
   <h2>Give the line somewhere to go</h2>
 </section>
 
@@ -767,7 +829,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <div><b>8</b><span>distinct neighbourhoods</span></div>
     </div>
   </figure>
-  <p class="lede">Icon of the Seas carries up to 7,600 guests, with seven pools and eight distinct neighbourhoods.<sup><a href="#src-14">14</a></sup> Spend an afternoon by a pool. Wander through Central Park and stop for live music. That variety gives people reasons to linger. Parks need places like these to fill the hours between rides.</p>
+  <p class="lede">Icon of the Seas carries up to 7,600 guests, with seven pools and eight distinct neighbourhoods.<sup><a href="#src-15">15</a></sup> Spend an afternoon by a pool. Wander through Central Park and stop for live music. That variety gives people reasons to linger. Parks need places like these to fill the hours between rides.</p>
 </section>
 
 <!-- ============ Beat 12 · Castle ============ -->
@@ -790,7 +852,7 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
     </div>
   </div></div>
   <div class="steps">
-    <div class="step"><div class="card"><p>Parks already build beautiful places. They just put them in the line.</p><p>Universal's Harry Potter and the Forbidden Journey has one of the best queues ever built: a walk through Hogwarts castle, past moving portraits, Dumbledore's office and the Gryffindor common room.<sup><a href="#src-15">15</a></sup></p><p>Guests only ever see it in one of two ways.</p></div></div>
+    <div class="step"><div class="card"><p>Parks already build beautiful places. They just put them in the line.</p><p>Universal's Harry Potter and the Forbidden Journey has one of the best queues ever built: a walk through Hogwarts castle, past moving portraits, Dumbledore's office and the Gryffindor common room.<sup><a href="#src-12">12</a></sup></p><p>Guests only ever see it in one of two ways.</p></div></div>
     <div class="step"><div class="card"><p class="big">When the line is long, it's a crowded waiting room.</p></div></div>
     <div class="step"><div class="card"><p class="big">When the line is short, you rush through.</p></div></div>
     <div class="step"><div class="card"><p>Now picture the same castle as a walk-through you <em>choose</em> to visit, at your own pace.</p><p>That's an attraction in its own right. The money is already being spent. Spend it on places guests choose to be.</p></div></div>
@@ -870,13 +932,15 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
 <!-- ============ Beat 22 · Finale ============ -->
 <section class="scrolly" id="s-finale">
   <div class="stage"><div class="viz">
-    <div class="finale-viz" aria-hidden="true">
-      <div class="finale-one"><div class="daybar" id="day3"></div></div>
+    <div class="finale-viz" role="img" aria-label="Two versions of the same 12-hour day. Today: five and a half hours in line. Designed: the same eight rides, with those hours spent playing, resting and eating.">
+      <div class="fin-row"><p class="fin-l"><b>Today</b><span>5h 29m in line</span></p><div class="daybar" id="day3"></div></div>
+      <div class="fin-row fin-b" data-on="1"><p class="fin-l"><b>The same day, designed</b><span>0h in line</span></p><div class="daybar" id="day4"></div></div>
+      <div class="fin-stats" data-on="1"><div><b>$0</b><span>added to the ticket</span></div><div><b>8</b><span>rides, same as today</span></div><div><b class="back">5h 29m</b><span>handed back to you</span></div></div>
     </div>
   </div></div>
   <div class="steps">
     <div class="step"><div class="card"><p class="big">Theme parks have spent seventy years perfecting the line.</p></div></div>
-    <div class="step"><div class="card"><p class="big">The next seventy should be spent designing the day.</p></div></div>
+    <div class="step"><div class="card"><p class="big">The next seventy should be spent designing the day.</p><p>Same ticket. Same rides. Five and a half hours handed back.</p></div></div>
   </div>
 </section>
 
@@ -896,16 +960,16 @@ footer { text-align: center; padding: 0 16px 60px; font-size: 13px; color: var(-
       <li id="src-3">"Long queues are the worst thing" survey: <a href="https://accesso.com/learn/virtual-queuing-less-waiting-more-fun/">accesso</a></li>
       <li id="src-4">Rise of the Resistance capacity of about 1,700 riders an hour: <a href="https://www.disneyfoodblog.com/2020/12/13/why-so-many-more-people-ride-these-disney-world-rides/">Disney Food Blog, citing the Orange County Register</a></li>
       <li id="src-5">Disneyland attendance, 17.3 million in 2024 (about 47,500 a day): <a href="https://mickeyvisit.com/disneyland-statistics/">Mickey Visit</a></li>
-      <li id="src-6">FastPass history: <a href="https://www.wikipedia.org/wiki/Fastpass">Wikipedia</a></li>
-      <li id="src-7">Volcano Bay ends virtual lines: <a href="https://www.insideuniversal.net/2025/04/universal-volcano-bay-to-discontinue-taputapu-and-virtual-lines-beginning-oct-1-2025/">Inside Universal</a></li>
-      <li id="src-8">Tokyo Priority Pass ends: <a href="https://www.disneyfoodblog.com/2026/07/31/well-another-disney-park-is-getting-rid-of-free-fastpasses/">Disney Food Blog</a></li>
-      <li id="src-9">FastPass's 4:1 boarding ratio: <a href="https://touringplans.com/blog/exclusive-new-lightning-lane-ratios-procedure-april-2025-what-you-need-to-know/">TouringPlans</a></li>
-      <li id="src-10">Three-hour virtual waits at Volcano Bay: <a href="https://infonews.ca/?p=1067049">iNFOnews</a></li>
-      <li id="src-11">$724M Genie+ leak: <a href="https://www.fox5dc.com/news/disney-leak-nullbulge-genie-plus-cruise-line">Fox 5 DC / WSJ</a></li>
-      <li id="src-12">Guests skipping food and merchandise because of queues: <a href="https://www.prnewswire.com/news-releases/75-of-us-theme-park-visitors-wont-buy-food-and-beverage-if-there-are-queues-finds-omnico-664140953.html">Omnico via PR Newswire</a></li>
-      <li id="src-13">The "designated scroller": <a href="https://www.disneytouristblog.com/disney-mulls-making-lightning-lanes-less-complex/">Disney Tourist Blog, on a Wall Street Journal report</a></li>
-      <li id="src-14">Icon of the Seas by the numbers: <a href="https://www.lovemoney.com/gallerylist/247742/the-staggering-numbers-behind-the-worlds-biggest-cruise-ship">lovemoney</a></li>
-      <li id="src-15">Forbidden Journey queue rooms: <a href="https://insidethemagic.net/2010/05/tour-the-harry-potter-and-the-forbidden-journey-queue-in-the-wizarding-world/">Inside the Magic</a>; being rushed through: <a href="https://touringplans.com/blog/a-virtual-guided-walk-through-of-hogwarts/">TouringPlans</a>, <a href="https://mouseplanet.com/muggle-borns-guide-to-harry-potter-and-the-forbidden-journey/3172">MousePlanet</a></li>
+      <li id="src-6">The "designated scroller": <a href="https://www.disneytouristblog.com/disney-mulls-making-lightning-lanes-less-complex/">Disney Tourist Blog, on a Wall Street Journal report</a></li>
+      <li id="src-7">FastPass history: <a href="https://www.wikipedia.org/wiki/Fastpass">Wikipedia</a></li>
+      <li id="src-8">Volcano Bay ends virtual lines: <a href="https://www.insideuniversal.net/2025/04/universal-volcano-bay-to-discontinue-taputapu-and-virtual-lines-beginning-oct-1-2025/">Inside Universal</a></li>
+      <li id="src-9">Tokyo Priority Pass ends: <a href="https://www.disneyfoodblog.com/2026/07/31/well-another-disney-park-is-getting-rid-of-free-fastpasses/">Disney Food Blog</a></li>
+      <li id="src-10">FastPass's 4:1 boarding ratio: <a href="https://touringplans.com/blog/exclusive-new-lightning-lane-ratios-procedure-april-2025-what-you-need-to-know/">TouringPlans</a></li>
+      <li id="src-11">Three-hour virtual waits at Volcano Bay: <a href="https://infonews.ca/?p=1067049">iNFOnews</a></li>
+      <li id="src-12">Forbidden Journey queue rooms: <a href="https://insidethemagic.net/2010/05/tour-the-harry-potter-and-the-forbidden-journey-queue-in-the-wizarding-world/">Inside the Magic</a>; being rushed through: <a href="https://touringplans.com/blog/a-virtual-guided-walk-through-of-hogwarts/">TouringPlans</a>, <a href="https://mouseplanet.com/muggle-borns-guide-to-harry-potter-and-the-forbidden-journey/3172">MousePlanet</a></li>
+      <li id="src-13">$724M Genie+ leak: <a href="https://www.fox5dc.com/news/disney-leak-nullbulge-genie-plus-cruise-line">Fox 5 DC / WSJ</a></li>
+      <li id="src-14">Guests skipping food and merchandise because of queues: <a href="https://www.prnewswire.com/news-releases/75-of-us-theme-park-visitors-wont-buy-food-and-beverage-if-there-are-queues-finds-omnico-664140953.html">Omnico via PR Newswire</a></li>
+      <li id="src-15">Icon of the Seas by the numbers: <a href="https://www.lovemoney.com/gallerylist/247742/the-staggering-numbers-behind-the-worlds-biggest-cruise-ship">lovemoney</a></li>
       <li id="src-16">Meow Wolf visit length: <a href="https://www.placer.ai/anchor/articles/cats-out-of-the-bag-unlocking-meow-wolfs-secrets">Placer.ai</a>; first-year visitors: <a href="https://news.yahoo.com/meow-wolf-las-vegas-nev-003500743.html">Yahoo</a></li>
     </ol>
     <p class="note">The five-minute ride time and the $100 / $20 pricing are illustrative, not published figures.</p>
@@ -1021,9 +1085,9 @@ function schedule() {
   return s.sort((x, y) => x.a - y.a);
 }
 const clock = m => { const t = 9 * 60 + m, h = Math.floor(t / 60), mm = String(t % 60).padStart(2, '0'); return `${((h + 11) % 12) + 1}:${mm} ${h >= 12 ? 'PM' : 'AM'}`; };
-function makeDayBar(el) {
+function makeDayBar(el, compact) {
   const segs = schedule();
-  el.innerHTML = `
+  el.innerHTML = compact ? '<div class="db-track"></div>' : `
     <div class="db-head">
       <div class="db-stat waitstat"><span class="db-k"><i class="sw k-wait"></i>Waiting in line</span><b class="db-v" data-v="wait">0h 00m</b></div>
       <div class="db-stat"><span class="db-k"><i class="sw k-ride"></i>Riding</span><b class="db-v" data-v="ride">0h 00m</b></div>
@@ -1085,12 +1149,9 @@ hooks['s-dayback'] = i => {
   day2.mode(i >= 1);
   if (i >= 1) day2.stats(0, RIDE, WAIT); else day2.stats(WAIT, RIDE, 0);
 };
-const day3 = makeDayBar($('#day3'));
-day3.fill(true);
-hooks['s-finale'] = i => day3.mode(i >= 1);
-$$('.db-v', day3.el).forEach(v => v.textContent = '');
-$('.db-head', day3.el).style.display = 'none';
-$('.db-callout', day3.el).remove();
+const day3 = makeDayBar($('#day3'), true), day4 = makeDayBar($('#day4'), true);
+day3.fill(true); day4.mode(true);
+hooks['s-finale'] = i => day4.fill(i >= 1);
 
 
 /* ---------- Wait sign ---------- */
@@ -1120,7 +1181,7 @@ $$('.people').forEach(p => {
   const N = 66, INTERVAL = 700;
   let W = 0, H = 0, mode = 0, running = false, last = 0, acc = 0, turn = 0, railA = 1, visible = false;
   let col = {};
-  const readCol = () => { const cs = getComputedStyle(document.documentElement); col = { ink2: cs.getPropertyValue('--ink2').trim(), ride: cs.getPropertyValue('--ride').trim(), axis: cs.getPropertyValue('--axis').trim(), muted: cs.getPropertyValue('--muted').trim(), track: cs.getPropertyValue('--track').trim() }; };
+  const readCol = () => { const cs = getComputedStyle(document.documentElement); col = { ink2: cs.getPropertyValue('--ink2').trim(), ride: cs.getPropertyValue('--ride').trim(), axis: cs.getPropertyValue('--axis').trim(), muted: cs.getPropertyValue('--muted').trim(), track: cs.getPropertyValue('--track').trim(), fun: ['--play', '--food', '--rest'].map(v => cs.getPropertyValue(v).trim()) }; };
   readCol(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readCol(); draw(); });
   const gate = { x: 0, y: 0, w: 0, h: 0 };
   let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -1160,6 +1221,7 @@ $$('.people').forEach(p => {
       let q = 0;
       dots.filter(d => d.st === 'idle' || d.st === 'walk').sort((a, b) => b.x - a.x).forEach(d => { d.st = 'q'; d.q = q++; });
     }
+    if (reduce) railA = m === 0 ? 1 : 0;
     retarget(reduce); updateLine(); if (reduce) draw();
   }
   function board() {
@@ -1220,9 +1282,12 @@ $$('.people').forEach(p => {
     ctx.fillText('RIDE', gate.x + gate.w / 2, H / 2 + 5); ctx.textAlign = 'left';
     const rad = Math.max(3.2, s * .3);
     dots.forEach(d => {
-      ctx.globalAlpha = Math.max(0, d.a);
+      const a = Math.max(0, d.a);
+      ctx.globalAlpha = a;
       ctx.fillStyle = d.st === 'walk' || d.st === 'ride' ? col.ride : col.ink2;
       ctx.beginPath(); ctx.arc(d.x, d.y, rad, 0, Math.PI * 2); ctx.fill();
+      // Out of the line, guests take the colours of what they are doing instead: playing, eating, resting.
+      if (d.st === 'idle' && railA < .98) { ctx.globalAlpha = a * (1 - railA); ctx.fillStyle = col.fun[d.turn % 3]; ctx.fill(); }
     });
     ctx.globalAlpha = 1;
   }
@@ -1249,11 +1314,14 @@ hooks['s-timeline'] = (i, sc) => sc.classList.toggle('gone', i >= 1);
 
 /* ---------- Plan ---------- */
 hooks['s-plan'] = i => {
-  const r = $('#planLate'), late = i >= 3, t = late ? 400 : 320;
+  const r = $('#planLate'), g2 = $('#planG2'), m = $('#planRisk'), long = i >= 2, late = i >= 3, t = late ? 400 : 320;
   r.style.setProperty('--t', t);
   $('.pl-t', r).textContent = late ? '3:40 PM' : '2:20 PM';
-  r.classList.toggle('moved', late);
-  $('#planG2').style.setProperty('--b', t); $('#planG3').style.setProperty('--a', t);
+  r.classList.toggle('moved', late); r.classList.toggle('clash', i === 2);
+  $('#planLunch').style.setProperty('--b', long ? 340 : 290);
+  g2.classList.toggle('after-l', long); g2.style.setProperty('--a', long ? 340 : 160); g2.style.setProperty('--b', t);
+  $('#planG3').style.setProperty('--a', t);
+  m.classList.toggle('risk', i === 4); $('.pl-t', m).textContent = i === 4 ? 'Might not fit' : '5:00 PM';
 };
 
 /* ---------- Receipts ---------- */
